@@ -1,17 +1,17 @@
 # gherkingen
 
 ![Version](https://img.shields.io/github/v/tag/hedhyw/gherkingen)
-[![Build Status](https://travis-ci.org/hedhyw/gherkingen.svg?branch=master)](https://travis-ci.org/hedhyw/gherkingen)
+[![Build Status](https://app.travis-ci.com/hedhyw/gherkingen.svg?branch=main)](https://travis-ci.org/hedhyw/gherkingen)
 [![Go Report Card](https://goreportcard.com/badge/github.com/hedhyw/gherkingen)](https://goreportcard.com/report/github.com/hedhyw/gherkingen)
 [![Coverage Status](https://coveralls.io/repos/github/hedhyw/gherkingen/badge.svg?branch=master)](https://coveralls.io/github/hedhyw/gherkingen?branch=master)
 
-It's a Behaviour Driven Development (BDD) tests generator for Golang.
+**It's a Behaviour Driven Development (BDD) tests generator for Golang.**
 
-<img alt="golangci-lint logo" src="https://github.com/rfyiamcool/golang_logo/blob/master/png/golang_42.png?raw=true" height="200" />
+<img alt="Golang logo" src="https://raw.githubusercontent.com/rfyiamcool/golang_logo/master/png/golang_55.png" height="200" />
 
 
 
-It uses `*.feature` [Cucumber/Gherkin](https://cucumber.io/docs/gherkin/reference/) files and generates a test boilerplate. All that remains is to change the tests a little.
+It accepts `*.feature` [Cucumber/Gherkin](https://cucumber.io/docs/gherkin/reference/) files and generates a test boilerplate. All that remains is to change the tests a little.
 
 The generator is very customizable, it is possible to customize an output for any golang [testing framework](#frameworks-support) or even for [another language](#language-support).
 
@@ -113,7 +113,7 @@ Usage of gherkingen [FEATURE_FILE]:
 # Output customization
 
 ## Custom templates
-You can provide your own template, it can be based on [internal/assets/std.args.go.tmpl](internal/assets/std.args.go.tmpl). In the command-line tool specify template
+You can provide your own template, it can be based on [internal/assets/std.args.go.tmpl](internal/assets/std.args.go.tmpl). In the command-line tool specify the template
 using `-template` flag: `gherkingen -template example.tmpl raw example.feature`
 
 ## Frameworks support
