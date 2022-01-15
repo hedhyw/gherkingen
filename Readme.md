@@ -11,7 +11,7 @@
 
 
 
-It accepts `*.feature` [Cucumber/Gherkin](https://cucumber.io/docs/gherkin/reference/) files and generates a test boilerplate. All that remains is to change the tests a little.
+It accept a `*.feature` [Cucumber/Gherkin](https://cucumber.io/docs/gherkin/reference/) file and generates a test boilerplate. All that remains is to change the tests a little.
 
 The generator is very customizable, it is possible to customize an output for any golang [testing framework](#frameworks-support) or even for [another language](#language-support).
 
@@ -117,16 +117,17 @@ You can provide your own template, it can be based on [internal/assets/std.args.
 using `-template` flag: `gherkingen -template example.tmpl raw example.feature`
 
 ## Frameworks support
-It is possible to integrate with any BDD-testing fraemwork. Feel free to
+It is possible to integrate the generator with any BDD-testing fraemwork. Feel free to
 create a pull request for supporting templates for them. For this:
 1. Create a template `internal/assets/SOME_NAME.go.tmpl`.
 2. Add it to the test `TestOpenTemplate` in the file [internal/assets/assets_test.go](internal/assets/assets_test.go).
 3. Check: `make lint test`.
+4. Commit&Push, create a PR.
 
 ## Language support
 
-Templates are very customizable, so you can even generate non-golang code. In the command-line tool specify `raw` format using `-format` flag:
-`gherkingen -format raw example.feature`.
+Templates are very customizable, so you can even generate non-golang code. In the command-line tool specify `raw` format using `-format` flag and your template using `-template` flag:
+`gherkingen -format raw -template example.tmpl example.feature`.
 
 ## License
 
