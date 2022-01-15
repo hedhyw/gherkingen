@@ -1,0 +1,37 @@
+package generated_test
+
+import (
+	"testing"
+
+	"github.com/hedhyw/gherkingen/pkg/v1/bdd"
+)
+
+func TestApplicationCommandLineTool(t *testing.T) {
+	f := bdd.NewFeature(t, "Application command line tool")
+
+	f.Scenario("User wants to see usage information", func(t *testing.T, f *bdd.Feature) {
+		type testCase struct {
+			flag string
+		}
+
+		testCases := map[string]testCase{
+			"--help": {"--help"},
+			"-help":  {"-help"},
+		}
+
+		for name, tc := range testCases {
+			name, tc := name, tc
+
+			t.Run(name, func(t *testing.T) {
+				t.Logf("TestCase: %+v", tc)
+				f.When("<flag> is provided", func() {
+
+				})
+				f.Then("usage should be printed", func() {
+
+				})
+			})
+		}
+
+	})
+}

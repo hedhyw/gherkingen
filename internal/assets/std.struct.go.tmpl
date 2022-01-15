@@ -1,0 +1,64 @@
+package generated_test
+
+import (
+    "testing"
+
+    "github.com/hedhyw/gherkingen/pkg/v1/bdd"
+)
+
+func Test{{upperAlias .Feature.Name}}(t *testing.T) {
+    f := bdd.NewFeature(t, "{{ prepareGoStr .Feature.Name }}")
+    {{ if .Feature.Description }}
+    /* .Feature.Description */
+    {{ end }}
+
+    {{- range .Feature.Children }}
+    {{ $Scenario := .Scenario }}
+
+    f.Scenario("{{ prepareGoStr $Scenario.Name }}", func(t *testing.T, f *bdd.Feature) {
+        {{- range $Scenario.Examples }}
+        type testCase struct {
+            {{- range .TableHeader.Cells }}
+			{{ lowerAlias .Value }} string
+            {{- end -}}
+		}
+
+        testCases := map[string]testCase{
+            {{- range .TableBody }}
+			"
+            {{- range $index, $element := .Cells -}}
+            {{if $index}}_{{end}}{{- $element.Value -}}
+            {{- end -}}
+            ": {
+            {{- /* Struct fields start. */ -}}
+                {{- range $index, $cell := .Cells -}}
+                {{- if $index -}},{{end}} "{{- prepareGoStr $cell.Value -}}"
+                {{- end -}}
+            {{- /* Struct fields end. */ -}}
+            },
+            {{- end }}
+		}
+
+        for name, tc := range testCases {
+			name, tc := name, tc
+
+			t.Run(name, func(t *testing.T) {
+                t.Logf("TestCase: %+v", tc)
+
+                {{- range $Scenario.Steps }}
+                f.{{trimSpace .Keyword }}("{{prepareGoStr .Text}}", func() {
+                    
+                })
+                {{- end }}
+            })
+        }
+        {{ else }}
+        {{- range .Scenario.Steps }}
+        f.{{trimSpace .Keyword }}("{{.Text}}", func() {
+            
+        })
+        {{- end }}
+        {{ end }}
+    })
+    {{- end }}
+}

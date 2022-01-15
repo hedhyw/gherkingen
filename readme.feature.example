@@ -1,0 +1,8 @@
+Feature: Application command line tool
+  Scenario: User wants to see usage information
+    When <flag> is provided
+    Then usage should be printed
+    Examples:
+    | <flag> |
+    | --help |
+    | -help |

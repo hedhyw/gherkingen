@@ -1,0 +1,50 @@
+package generated_test
+
+import (
+    "testing"
+
+    "github.com/hedhyw/gherkingen/pkg/v1/bdd"
+)
+
+func Test{{upperAlias .Feature.Name}}(t *testing.T) {
+    f := bdd.NewFeature(t, "{{ prepareGoStr .Feature.Name }}")
+    {{ if .Feature.Description }}
+    /* .Feature.Description */
+    {{ end }}
+
+    {{- range .Feature.Children }}
+    {{ $Scenario := .Scenario }}
+
+    f.Scenario("{{ prepareGoStr $Scenario.Name }}", func(t *testing.T, f *bdd.Feature) {
+        {{- range $Scenario.Examples }}
+        testCase := func(t *testing.T
+            {{- range .TableHeader.Cells -}}
+                , {{ lowerAlias .Value }} string
+            {{- end -}}) {
+            {{- range $Scenario.Steps }}
+            f.{{trimSpace .Keyword }}("{{prepareGoStr .Text}}", func() {
+                
+            })
+            {{- end }}
+        }
+        {{ range .TableBody }}
+        t.Run("
+        {{- range $index, $element := .Cells -}}
+        {{if $index}}_{{end}}{{- $element.Value -}}
+        {{- end -}}
+        ", func(t *testing.T) {
+            testCase(t
+            {{- range .Cells -}}
+            , "{{- prepareGoStr .Value -}}"
+            {{- end -}})
+        }){{ end -}}
+        {{ else }}
+        {{- range .Scenario.Steps }}
+        f.{{trimSpace .Keyword }}("{{.Text}}", func() {
+            
+        })
+        {{- end }}
+        {{ end }}
+    })
+    {{- end }}
+}
