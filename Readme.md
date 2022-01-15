@@ -3,7 +3,7 @@
 ![Version](https://img.shields.io/github/v/tag/hedhyw/gherkingen)
 [![Build Status](https://app.travis-ci.com/hedhyw/gherkingen.svg?branch=main)](https://app.travis-ci.com/github/hedhyw/gherkingen)
 [![Go Report Card](https://goreportcard.com/badge/github.com/hedhyw/gherkingen)](https://goreportcard.com/report/github.com/hedhyw/gherkingen)
-[![Coverage Status](https://coveralls.io/repos/github/hedhyw/gherkingen/badge.svg?branch=master)](https://coveralls.io/github/hedhyw/gherkingen?branch=master)
+[![Coverage Status](https://coveralls.io/repos/github/hedhyw/gherkingen/badge.svg?branch=main)](https://coveralls.io/github/hedhyw/gherkingen?branch=master)
 
 **It's a Behaviour Driven Development (BDD) tests generator for Golang.**
 
