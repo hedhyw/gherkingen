@@ -7,7 +7,7 @@
 
 **It's a Behaviour Driven Development (BDD) tests generator for Golang.**
 
-<img alt="golangci-lint logo" src="https://github.com/rfyiamcool/golang_logo/blob/master/png/golang_42.png?raw=true" height="200" />
+<img alt="Golang logo" src="https://raw.githubusercontent.com/rfyiamcool/golang_logo/master/png/golang_55.png" height="200" />
 
 
 
