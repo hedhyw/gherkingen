@@ -9,10 +9,12 @@ import (
 //go:embed *.tmpl
 var templates embed.FS
 
+// OpenTemplate opens the embed template by name.
 func OpenTemplate(name string) (fs.File, error) {
 	return templates.Open(name)
 }
 
+// OpenTemplate returns a list of embed templates.
 func Templates() ([]string, error) {
 	files, err := templates.ReadDir(".")
 	if err != nil {

@@ -13,6 +13,7 @@ const (
 	defaultTemplate    = "std.struct.go.tmpl"
 )
 
+// Run the application.
 func Run(arguments []string, out io.Writer) (err error) {
 	flag.CommandLine.SetOutput(out)
 

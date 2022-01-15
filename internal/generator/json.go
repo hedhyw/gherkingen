@@ -9,6 +9,7 @@ import (
 	"github.com/google/uuid"
 )
 
+// GenerateJSON generates output in JSON.
 func GenerateJSON(
 	inputData []byte,
 ) (data []byte, err error) {

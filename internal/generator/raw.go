@@ -13,6 +13,7 @@ import (
 	"github.com/iancoleman/strcase"
 )
 
+// GenerateRaw generates a raw outpur using an input data and a template.
 func GenerateRaw(
 	inputData []byte,
 	templateData []byte,

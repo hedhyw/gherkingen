@@ -5,6 +5,7 @@ import (
 	"go/format"
 )
 
+// GenerateJSON generates raw output and formates it with go formatter.
 func GenerateGo(
 	inputData []byte,
 	templateData []byte,

@@ -4,10 +4,12 @@ import (
 	"testing"
 )
 
+// Feature of the test file.
 type Feature struct {
 	*testing.T
 }
 
+// NewFeature creates a new feature.
 func NewFeature(t *testing.T, name string) *Feature {
 	t.Helper()
 	t.Log("Feature: " + name)
@@ -17,6 +19,7 @@ func NewFeature(t *testing.T, name string) *Feature {
 	}
 }
 
+// Scenario defines a scenario block.
 func (f Feature) Scenario(name string, fn func(t *testing.T, f *Feature)) {
 	f.T.Helper()
 
@@ -28,6 +31,7 @@ func (f Feature) Scenario(name string, fn func(t *testing.T, f *Feature)) {
 	})
 }
 
+// Given defines a given block.
 func (f Feature) Given(given string, fn func()) {
 	f.T.Helper()
 	f.T.Log("Given: ", given)
@@ -37,6 +41,7 @@ func (f Feature) Given(given string, fn func()) {
 	}
 }
 
+// And defines an and block.
 func (f Feature) And(and string, fn func()) {
 	f.T.Log("And: ", and)
 
@@ -45,6 +50,7 @@ func (f Feature) And(and string, fn func()) {
 	}
 }
 
+// When defines a when block.
 func (f Feature) When(when string, fn func()) {
 	f.T.Log("When: ", when)
 
@@ -53,6 +59,7 @@ func (f Feature) When(when string, fn func()) {
 	}
 }
 
+// Then defines a then block.
 func (f Feature) Then(then string, fn func()) {
 	f.T.Log("Then: ", then)
 
