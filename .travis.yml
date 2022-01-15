@@ -10,7 +10,7 @@ notifications:
   email: false
 
 before_install:
-- go get github.com/mattn/goveralls
+- go install github.com/mattn/goveralls@v0.0.11
 
 script:
 - make lint

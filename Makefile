@@ -10,7 +10,12 @@ test:
 
 readme.examples:
 	go run cmd/gherkingen/main.go readme.feature.example > readme.go.example
-.PHONY: readme
+.PHONY: readme.examples
+
+vendor:
+	go mod tidy
+	go mod vendor
+.PHONY: vendor
 
 bin/golangci-lint:
 	curl \
