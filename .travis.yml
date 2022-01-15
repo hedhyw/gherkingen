@@ -10,9 +10,9 @@ notifications:
   email: false
 
 before_install:
-- "[ \"$COVERALLS_TOKEN\" != \"-\" ] && go install github.com/mattn/goveralls@v0.0.11"
+- bash -c "[ \"$COVERALLS_TOKEN\" != \"-\" ] && go install github.com/mattn/goveralls@v0.0.11"
 
 script:
 - "make lint"
 - "make test"
-- "[ \"$COVERALLS_TOKEN\" != \"-\" ] && $GOPATH/bin/goveralls -service=travis-ci -repotoken $COVERALLS_TOKEN"
+- bash -c "[ \"$COVERALLS_TOKEN\" != \"-\" ] && $GOPATH/bin/goveralls -service=travis-ci -repotoken $COVERALLS_TOKEN"
