@@ -49,7 +49,7 @@ func Run(arguments []string, out io.Writer) (err error) {
 	switch {
 	case *list:
 		return runListTemplates(out)
-	case *help:
+	case *help, inputFile == "":
 		return runHelp()
 	default:
 		return runGenerator(out, enums.Format(*outputFormat), *templateFile, inputFile)
