@@ -9,7 +9,7 @@ import (
 func Test{{upperAlias .Feature.Name}}(t *testing.T) {
     f := bdd.NewFeature(t, "{{ prepareGoStr .Feature.Name }}")
     {{ if .Feature.Description }}
-    /* .Feature.Description */
+    /* {{ .Feature.Description }} */
     {{ end }}
 
     {{- range .Feature.Children }}

@@ -54,6 +54,8 @@ func (f *Feature) LogRecords() []string {
 }
 
 func (f *Feature) printLogs() {
+	f.T.Helper()
+
 	logData := strings.Join(f.LogRecords(), "\n")
 
 	f.T.Log("\n" + logData)
@@ -83,6 +85,7 @@ func (f *Feature) Scenario(name string, fn func(t *testing.T, f *Feature)) {
 
 		t.Cleanup(func() {
 			if t.Failed() {
+				f.T.Helper()
 				f.printLogs()
 			}
 		})
@@ -115,6 +118,16 @@ func (f *Feature) Given(given string, fn func()) {
 	}
 }
 
+// But defines a but block.
+func (f *Feature) But(but string, fn func()) {
+	f.T.Helper()
+	f.appendLogf("But: %s", but)
+
+	if fn != nil {
+		fn()
+	}
+}
+
 // TestCase defines a testcase block.
 func (f *Feature) TestCase(name string, tc interface{}, fn func(t *testing.T, f *Feature)) {
 	f.T.Helper()
@@ -137,6 +150,7 @@ func (f *Feature) TestCase(name string, tc interface{}, fn func(t *testing.T, f 
 
 		t.Cleanup(func() {
 			if t.Failed() {
+				f.T.Helper()
 				f.printLogs()
 			}
 		})

@@ -9,7 +9,7 @@ import (
 func TestBDD(t *testing.T) {
 	f := bdd.NewFeature(t, "bdd")
 
-	const expCalled = 4
+	const expCalled = 5
 
 	var called int
 	inc := func() {
@@ -25,6 +25,7 @@ func TestBDD(t *testing.T) {
 
 		f.TestCase("testCase", tc, func(t *testing.T, f *bdd.Feature) {
 			f.Given("given <field> called", inc)
+			f.But("but <field> called", inc)
 			f.When("when <field> called", inc)
 			f.And("and <field> called", inc)
 			f.Then("then <field> called", inc)
@@ -34,6 +35,7 @@ func TestBDD(t *testing.T) {
 				"\tScenario: simple",
 				"\t\t# TestCase: {Fn:FUNC}",
 				"\t\tGiven: given FUNC called",
+				"\t\tBut: but FUNC called",
 				"\t\tWhen: when FUNC called",
 				"\t\tAnd: and FUNC called",
 				"\t\tThen: then FUNC called",
