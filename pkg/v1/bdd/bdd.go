@@ -207,6 +207,10 @@ func prepareReplacer(tb testing.TB, testCase interface{}) *strings.Replacer {
 			continue
 		}
 
+		if !strings.HasPrefix(field, "<") {
+			field = "<" + field + ">"
+		}
+
 		replaceArgs = append(
 			replaceArgs,
 			field,
