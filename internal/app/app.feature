@@ -31,6 +31,6 @@ Feature: Application command line tool
     Then the output should be generated
     Examples:
     | <feature>   | <template>                 |
-    | app.feature | ../assets/std.args.go.tmpl |
-    | app.feature | @/std.args.go.tmpl         |
-    | app.feature | @/std.struct.go.tmpl       |
+    | app.feature | ../assets/std.args.v1.go.tmpl |
+    | app.feature | @/std.args.v1.go.tmpl         |
+    | app.feature | @/std.struct.v1.go.tmpl       |

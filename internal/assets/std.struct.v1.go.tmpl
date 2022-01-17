@@ -19,7 +19,7 @@ func Test{{upperAlias .Feature.Name}}(t *testing.T) {
         {{- range $Scenario.Examples }}
         type testCase struct {
             {{- range .TableHeader.Cells }}
-			{{ lowerAlias .Value }} string
+			{{ upperAlias .Value }} string `field:"{{.Value}}"`
             {{- end -}}
 		}
 
@@ -42,9 +42,7 @@ func Test{{upperAlias .Feature.Name}}(t *testing.T) {
         for name, tc := range testCases {
 			name, tc := name, tc
 
-			t.Run(name, func(t *testing.T) {
-                t.Logf("TestCase: %+v", tc)
-
+			f.TestCase(name, tc, func(t *testing.T, f *bdd.Feature) {
                 {{- range $Scenario.Steps }}
                 f.{{trimSpace .Keyword }}("{{prepareGoStr .Text}}", func() {
                     
@@ -52,7 +50,7 @@ func Test{{upperAlias .Feature.Name}}(t *testing.T) {
                 {{- end }}
             })
         }
-        {{ else }}
+        {{- else }}
         {{- range .Scenario.Steps }}
         f.{{trimSpace .Keyword }}("{{.Text}}", func() {
             

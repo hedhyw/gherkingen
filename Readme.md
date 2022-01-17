@@ -37,7 +37,7 @@ func TestApplicationCommandLineTool(t *testing.T) {
 
 	f.Scenario("User wants to see usage information", func(t *testing.T, f *bdd.Feature) {
 		type testCase struct {
-			flag string
+			Flag string `field:"<flag>"`
 		}
 
 		testCases := map[string]testCase{
@@ -48,8 +48,7 @@ func TestApplicationCommandLineTool(t *testing.T) {
 		for name, tc := range testCases {
 			name, tc := name, tc
 
-			t.Run(name, func(t *testing.T) {
-				t.Logf("TestCase: %+v", tc)
+			f.TestCase(name, tc, func(t *testing.T, f *bdd.Feature) {
 				f.When("<flag> is provided", func() {
 
 				})
@@ -61,6 +60,17 @@ func TestApplicationCommandLineTool(t *testing.T) {
 	})
 }
 ```
+
+**On** failure next logs will be printed:
+
+```feature
+Feature: Application command line tool
+	Scenario: User wants to see usage information
+		# TestCase: {Flag:-help}
+		When: -help is provided
+		Then: usage should be printed
+```
+
 ## More advanced example
 
 See [internal/app/app.feature](internal/app/app.feature) and [internal/app/app_test.go](internal/app/app_test.go).
@@ -107,13 +117,13 @@ Usage of gherkingen [FEATURE_FILE]:
   -list
         list internal templates
   -template string
-        template file (default "@/std.struct.go.tmpl")
+        template file (default "@/std.struct.v1.go.tmpl")
 ```
 
 # Output customization
 
 ## Custom templates
-You can provide your own template, it can be based on [internal/assets/std.args.go.tmpl](internal/assets/std.args.go.tmpl). In the command-line tool specify the template
+You can provide your own template, it can be based on [internal/assets/std.args.v1.go.tmpl](internal/assets/std.args.v1.go.tmpl). In the command-line tool specify the template
 using `-template` flag: `gherkingen -template example.tmpl raw example.feature`
 
 ## Frameworks support

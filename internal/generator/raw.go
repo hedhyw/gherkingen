@@ -47,11 +47,10 @@ func GenerateRaw(
 	return buf.Bytes(), nil
 }
 
-func aliasPreparer(preFormatter func(string) string) func(string) string {
+func aliasPreparer(postFormatter func(string) string) func(string) string {
 	var i int
 
 	return func(text string) string {
-		text = preFormatter(text)
 		alias := make([]rune, 0, len(text))
 
 		for _, r := range text {
@@ -61,16 +60,18 @@ func aliasPreparer(preFormatter func(string) string) func(string) string {
 				unicode.IsLetter(r):
 
 				alias = append(alias, r)
+			case unicode.IsSpace(r):
+				alias = append(alias, '_')
 			}
 		}
 
 		if len(alias) == 0 {
 			i++
 
-			return preFormatter("var" + strconv.Itoa(i))
+			return postFormatter("var" + strconv.Itoa(i))
 		}
 
-		return string(alias)
+		return postFormatter(string(alias))
 	}
 }
 

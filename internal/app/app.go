@@ -10,7 +10,7 @@ import (
 
 const (
 	internalPathPrefix = "@/"
-	defaultTemplate    = "std.struct.go.tmpl"
+	defaultTemplate    = "std.struct.v1.go.tmpl"
 )
 
 // Run the application.

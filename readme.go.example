@@ -11,7 +11,7 @@ func TestApplicationCommandLineTool(t *testing.T) {
 
 	f.Scenario("User wants to see usage information", func(t *testing.T, f *bdd.Feature) {
 		type testCase struct {
-			flag string
+			Flag string `field:"<flag>"`
 		}
 
 		testCases := map[string]testCase{
@@ -22,8 +22,7 @@ func TestApplicationCommandLineTool(t *testing.T) {
 		for name, tc := range testCases {
 			name, tc := name, tc
 
-			t.Run(name, func(t *testing.T) {
-				t.Logf("TestCase: %+v", tc)
+			f.TestCase(name, tc, func(t *testing.T, f *bdd.Feature) {
 				f.When("<flag> is provided", func() {
 
 				})
@@ -32,6 +31,5 @@ func TestApplicationCommandLineTool(t *testing.T) {
 				})
 			})
 		}
-
 	})
 }

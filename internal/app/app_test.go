@@ -34,9 +34,9 @@ func TestApplicationCommandLineTool(t *testing.T) {
 
 	f.Scenario("User wants to generate the output in given format", func(t *testing.T, f *bdd.Feature) {
 		type testCase struct {
-			feature   string
-			format    string
-			assertion string
+			Feature   string `field:"<feature>"`
+			Format    string `field:"<format>"`
+			Assertion string `field:"<assertion>"`
 		}
 
 		testCases := map[string]testCase{
@@ -50,18 +50,16 @@ func TestApplicationCommandLineTool(t *testing.T) {
 		for name, tc := range testCases {
 			name, tc := name, tc
 
-			t.Run(name, func(t *testing.T) {
-				t.Logf("TestCase: %+v", tc)
-
+			f.TestCase(name, tc, func(t *testing.T, f *bdd.Feature) {
 				arguments := []string{}
 				f.When("<format> is given", func() {
-					arguments = append(arguments, "-format", tc.format)
+					arguments = append(arguments, "-format", tc.Format)
 				})
 				f.And("<feature> is provided", func() {
-					arguments = append(arguments, tc.feature)
+					arguments = append(arguments, tc.Feature)
 				})
 				f.Then("the output should be generated", func() {
-					runApp(t, arguments, tc.assertion == "does")
+					runApp(t, arguments, tc.Assertion == "does")
 				})
 			})
 		}
@@ -69,7 +67,7 @@ func TestApplicationCommandLineTool(t *testing.T) {
 
 	f.Scenario("User wants to see usage information", func(t *testing.T, f *bdd.Feature) {
 		type testCase struct {
-			flag string
+			Flag string `field:"<flag>"`
 		}
 
 		testCases := map[string]testCase{
@@ -79,12 +77,10 @@ func TestApplicationCommandLineTool(t *testing.T) {
 		for name, tc := range testCases {
 			name, tc := name, tc
 
-			t.Run(name, func(t *testing.T) {
-				t.Logf("TestCase: %+v", tc)
-
+			f.TestCase(name, tc, func(t *testing.T, f *bdd.Feature) {
 				arguments := []string{}
 				f.When("<flag> is provided", func() {
-					arguments = append(arguments, tc.flag)
+					arguments = append(arguments, tc.Flag)
 				})
 				f.Then("usage should be printed", func() {
 					runApp(t, arguments, true)
@@ -95,7 +91,7 @@ func TestApplicationCommandLineTool(t *testing.T) {
 
 	f.Scenario("User wants to list built-in templates", func(t *testing.T, f *bdd.Feature) {
 		type testCase struct {
-			flag string
+			Flag string `field:"<flag>"`
 		}
 
 		testCases := map[string]testCase{
@@ -105,12 +101,10 @@ func TestApplicationCommandLineTool(t *testing.T) {
 		for name, tc := range testCases {
 			name, tc := name, tc
 
-			t.Run(name, func(t *testing.T) {
-				t.Logf("TestCase: %+v", tc)
-
+			f.TestCase(name, tc, func(t *testing.T, f *bdd.Feature) {
 				arguments := []string{}
 				f.When("<flag> is provided", func() {
-					arguments = append(arguments, tc.flag)
+					arguments = append(arguments, tc.Flag)
 				})
 				f.Then("templates should be printed", func() {
 					runApp(t, arguments, true)
@@ -121,28 +115,26 @@ func TestApplicationCommandLineTool(t *testing.T) {
 
 	f.Scenario("User wants to use custom template", func(t *testing.T, f *bdd.Feature) {
 		type testCase struct {
-			feature  string
-			template string
+			Feature  string `field:"<feature>"`
+			Template string `field:"<template>"`
 		}
 
 		testCases := map[string]testCase{
-			"app.feature_../assets/std.args.go.tmpl": {"app.feature", "../assets/std.args.go.tmpl"},
-			"app.feature_@/std.args.go.tmpl":         {"app.feature", "@/std.args.go.tmpl"},
-			"app.feature_@/std.struct.go.tmpl":       {"app.feature", "@/std.struct.go.tmpl"},
+			"app.feature_../assets/std.args.v1.go.tmpl": {"app.feature", "../assets/std.args.v1.go.tmpl"},
+			"app.feature_@/std.args.v1.go.tmpl":         {"app.feature", "@/std.args.v1.go.tmpl"},
+			"app.feature_@/std.struct.v1.go.tmpl":       {"app.feature", "@/std.struct.v1.go.tmpl"},
 		}
 
 		for name, tc := range testCases {
 			name, tc := name, tc
 
-			t.Run(name, func(t *testing.T) {
-				t.Logf("TestCase: %+v", tc)
-
+			f.TestCase(name, tc, func(t *testing.T, f *bdd.Feature) {
 				arguments := []string{}
 				f.And("<template> is provided", func() {
-					arguments = append(arguments, "-template", tc.template)
+					arguments = append(arguments, "-template", tc.Template)
 				})
 				f.When("<feature> is provided", func() {
-					arguments = append(arguments, tc.feature)
+					arguments = append(arguments, tc.Feature)
 				})
 				f.Then("the output should be generated", func() {
 					runApp(t, arguments, true)
