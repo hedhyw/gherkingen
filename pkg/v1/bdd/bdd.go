@@ -42,6 +42,7 @@ func NewFeature(t *testing.T, name string) *Feature {
 	return f
 }
 
+// LogRecords returns pending log records.
 func (f *Feature) LogRecords() []string {
 	f.mu.Lock()
 	defer f.mu.Unlock()
