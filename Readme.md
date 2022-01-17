@@ -61,7 +61,7 @@ func TestApplicationCommandLineTool(t *testing.T) {
 }
 ```
 
-**On** failure next logs will be printed:
+**Then** on failure next logs will be printed:
 
 ```feature
 Feature: Application command line tool
