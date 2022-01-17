@@ -60,7 +60,7 @@ func aliasPreparer(postFormatter func(string) string) func(string) string {
 				unicode.IsLetter(r):
 
 				alias = append(alias, r)
-			case unicode.IsSpace(r):
+			case unicode.IsSpace(r), r == '_':
 				alias = append(alias, '_')
 			}
 		}
