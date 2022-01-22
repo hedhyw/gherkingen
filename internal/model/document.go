@@ -12,12 +12,14 @@ type goData struct {
 	GoValue string `json:"GoValue"`
 }
 
+// GherkinDocument is a core document.
 type GherkinDocument struct {
 	URI      string     `json:"URI,omitempty"`
 	Feature  *Feature   `json:"Feature,omitempty"`
 	Comments []*Comment `json:"Comments"`
 }
 
+// From converts to GherkinDocument.
 func (to *GherkinDocument) From(from *messages.GherkinDocument) *GherkinDocument {
 	if from == nil {
 		return nil
@@ -32,6 +34,7 @@ func (to *GherkinDocument) From(from *messages.GherkinDocument) *GherkinDocument
 	return to
 }
 
+// Background is a gherkin's background.
 type Background struct {
 	Location    *Location `json:"Location"`
 	Keyword     string    `json:"Keyword"`
@@ -43,6 +46,7 @@ type Background struct {
 	goData
 }
 
+// From converts to Background.
 func (to *Background) From(from *messages.Background) *Background {
 	if from == nil {
 		return nil
@@ -66,11 +70,13 @@ func (to *Background) From(from *messages.Background) *Background {
 	return to
 }
 
+// Comment is a gherkin's comment.
 type Comment struct {
 	Location *Location `json:"Location"`
 	Text     string    `json:"Text"`
 }
 
+// From converts to Comment.
 func (to *Comment) From(from *messages.Comment) *Comment {
 	if from == nil {
 		return nil
@@ -84,8 +90,10 @@ func (to *Comment) From(from *messages.Comment) *Comment {
 	return to
 }
 
+// CommentsSlice is a slice of comments.
 type CommentsSlice []*Comment
 
+// From converts to CommentsSlice.
 func (to CommentsSlice) From(from []*messages.Comment) CommentsSlice {
 	to = make(CommentsSlice, 0, len(from))
 
@@ -96,11 +104,13 @@ func (to CommentsSlice) From(from []*messages.Comment) CommentsSlice {
 	return to
 }
 
+// DataTable is a gherkin's dataTable.
 type DataTable struct {
 	Location *Location   `json:"Location"`
 	Rows     []*TableRow `json:"Rows"`
 }
 
+// From converts to DataTable.
 func (to *DataTable) From(from *messages.DataTable) *DataTable {
 	if from == nil {
 		return nil
@@ -114,6 +124,7 @@ func (to *DataTable) From(from *messages.DataTable) *DataTable {
 	return to
 }
 
+// DocString is a gherkin's docString.
 type DocString struct {
 	Location  *Location `json:"Location"`
 	MediaType string    `json:"MediaType,omitempty"`
@@ -121,6 +132,7 @@ type DocString struct {
 	Delimiter string    `json:"Delimiter"`
 }
 
+// From converts to DocString.
 func (to *DocString) From(from *messages.DocString) *DocString {
 	if from == nil {
 		return nil
@@ -136,6 +148,7 @@ func (to *DocString) From(from *messages.DocString) *DocString {
 	return to
 }
 
+// Examples is a gherkin's examples.
 type Examples struct {
 	Location    *Location `json:"Location"`
 	Tags        []*Tag    `json:"Tags"`
@@ -148,6 +161,7 @@ type Examples struct {
 	TableBody   []*TableRow `json:"TableBody"`
 }
 
+// From converts to Examples.
 func (to *Examples) From(from *messages.Examples) *Examples {
 	if from == nil {
 		return nil
@@ -172,8 +186,10 @@ func (to *Examples) From(from *messages.Examples) *Examples {
 	return to
 }
 
+// ExamplesSlice is a slice of examples.
 type ExamplesSlice []*Examples
 
+// From converts to ExamplesSlice.
 func (to ExamplesSlice) From(from []*messages.Examples) ExamplesSlice {
 	to = make(ExamplesSlice, 0, len(from))
 
@@ -184,6 +200,7 @@ func (to ExamplesSlice) From(from []*messages.Examples) ExamplesSlice {
 	return to
 }
 
+// Feature is a gherkin's feature.
 type Feature struct {
 	Location    *Location       `json:"Location"`
 	Tags        []*Tag          `json:"Tags"`
@@ -196,6 +213,7 @@ type Feature struct {
 	goData
 }
 
+// From converts to Feature.
 func (to *Feature) From(from *messages.Feature) *Feature {
 	if from == nil {
 		return nil
@@ -220,12 +238,14 @@ func (to *Feature) From(from *messages.Feature) *Feature {
 	return to
 }
 
+// FeatureChild is a gherkin's featureChild.
 type FeatureChild struct {
 	Rule       *Rule       `json:"Rule,omitempty"`
 	Background *Background `json:"Background,omitempty"`
 	Scenario   *Scenario   `json:"Scenario,omitempty"`
 }
 
+// From converts to FeatureChild.
 func (to *FeatureChild) From(from *messages.FeatureChild) *FeatureChild {
 	if from == nil {
 		return nil
@@ -240,8 +260,10 @@ func (to *FeatureChild) From(from *messages.FeatureChild) *FeatureChild {
 	return to
 }
 
+// FeatureChildrenSlice is a slice of featureChildren.
 type FeatureChildrenSlice []*FeatureChild
 
+// From converts to FeatureChildrenSlice.
 func (to FeatureChildrenSlice) From(from []*messages.FeatureChild) FeatureChildrenSlice {
 	to = make(FeatureChildrenSlice, 0, len(from))
 
@@ -252,6 +274,7 @@ func (to FeatureChildrenSlice) From(from []*messages.FeatureChild) FeatureChildr
 	return to
 }
 
+// Rule is a gherkin's rule.
 type Rule struct {
 	Location    *Location    `json:"Location"`
 	Tags        []*Tag       `json:"Tags"`
@@ -264,6 +287,7 @@ type Rule struct {
 	goData
 }
 
+// From converts to Rule.
 func (to *Rule) From(from *messages.Rule) *Rule {
 	if from == nil {
 		return nil
@@ -288,11 +312,13 @@ func (to *Rule) From(from *messages.Rule) *Rule {
 	return to
 }
 
+// RuleChild is a gherkin's ruleChild.
 type RuleChild struct {
 	Background *Background `json:"Background,omitempty"`
 	Scenario   *Scenario   `json:"Scenario,omitempty"`
 }
 
+// From converts to RuleChild.
 func (to *RuleChild) From(from *messages.RuleChild) *RuleChild {
 	if from == nil {
 		return nil
@@ -306,8 +332,10 @@ func (to *RuleChild) From(from *messages.RuleChild) *RuleChild {
 	return to
 }
 
+// RuleChildSlice is a slice of ruleChild.
 type RuleChildSlice []*RuleChild
 
+// From converts to RuleChildSlice.
 func (to RuleChildSlice) From(from []*messages.RuleChild) RuleChildSlice {
 	to = make(RuleChildSlice, 0, len(from))
 
@@ -318,6 +346,7 @@ func (to RuleChildSlice) From(from []*messages.RuleChild) RuleChildSlice {
 	return to
 }
 
+// Scenario is a gherkin's scenario.
 type Scenario struct {
 	Location    *Location   `json:"Location"`
 	Tags        []*Tag      `json:"Tags"`
@@ -331,6 +360,7 @@ type Scenario struct {
 	goData
 }
 
+// From converts to Scenario.
 func (to *Scenario) From(from *messages.Scenario) *Scenario {
 	if from == nil {
 		return nil
@@ -356,6 +386,7 @@ func (to *Scenario) From(from *messages.Scenario) *Scenario {
 	return to
 }
 
+// Step is a gherkin's step.
 type Step struct {
 	Location  *Location  `json:"Location"`
 	Keyword   string     `json:"Keyword"`
@@ -367,6 +398,7 @@ type Step struct {
 	goData
 }
 
+// From converts to Step.
 func (to *Step) From(from *messages.Step) *Step {
 	if from == nil {
 		return nil
@@ -390,8 +422,10 @@ func (to *Step) From(from *messages.Step) *Step {
 	return to
 }
 
+// StepsSlice is a slice of steps.
 type StepsSlice []*Step
 
+// From converts to StepsSlice.
 func (to StepsSlice) From(from []*messages.Step) StepsSlice {
 	to = make(StepsSlice, 0, len(from))
 
@@ -402,6 +436,7 @@ func (to StepsSlice) From(from []*messages.Step) StepsSlice {
 	return to
 }
 
+// TableCell is a gherkin's tableCell.
 type TableCell struct {
 	Location *Location `json:"Location"`
 	Value    string    `json:"Value"`
@@ -409,6 +444,7 @@ type TableCell struct {
 	goData
 }
 
+// From converts to TableCell.
 func (to *TableCell) From(from *messages.TableCell, gt goType, ignoreGoTypes bool) *TableCell {
 	if from == nil {
 		return nil
@@ -435,8 +471,10 @@ func (to *TableCell) From(from *messages.TableCell, gt goType, ignoreGoTypes boo
 	return to
 }
 
+// TableCellSlice is a slice of tableCell.
 type TableCellSlice []*TableCell
 
+// From converts to TableCellSlice.
 func (to TableCellSlice) From(from []*messages.TableCell, goTypes []goType, ignoreGoTypes bool) TableCellSlice {
 	to = make(TableCellSlice, 0, len(from))
 
@@ -452,6 +490,7 @@ func (to TableCellSlice) From(from []*messages.TableCell, goTypes []goType, igno
 	return to
 }
 
+// TableRow is a gherkin's tableRow.
 type TableRow struct {
 	Location *Location    `json:"Location"`
 	Cells    []*TableCell `json:"Cells"`
@@ -460,6 +499,7 @@ type TableRow struct {
 	goData
 }
 
+// From converts to TableRow.
 func (to *TableRow) From(from *messages.TableRow, goTypes []goType, ignoreGoTypes bool) *TableRow {
 	if from == nil {
 		return nil
@@ -488,6 +528,7 @@ func (to *TableRow) From(from *messages.TableRow, goTypes []goType, ignoreGoType
 	return to
 }
 
+// TableRowSlice is a slice of tableRow.
 type TableRowSlice []*TableRow
 
 func determinateGoTypes(from []*messages.TableRow) (goTypes []goType) {
@@ -514,6 +555,7 @@ func determinateGoTypes(from []*messages.TableRow) (goTypes []goType) {
 	return goTypes
 }
 
+// From converts to TableRowSlice.
 func (to TableRowSlice) From(from []*messages.TableRow) TableRowSlice {
 	to = make(TableRowSlice, 0, len(from))
 
@@ -524,12 +566,14 @@ func (to TableRowSlice) From(from []*messages.TableRow) TableRowSlice {
 	return to
 }
 
+// Tag is a gherkin's tag.
 type Tag struct {
 	Location *Location `json:"Location"`
 	Name     string    `json:"Name"`
 	ID       string    `json:"ID"`
 }
 
+// From converts to Tag.
 func (to *Tag) From(from *messages.Tag) *Tag {
 	if from == nil {
 		return nil
@@ -544,8 +588,10 @@ func (to *Tag) From(from *messages.Tag) *Tag {
 	return to
 }
 
+// TagsSlice is a slice of tags.
 type TagsSlice []*Tag
 
+// From converts to TagsSlice.
 func (to TagsSlice) From(from []*messages.Tag) TagsSlice {
 	to = make(TagsSlice, 0, len(from))
 
@@ -556,11 +602,13 @@ func (to TagsSlice) From(from []*messages.Tag) TagsSlice {
 	return to
 }
 
+// Location is a gherkin's location.
 type Location struct {
 	Line   int64 `json:"Line"`
 	Column int64 `json:"Column,omitempty"`
 }
 
+// From converts to Location.
 func (to *Location) From(from *messages.Location) *Location {
 	if from == nil {
 		return nil

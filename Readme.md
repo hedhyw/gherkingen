@@ -139,7 +139,7 @@ It is possible to integrate the generator with any BDD-testing fraemwork. Feel f
 create a pull request for supporting templates for them. For this:
 1. Create a template `internal/assets/SOME_NAME.go.tmpl`.
 2. Add it to the test `TestOpenTemplate` in the file [internal/assets/assets_test.go](internal/assets/assets_test.go).
-3. Check: `make lint test`.
+3. Check: `make lint check.generate test`.
 4. Commit&Push, create a PR.
 
 ## Language support
