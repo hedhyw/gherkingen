@@ -4,6 +4,7 @@ import (
 	"testing"
 
 	"github.com/hedhyw/gherkingen/internal/generator"
+	"github.com/hedhyw/gherkingen/internal/model"
 )
 
 func TestGenerateRaw(t *testing.T) {
@@ -35,10 +36,12 @@ func TestGenerateRaw(t *testing.T) {
 		t.Run(tc.Template, func(t *testing.T) {
 			t.Parallel()
 
-			gotDataRaw, err := generator.GenerateRaw(
-				exampleFeature,
-				[]byte(tc.Template),
-			)
+			gotDataRaw, err := generator.Generate(model.GenerateArgs{
+				Format:         model.FormatRaw,
+				InputSource:    exampleFeature,
+				TemplateSource: []byte(tc.Template),
+				PackageName:    "generated_test.go",
+			})
 			if err != nil {
 				t.Fatal(err)
 			}

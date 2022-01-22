@@ -30,7 +30,14 @@ Feature: Application command line tool
     And  <feature> is provided
     Then the output should be generated
     Examples:
-    | <feature>   | <template>                 |
-    | app.feature | ../assets/std.args.v1.go.tmpl |
-    | app.feature | @/std.args.v1.go.tmpl         |
-    | app.feature | @/std.struct.v1.go.tmpl       |
+    | <feature>   | <template>                      |
+    | app.feature | ../assets/std.struct.v1.go.tmpl |
+    | app.feature | @/std.struct.v1.go.tmpl         |
+  
+  Scenario: User wants to set custom package
+    When <package> is provided
+    Then the output should contain <package>
+    Examples:
+    | <package> |
+    | app_test  |
+    | example_test  |

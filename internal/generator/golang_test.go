@@ -8,6 +8,7 @@ import (
 
 	"github.com/hedhyw/gherkingen/internal/assets"
 	"github.com/hedhyw/gherkingen/internal/generator"
+	"github.com/hedhyw/gherkingen/internal/model"
 )
 
 func TestGenerateGo(t *testing.T) {
@@ -15,7 +16,12 @@ func TestGenerateGo(t *testing.T) {
 
 	const exampleTemplate = `func Test{{upperAlias .Feature.Name}}(){}`
 
-	gotDataGo, err := generator.GenerateGo(exampleFeature, []byte(exampleTemplate))
+	gotDataGo, err := generator.Generate(model.GenerateArgs{
+		Format:         model.FormatGo,
+		InputSource:    exampleFeature,
+		TemplateSource: []byte(exampleTemplate),
+		PackageName:    "generated_test",
+	})
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -62,7 +68,12 @@ func TestGenerateAssetTemplatesShouldNotFail(t *testing.T) {
 				t.Fatal(err)
 			}
 
-			_, err = generator.GenerateGo(exampleFeature, tmplData)
+			_, err = generator.Generate(model.GenerateArgs{
+				Format:         model.FormatGo,
+				InputSource:    exampleFeature,
+				TemplateSource: tmplData,
+				PackageName:    "generated_test",
+			})
 			if err != nil {
 				t.Fatal(err)
 			}

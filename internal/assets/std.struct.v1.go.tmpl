@@ -1,4 +1,4 @@
-package generated_test
+package {{ .PackageName }}
 
 import (
     "testing"
@@ -6,33 +6,36 @@ import (
     "github.com/hedhyw/gherkingen/pkg/v1/bdd"
 )
 
-func Test{{upperAlias .Feature.Name}}(t *testing.T) {
-    f := bdd.NewFeature(t, "{{ prepareGoStr .Feature.Name }}")
-    {{ if .Feature.Description }}
-    /* {{ .Feature.Description }} */
-    {{ end }}
+{{ define "Background" }}
+    {{ $Background := . }}
+    f.{{ $Background.GoName }}({{ $Background.GoValue }}, func(t *testing.T, f *bdd.Feature) {
+        {{- range $Background.Steps }}
+        f.{{ .GoName }}({{.GoValue}}, func() {
+            
+        })
+        {{- end }}
+    })
+{{ end }}
 
-    {{- range .Feature.Children }}
-    {{ $Scenario := .Scenario }}
-
-    f.Scenario("{{ prepareGoStr $Scenario.Name }}", func(t *testing.T, f *bdd.Feature) {
+{{ define "Scenario" }}
+    {{ $Scenario := . }}
+    f.{{ $Scenario.GoName }}({{ $Scenario.GoValue }}, func(t *testing.T, f *bdd.Feature) {
         {{- range $Scenario.Examples }}
+
+        {{- /* Define test case struct. */ -}}
+
         type testCase struct {
             {{- range .TableHeader.Cells }}
-			{{ upperAlias .Value }} string `field:"{{.Value}}"`
+			{{ .GoName }} {{ .GoType }} `field:"{{.Value}}"`
             {{- end -}}
 		}
 
         testCases := map[string]testCase{
             {{- range .TableBody }}
-			"
-            {{- range $index, $element := .Cells -}}
-            {{if $index}}_{{end}}{{- $element.Value -}}
-            {{- end -}}
-            ": {
+			{{ .GoValue }}: {
             {{- /* Struct fields start. */ -}}
                 {{- range $index, $cell := .Cells -}}
-                {{- if $index -}},{{end}} "{{- prepareGoStr $cell.Value -}}"
+                {{- if $index -}},{{ end }} {{- $cell.GoValue -}}
                 {{- end -}}
             {{- /* Struct fields end. */ -}}
             },
@@ -44,19 +47,58 @@ func Test{{upperAlias .Feature.Name}}(t *testing.T) {
 
 			f.TestCase(name, tc, func(t *testing.T, f *bdd.Feature) {
                 {{- range $Scenario.Steps }}
-                f.{{trimSpace .Keyword }}("{{prepareGoStr .Text}}", func() {
+                f.{{ .GoName }}({{ .GoValue }}, func() {
                     
                 })
                 {{- end }}
             })
         }
         {{- else }}
-        {{- range .Scenario.Steps }}
-        f.{{trimSpace .Keyword }}("{{.Text}}", func() {
+        {{- range $Scenario.Steps }}
+        f.{{ .GoName }}({{.GoValue}}, func() {
             
         })
         {{- end }}
         {{ end }}
     })
+{{ end }}
+
+{{ define "Rule" }}
+    {{ $Rule := . }}
+    f.{{ $Rule.GoName }}({{ $Rule.GoValue }}, func(t *testing.T, f *bdd.Feature) {
+        {{- range $Rule.Children }}
+
+        {{ if .Background }}
+        {{ template "Background" .Background }}
+        {{- end }}
+
+        {{ if .Scenario }}
+        {{ template "Scenario" .Scenario }}
+        {{- end }}
+
+        {{ end }}
+    })
+{{ end }}
+
+func Test{{ .Feature.GoName }}(t *testing.T) {
+    f := bdd.NewFeature(t, {{ .Feature.GoValue }})
+    {{ if .Feature.Description }}
+    /* {{ .Feature.Description }} */
+    {{ end }}
+
+    {{- range .Feature.Children }}
+
+    {{ if .Background }}
+    {{ template "Background" .Background }}
+    {{- end }}
+
+    {{ if .Scenario }}
+    {{ template "Scenario" .Scenario }}
+    {{- end }}
+
+    {{ if .Rule }}
+    {{ template "Rule" .Rule }}
+    {{- end }}
+
     {{- end }}
 }

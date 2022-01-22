@@ -17,19 +17,21 @@ The generator is very customizable, it is possible to customize an output for an
 
 # What is for?
 ## Simple example
-**Given** [feature](readme.feature.example) [[reference](https://cucumber.io/docs/gherkin/reference/)]:
+**Given** [feature](internal/generator/examples/readme.feature) [[reference](https://cucumber.io/docs/gherkin/reference/)]:
 ```feature
 Feature: Application command line tool
   Scenario: User wants to see usage information
-    When <flag> is provided
-    Then usage should be printed
+    When flag <flag> is provided
+    Then usage should be printed <printed>
+    And exit status should be <exit_status>
     Examples:
-    | <flag> |
-    | --help |
-    | -help  |
+    | <flag>   | <exit_status> | <printed> |
+    | --help   |       0       | true      |
+    | -help    |       0       | true      |
+    | -invalid |       1       | false     |
 ```
 
-**Then** this generator writes a [golang](readme.go.example) output:
+**Then** this generator writes a [golang](internal/generator/examples/readme.feature.go) output:
 
 ```go
 func TestApplicationCommandLineTool(t *testing.T) {
@@ -37,22 +39,28 @@ func TestApplicationCommandLineTool(t *testing.T) {
 
 	f.Scenario("User wants to see usage information", func(t *testing.T, f *bdd.Feature) {
 		type testCase struct {
-			Flag string `field:"<flag>"`
+			Flag       string `field:"<flag>"`
+			ExitStatus int    `field:"<exit_status>"`
+			Printed    bool   `field:"<printed>"`
 		}
 
 		testCases := map[string]testCase{
-			"--help": {"--help"},
-			"-help":  {"-help"},
+			"--help_0_true":    {"--help", 0, true},
+			"-help_0_true":     {"-help", 0, true},
+			"-invalid_1_false": {"-invalid", 1, false},
 		}
 
 		for name, tc := range testCases {
 			name, tc := name, tc
 
 			f.TestCase(name, tc, func(t *testing.T, f *bdd.Feature) {
-				f.When("<flag> is provided", func() {
+				f.When("flag <flag> is provided", func() {
 
 				})
-				f.Then("usage should be printed", func() {
+				f.Then("usage should be printed <printed>", func() {
+
+				})
+				f.And("exit status should be <exit_status>", func() {
 
 				})
 			})
@@ -131,7 +139,7 @@ It is possible to integrate the generator with any BDD-testing fraemwork. Feel f
 create a pull request for supporting templates for them. For this:
 1. Create a template `internal/assets/SOME_NAME.go.tmpl`.
 2. Add it to the test `TestOpenTemplate` in the file [internal/assets/assets_test.go](internal/assets/assets_test.go).
-3. Check: `make lint test`.
+3. Check: `make lint check.generate test`.
 4. Commit&Push, create a PR.
 
 ## Language support

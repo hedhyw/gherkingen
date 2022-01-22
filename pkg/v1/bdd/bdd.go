@@ -76,8 +76,7 @@ func (f *Feature) appendLogf(format string, args ...interface{}) {
 	f.logRecords = append(f.logRecords, prefixSpace+lr)
 }
 
-// Scenario defines a scenario block.
-func (f *Feature) Scenario(name string, fn func(t *testing.T, f *Feature)) {
+func (f *Feature) subBlock(name string, fn func(t *testing.T, f *Feature)) {
 	f.T.Helper()
 
 	f.T.Run(name, func(t *testing.T) {
@@ -102,8 +101,50 @@ func (f *Feature) Scenario(name string, fn func(t *testing.T, f *Feature)) {
 			logRecords: f.LogRecords(),
 		}
 
-		f.appendLogf("Scenario: %s", name)
+		fn(t, f)
+	})
+}
 
+// Background defines a background block.
+func (f *Feature) Background(name string, fn func(t *testing.T, f *Feature)) {
+	f.T.Helper()
+
+	f.subBlock(name, func(t *testing.T, f *Feature) {
+		t.Helper()
+		f.appendLogf("Background: %s", name)
+		fn(t, f)
+	})
+}
+
+// Rule defines a rule block.
+func (f *Feature) Rule(name string, fn func(t *testing.T, f *Feature)) {
+	f.T.Helper()
+
+	f.subBlock(name, func(t *testing.T, f *Feature) {
+		t.Helper()
+		f.appendLogf("Rule: %s", name)
+		fn(t, f)
+	})
+}
+
+// Example defines an example-scenario block.
+func (f *Feature) Example(name string, fn func(t *testing.T, f *Feature)) {
+	f.T.Helper()
+
+	f.subBlock(name, func(t *testing.T, f *Feature) {
+		t.Helper()
+		f.appendLogf("Example: %s", name)
+		fn(t, f)
+	})
+}
+
+// Scenario defines a scenario block.
+func (f *Feature) Scenario(name string, fn func(t *testing.T, f *Feature)) {
+	f.T.Helper()
+
+	f.subBlock(name, func(t *testing.T, f *Feature) {
+		t.Helper()
+		f.appendLogf("Scenario: %s", name)
 		fn(t, f)
 	})
 }
@@ -111,7 +152,7 @@ func (f *Feature) Scenario(name string, fn func(t *testing.T, f *Feature)) {
 // Given defines a given block.
 func (f *Feature) Given(given string, fn func()) {
 	f.T.Helper()
-	f.appendLogf("Given: %s", given)
+	f.appendLogf("Given %s", given)
 
 	if fn != nil {
 		fn()
@@ -121,7 +162,7 @@ func (f *Feature) Given(given string, fn func()) {
 // But defines a but block.
 func (f *Feature) But(but string, fn func()) {
 	f.T.Helper()
-	f.appendLogf("But: %s", but)
+	f.appendLogf("But %s", but)
 
 	if fn != nil {
 		fn()
@@ -132,29 +173,10 @@ func (f *Feature) But(but string, fn func()) {
 func (f *Feature) TestCase(name string, tc interface{}, fn func(t *testing.T, f *Feature)) {
 	f.T.Helper()
 
-	f.T.Run(name, func(t *testing.T) {
+	f.subBlock(name, func(t *testing.T, f *Feature) {
 		t.Helper()
-
-		f := &Feature{
-			T: t,
-
-			level: f.level + 1,
-
-			tc:       tc,
-			replacer: prepareReplacer(t, tc),
-
-			mu:         sync.Mutex{},
-			logRecords: f.LogRecords(),
-		}
 		f.appendLogf("# TestCase: %+v", tc)
-
-		t.Cleanup(func() {
-			if t.Failed() {
-				f.T.Helper()
-				f.printLogs()
-			}
-		})
-
+		f.replacer = prepareReplacer(t, tc)
 		fn(t, f)
 	})
 }
@@ -162,7 +184,7 @@ func (f *Feature) TestCase(name string, tc interface{}, fn func(t *testing.T, f 
 // And defines an and block.
 func (f *Feature) And(and string, fn func()) {
 	f.T.Helper()
-	f.appendLogf("And: %s", and)
+	f.appendLogf("And %s", and)
 
 	if fn != nil {
 		fn()
@@ -172,7 +194,7 @@ func (f *Feature) And(and string, fn func()) {
 // When defines a when block.
 func (f *Feature) When(when string, fn func()) {
 	f.T.Helper()
-	f.appendLogf("When: %s", when)
+	f.appendLogf("When %s", when)
 
 	if fn != nil {
 		fn()
@@ -182,7 +204,7 @@ func (f *Feature) When(when string, fn func()) {
 // Then defines a then block.
 func (f *Feature) Then(then string, fn func()) {
 	f.T.Helper()
-	f.appendLogf("Then: %s", then)
+	f.appendLogf("Then %s", then)
 
 	if fn != nil {
 		fn()

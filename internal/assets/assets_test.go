@@ -23,7 +23,6 @@ func TestOpenTemplate(t *testing.T) {
 	t.Parallel()
 
 	files := [...]string{
-		"std.args.v1.go.tmpl",
 		"std.struct.v1.go.tmpl",
 	}
 

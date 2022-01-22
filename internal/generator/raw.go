@@ -8,24 +8,16 @@ import (
 	"text/template"
 	"unicode"
 
-	"github.com/cucumber/gherkin-go/v19"
-	"github.com/google/uuid"
+	"github.com/hedhyw/gherkingen/internal/model"
+
 	"github.com/iancoleman/strcase"
 )
 
-// GenerateRaw generates a raw outpur using an input data and a template.
-func GenerateRaw(
-	inputData []byte,
-	templateData []byte,
-) (data []byte, err error) {
-	gherkinDocument, err := gherkin.ParseGherkinDocument(
-		bytes.NewReader(inputData),
-		uuid.NewString,
-	)
-	if err != nil {
-		return nil, fmt.Errorf("parsing gherkin: %w", err)
-	}
-
+// generateRaw generates a raw outpur using an input data and a template.
+func generateRaw(
+	tmplSource []byte,
+	tmplData *model.TemplateData,
+) (out []byte, err error) {
 	var buf bytes.Buffer
 
 	tmpl, err := template.New("template").
@@ -35,12 +27,12 @@ func GenerateRaw(
 			"trimSpace":    strings.TrimSpace,
 			"prepareGoStr": prepareGoStr,
 		}).
-		Parse(string(templateData))
+		Parse(string(tmplSource))
 	if err != nil {
 		return nil, fmt.Errorf("parsing template: %w", err)
 	}
 
-	if err = tmpl.Execute(&buf, gherkinDocument); err != nil {
+	if err = tmpl.Execute(&buf, tmplData); err != nil {
 		return nil, fmt.Errorf("executing template: %w", err)
 	}
 

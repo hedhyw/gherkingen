@@ -1,4 +1,4 @@
-package enums
+package model
 
 // Format of the output.
 type Format string
@@ -18,3 +18,12 @@ func Formats() []string {
 		string(FormatRaw),
 	}
 }
+
+type goType string
+
+const (
+	goTypeString  goType = "string"
+	goTypeInt     goType = "int"
+	goTypeFloat64 goType = "float64"
+	goTypeBool    goType = "bool"
+)
