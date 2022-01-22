@@ -82,13 +82,6 @@ func (f *Feature) subBlock(name string, fn func(t *testing.T, f *Feature)) {
 	f.T.Run(name, func(t *testing.T) {
 		t.Helper()
 
-		t.Cleanup(func() {
-			if t.Failed() {
-				f.T.Helper()
-				f.printLogs()
-			}
-		})
-
 		f := &Feature{
 			T: t,
 
@@ -100,6 +93,13 @@ func (f *Feature) subBlock(name string, fn func(t *testing.T, f *Feature)) {
 			mu:         sync.Mutex{},
 			logRecords: f.LogRecords(),
 		}
+
+		t.Cleanup(func() {
+			if t.Failed() {
+				f.T.Helper()
+				f.printLogs()
+			}
+		})
 
 		fn(t, f)
 	})

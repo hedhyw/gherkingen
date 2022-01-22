@@ -74,9 +74,10 @@ func TestApplicationCommandLineTool(t *testing.T) {
 ```feature
 Feature: Application command line tool
 	Scenario: User wants to see usage information
-		# TestCase: {Flag:-help}
-		When: -help is provided
-		Then: usage should be printed
+		# TestCase: {Flag:-invalid ExitStatus:1 Printed:false}
+		When flag -invalid is provided
+		Then usage should be printed false
+		And exit status should be 1
 ```
 
 ## More advanced example
