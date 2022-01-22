@@ -22,21 +22,17 @@ func TestApplicationCommandLineTool(t *testing.T) {
 			"-invalid_1_false": {"-invalid", 1, false},
 		}
 
-		for name, tc := range testCases {
-			name, tc := name, tc
+		f.TestCases(testCases, func(t *testing.T, f *bdd.Feature, tc testCase) {
+			f.When("flag <flag> is provided", func() {
 
-			f.TestCase(name, tc, func(t *testing.T, f *bdd.Feature) {
-				f.When("flag <flag> is provided", func() {
-
-				})
-				f.Then("usage should be printed <printed>", func() {
-
-				})
-				f.And("exit status should be <exit_status>", func() {
-
-				})
 			})
-		}
+			f.Then("usage should be printed <printed>", func() {
+
+			})
+			f.And("exit status should be <exit_status>", func() {
+
+			})
+		})
 	})
 
 }

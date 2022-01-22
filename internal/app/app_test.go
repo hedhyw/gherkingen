@@ -50,22 +50,18 @@ func TestApplicationCommandLineTool(t *testing.T) {
 			"notfound.feature_raw_does not": {"notfound.feature", "raw", "does not"},
 		}
 
-		for name, tc := range testCases {
-			name, tc := name, tc
-
-			f.TestCase(name, tc, func(t *testing.T, f *bdd.Feature) {
-				arguments := []string{}
-				f.When("<format> is given", func() {
-					arguments = append(arguments, "-format", tc.Format)
-				})
-				f.And("<feature> is provided", func() {
-					arguments = append(arguments, tc.Feature)
-				})
-				f.Then("the output should be generated", func() {
-					runApp(t, arguments, tc.Assertion == "does")
-				})
+		f.TestCases(testCases, func(t *testing.T, f *bdd.Feature, tc testCase) {
+			arguments := []string{}
+			f.When("<format> is given", func() {
+				arguments = append(arguments, "-format", tc.Format)
 			})
-		}
+			f.And("<feature> is provided", func() {
+				arguments = append(arguments, tc.Feature)
+			})
+			f.Then("the output should be generated", func() {
+				runApp(t, arguments, tc.Assertion == "does")
+			})
+		})
 	})
 
 	f.Scenario("User wants to see usage information", func(t *testing.T, f *bdd.Feature) {
@@ -77,19 +73,15 @@ func TestApplicationCommandLineTool(t *testing.T) {
 			"--help": {"--help"},
 		}
 
-		for name, tc := range testCases {
-			name, tc := name, tc
-
-			f.TestCase(name, tc, func(t *testing.T, f *bdd.Feature) {
-				arguments := []string{}
-				f.When("<flag> is provided", func() {
-					arguments = append(arguments, tc.Flag)
-				})
-				f.Then("usage should be printed", func() {
-					runApp(t, arguments, true)
-				})
+		f.TestCases(testCases, func(t *testing.T, f *bdd.Feature, tc testCase) {
+			arguments := []string{}
+			f.When("<flag> is provided", func() {
+				arguments = append(arguments, tc.Flag)
 			})
-		}
+			f.Then("usage should be printed", func() {
+				runApp(t, arguments, true)
+			})
+		})
 	})
 
 	f.Scenario("User wants to list built-in templates", func(t *testing.T, f *bdd.Feature) {
@@ -101,19 +93,15 @@ func TestApplicationCommandLineTool(t *testing.T) {
 			"--list": {"--list"},
 		}
 
-		for name, tc := range testCases {
-			name, tc := name, tc
-
-			f.TestCase(name, tc, func(t *testing.T, f *bdd.Feature) {
-				arguments := []string{}
-				f.When("<flag> is provided", func() {
-					arguments = append(arguments, tc.Flag)
-				})
-				f.Then("templates should be printed", func() {
-					runApp(t, arguments, true)
-				})
+		f.TestCases(testCases, func(t *testing.T, f *bdd.Feature, tc testCase) {
+			arguments := []string{}
+			f.When("<flag> is provided", func() {
+				arguments = append(arguments, tc.Flag)
 			})
-		}
+			f.Then("templates should be printed", func() {
+				runApp(t, arguments, true)
+			})
+		})
 	})
 
 	f.Scenario("User wants to use custom template", func(t *testing.T, f *bdd.Feature) {
@@ -127,22 +115,17 @@ func TestApplicationCommandLineTool(t *testing.T) {
 			"app.feature_@/std.struct.v1.go.tmpl":         {"app.feature", "@/std.struct.v1.go.tmpl"},
 		}
 
-		for name, tc := range testCases {
-			name, tc := name, tc
-
-			f.TestCase(name, tc, func(t *testing.T, f *bdd.Feature) {
-				arguments := []string{}
-				f.And("<template> is provided", func() {
-					arguments = append(arguments, "-template", tc.Template)
-				})
-				f.When("<feature> is provided", func() {
-					arguments = append(arguments, tc.Feature)
-				})
-				f.Then("the output should be generated", func() {
-					runApp(t, arguments, true)
-				})
+		f.TestCases(testCases, func(t *testing.T, f *bdd.Feature, tc testCase) {
+			arguments := []string{}
+			f.And("<template> is provided", func() {
+				arguments = append(arguments, "-template", tc.Template)
 			})
-		}
+			f.When("<feature> is provided", func() {
+				arguments = append(arguments, tc.Feature)
+			})
+			f.Then("the output should be generated", func() {
+			})
+		})
 	})
 
 	f.Scenario("User wants to set custom package", func(t *testing.T, f *bdd.Feature) {
@@ -155,21 +138,17 @@ func TestApplicationCommandLineTool(t *testing.T) {
 			"example_test": {"example_test"},
 		}
 
-		for name, tc := range testCases {
-			name, tc := name, tc
-
-			f.TestCase(name, tc, func(t *testing.T, f *bdd.Feature) {
-				arguments := []string{}
-				f.When("<package> is provided", func() {
-					arguments = append(arguments, "-package", name, "app.feature")
-				})
-				f.Then("the output should contain <package>", func() {
-					out := runApp(t, arguments, true)
-					if !strings.Contains(out, tc.Package) {
-						t.Fatal(out)
-					}
-				})
+		f.TestCases(testCases, func(t *testing.T, f *bdd.Feature, tc testCase) {
+			arguments := []string{}
+			f.When("<package> is provided", func() {
+				arguments = append(arguments, "-package", tc.Package, "app.feature")
 			})
-		}
+			f.Then("the output should contain <package>", func() {
+				out := runApp(t, arguments, true)
+				if !strings.Contains(out, tc.Package) {
+					t.Fatal(out)
+				}
+			})
+		})
 	})
 }

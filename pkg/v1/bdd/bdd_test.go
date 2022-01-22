@@ -6,6 +6,32 @@ import (
 	"github.com/hedhyw/gherkingen/pkg/v1/bdd"
 )
 
+func TestBDDTestCases(t *testing.T) {
+	t.Run("ok", func(t *testing.T) {
+		f := bdd.NewFeature(t, "bdd")
+
+		type testCase struct {
+			Inc int
+		}
+
+		const expSum = 20
+		testCases := map[string]testCase{
+			"by_7":  {7},
+			"by_13": {13},
+		}
+
+		var gotSum int
+
+		f.TestCases(testCases, func(t *testing.T, f *bdd.Feature, tc testCase) {
+			gotSum += tc.Inc
+		})
+
+		if gotSum != expSum {
+			t.Fatalf("Exp: %d, Got: %d", expSum, gotSum)
+		}
+	})
+}
+
 func TestBDD(t *testing.T) {
 	f := bdd.NewFeature(t, "bdd")
 
