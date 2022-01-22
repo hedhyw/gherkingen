@@ -5,27 +5,16 @@ import (
 	"encoding/json"
 	"fmt"
 
-	"github.com/cucumber/gherkin-go/v19"
-	"github.com/google/uuid"
+	"github.com/hedhyw/gherkingen/internal/model"
 )
 
-// GenerateJSON generates output in JSON.
-func GenerateJSON(
-	inputData []byte,
-) (data []byte, err error) {
-	gherkinDocument, err := gherkin.ParseGherkinDocument(
-		bytes.NewReader(inputData),
-		uuid.NewString,
-	)
-	if err != nil {
-		return nil, fmt.Errorf("parse document: %w", err)
-	}
-
+// generateJSON generates output in JSON.
+func generateJSON(tmplData *model.TemplateData) (data []byte, err error) {
 	var buf bytes.Buffer
 
 	jsonEncoder := json.NewEncoder(&buf)
 	jsonEncoder.SetIndent("", "    ")
-	if err = jsonEncoder.Encode(gherkinDocument); err != nil {
+	if err = jsonEncoder.Encode(tmplData); err != nil {
 		return nil, fmt.Errorf("encoding json: %w", err)
 	}
 

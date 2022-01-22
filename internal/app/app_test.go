@@ -3,13 +3,14 @@ package app_test
 import (
 	"bytes"
 	"flag"
+	"strings"
 	"testing"
 
 	"github.com/hedhyw/gherkingen/internal/app"
 	"github.com/hedhyw/gherkingen/pkg/v1/bdd"
 )
 
-func runApp(tb testing.TB, arguments []string, ok bool) {
+func runApp(tb testing.TB, arguments []string, ok bool) string {
 	tb.Helper()
 
 	flag.CommandLine = flag.NewFlagSet("", flag.PanicOnError)
@@ -27,6 +28,8 @@ func runApp(tb testing.TB, arguments []string, ok bool) {
 			tb.Error("Empty output")
 		}
 	}
+
+	return buf.String()
 }
 
 func TestApplicationCommandLineTool(t *testing.T) {
@@ -120,9 +123,8 @@ func TestApplicationCommandLineTool(t *testing.T) {
 		}
 
 		testCases := map[string]testCase{
-			"app.feature_../assets/std.args.v1.go.tmpl": {"app.feature", "../assets/std.args.v1.go.tmpl"},
-			"app.feature_@/std.args.v1.go.tmpl":         {"app.feature", "@/std.args.v1.go.tmpl"},
-			"app.feature_@/std.struct.v1.go.tmpl":       {"app.feature", "@/std.struct.v1.go.tmpl"},
+			"app.feature_../assets/std.struct.v1.go.tmpl": {"app.feature", "../assets/std.struct.v1.go.tmpl"},
+			"app.feature_@/std.struct.v1.go.tmpl":         {"app.feature", "@/std.struct.v1.go.tmpl"},
 		}
 
 		for name, tc := range testCases {
@@ -138,6 +140,34 @@ func TestApplicationCommandLineTool(t *testing.T) {
 				})
 				f.Then("the output should be generated", func() {
 					runApp(t, arguments, true)
+				})
+			})
+		}
+	})
+
+	f.Scenario("User wants to set custom package", func(t *testing.T, f *bdd.Feature) {
+		type testCase struct {
+			Package string `field:"<package>"`
+		}
+
+		testCases := map[string]testCase{
+			"app_test":     {"app_test"},
+			"example_test": {"example_test"},
+		}
+
+		for name, tc := range testCases {
+			name, tc := name, tc
+
+			f.TestCase(name, tc, func(t *testing.T, f *bdd.Feature) {
+				arguments := []string{}
+				f.When("<package> is provided", func() {
+					arguments = append(arguments, "-package", name, "app.feature")
+				})
+				f.Then("the output should contain <package>", func() {
+					out := runApp(t, arguments, true)
+					if !strings.Contains(out, tc.Package) {
+						t.Fatal(out)
+					}
 				})
 			})
 		}

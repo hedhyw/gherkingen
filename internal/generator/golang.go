@@ -3,21 +3,23 @@ package generator
 import (
 	"fmt"
 	"go/format"
+
+	"github.com/hedhyw/gherkingen/internal/model"
 )
 
-// GenerateGo generates raw output and formates it with go formatter.
-func GenerateGo(
-	inputData []byte,
-	templateData []byte,
-) (data []byte, err error) {
-	data, err = GenerateRaw(inputData, templateData)
+// generateGo generates raw output and formates it with go formatter.
+func generateGo(
+	tmplSource []byte,
+	tmplData *model.TemplateData,
+) (out []byte, err error) {
+	out, err = generateRaw(tmplSource, tmplData)
 	if err != nil {
 		return nil, fmt.Errorf("generating raw: %w", err)
 	}
 
-	if data, err = format.Source(data); err != nil {
+	if out, err = format.Source(out); err != nil {
 		return nil, fmt.Errorf("formating source: %w", err)
 	}
 
-	return data, nil
+	return out, nil
 }

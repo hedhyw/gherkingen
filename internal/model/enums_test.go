@@ -1,20 +1,20 @@
-package enums_test
+package model_test
 
 import (
 	"testing"
 
-	"github.com/hedhyw/gherkingen/internal/enums"
+	"github.com/hedhyw/gherkingen/internal/model"
 )
 
 func TestFormats(t *testing.T) {
 	t.Parallel()
 
-	formats := enums.Formats()
+	formats := model.Formats()
 
-	expFormats := [...]enums.Format{
-		enums.FormatJSON,
-		enums.FormatGo,
-		enums.FormatRaw,
+	expFormats := [...]model.Format{
+		model.FormatJSON,
+		model.FormatGo,
+		model.FormatRaw,
 	}
 
 	formatsSet := make(map[string]struct{}, len(formats))

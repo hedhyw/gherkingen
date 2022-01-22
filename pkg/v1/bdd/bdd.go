@@ -116,6 +116,28 @@ func (f *Feature) Background(name string, fn func(t *testing.T, f *Feature)) {
 	})
 }
 
+// Rule defines a rule block.
+func (f *Feature) Rule(name string, fn func(t *testing.T, f *Feature)) {
+	f.T.Helper()
+
+	f.subBlock(name, func(t *testing.T, f *Feature) {
+		t.Helper()
+		f.appendLogf("Rule: %s", name)
+		fn(t, f)
+	})
+}
+
+// Example defines an example-scenario block.
+func (f *Feature) Example(name string, fn func(t *testing.T, f *Feature)) {
+	f.T.Helper()
+
+	f.subBlock(name, func(t *testing.T, f *Feature) {
+		t.Helper()
+		f.appendLogf("Example: %s", name)
+		fn(t, f)
+	})
+}
+
 // Scenario defines a scenario block.
 func (f *Feature) Scenario(name string, fn func(t *testing.T, f *Feature)) {
 	f.T.Helper()

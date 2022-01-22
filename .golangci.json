@@ -16,7 +16,8 @@
       "exhaustive",
       "gomnd",
       "thelper",
-      "paralleltest"
+      "paralleltest",
+      "tagliatelle"
     ]
   },
   "linters-settings": {

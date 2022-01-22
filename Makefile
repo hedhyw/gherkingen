@@ -8,9 +8,13 @@ test:
 	go test -covermode=count -coverprofile=coverage.out ./...
 .PHONY: test.coverage
 
-readme.examples:
-	go run cmd/gherkingen/main.go readme.feature.example > readme.go.example
-.PHONY: readme.examples
+generate:
+	sh scripts/examples.sh
+.PHONY: generate
+
+check.generate: generate
+	git diff --exit-code internal/generator/examples
+.PHONY: check.generate
 
 vendor:
 	go mod tidy

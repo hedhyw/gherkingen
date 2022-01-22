@@ -5,7 +5,7 @@ import (
 	"io"
 	"strings"
 
-	"github.com/hedhyw/gherkingen/internal/enums"
+	"github.com/hedhyw/gherkingen/internal/model"
 )
 
 const (
@@ -19,8 +19,8 @@ func Run(arguments []string, out io.Writer) (err error) {
 
 	outputFormat := flag.String(
 		"format",
-		string(enums.FormatGo),
-		"output format: "+strings.Join(enums.Formats(), ", "),
+		string(model.FormatGo),
+		"output format: "+strings.Join(model.Formats(), ", "),
 	)
 	templateFile := flag.String(
 		"template",
@@ -37,6 +37,11 @@ func Run(arguments []string, out io.Writer) (err error) {
 		false,
 		"list internal templates",
 	)
+	packageName := flag.String(
+		"package",
+		"generated_test",
+		"name of the generated package",
+	)
 	if err = flag.CommandLine.Parse(arguments); err != nil {
 		return err
 	}
@@ -52,6 +57,12 @@ func Run(arguments []string, out io.Writer) (err error) {
 	case *help, inputFile == "":
 		return runHelp()
 	default:
-		return runGenerator(out, enums.Format(*outputFormat), *templateFile, inputFile)
+		return runGenerator(
+			out,
+			model.Format(*outputFormat),
+			*templateFile,
+			inputFile,
+			*packageName,
+		)
 	}
 }
