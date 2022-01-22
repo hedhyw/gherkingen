@@ -181,6 +181,47 @@ func (f *Feature) TestCase(name string, tc interface{}, fn func(t *testing.T, f 
 	})
 }
 
+// TestCase defines a testcase block.
+func (f *Feature) TestCases(testCases interface{}, fn interface{}) {
+	f.T.Helper()
+
+	if reflect.TypeOf(fn).Kind() != reflect.Func {
+		f.T.Fatalf("cannot call fn: %+v", fn)
+	}
+
+	callFn := func(t *testing.T, f *Feature, tc interface{}) {
+		t.Helper()
+
+		reflect.ValueOf(fn).Call([]reflect.Value{
+			reflect.ValueOf(t),
+			reflect.ValueOf(f),
+			reflect.ValueOf(tc),
+		})
+	}
+
+	rt := reflect.TypeOf(testCases)
+
+	if rt.Kind() != reflect.Map {
+		f.T.Fatalf("invalid testCases type: %s", rt.Kind())
+	}
+
+	iter := reflect.ValueOf(testCases).MapRange()
+	for iter.Next() {
+		k := iter.Key()
+		v := iter.Value()
+
+		if !v.CanInterface() {
+			f.T.Fatalf("testcase has unexported fields: %+v", v)
+		}
+
+		f.TestCase(k.String(), v.Interface(), func(t *testing.T, f *Feature) {
+			t.Helper()
+
+			callFn(t, f, v.Interface())
+		})
+	}
+}
+
 // And defines an and block.
 func (f *Feature) And(and string, fn func()) {
 	f.T.Helper()

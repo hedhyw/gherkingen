@@ -42,17 +42,13 @@ import (
             {{- end }}
 		}
 
-        for name, tc := range testCases {
-			name, tc := name, tc
-
-			f.TestCase(name, tc, func(t *testing.T, f *bdd.Feature) {
-                {{- range $Scenario.Steps }}
-                f.{{ .GoName }}({{ .GoValue }}, func() {
-                    
-                })
-                {{- end }}
+        f.TestCases(testCases, func(t *testing.T, f *bdd.Feature, tc testCase) {
+            {{- range $Scenario.Steps }}
+            f.{{ .GoName }}({{ .GoValue }}, func() {
+                
             })
-        }
+            {{- end }}
+        })
         {{- else }}
         {{- range $Scenario.Steps }}
         f.{{ .GoName }}({{.GoValue}}, func() {

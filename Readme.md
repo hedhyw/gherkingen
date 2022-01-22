@@ -31,7 +31,7 @@ Feature: Application command line tool
     | -invalid |       1       | false     |
 ```
 
-**Then** this generator writes a [golang](internal/generator/examples/readme.feature.go) output:
+**Then** this generator writes a [golang](internal/generator/examples/readme.feature_test.go) output (`gerkingen readme.feature > readme.feature_test.go`):
 
 ```go
 func TestApplicationCommandLineTool(t *testing.T) {
@@ -50,21 +50,17 @@ func TestApplicationCommandLineTool(t *testing.T) {
 			"-invalid_1_false": {"-invalid", 1, false},
 		}
 
-		for name, tc := range testCases {
-			name, tc := name, tc
+		f.TestCases(testCases, func(t *testing.T, f *bdd.Feature, tc testCase) {
+			f.When("flag <flag> is provided", func() {
 
-			f.TestCase(name, tc, func(t *testing.T, f *bdd.Feature) {
-				f.When("flag <flag> is provided", func() {
-
-				})
-				f.Then("usage should be printed <printed>", func() {
-
-				})
-				f.And("exit status should be <exit_status>", func() {
-
-				})
 			})
-		}
+			f.Then("usage should be printed <printed>", func() {
+
+			})
+			f.And("exit status should be <exit_status>", func() {
+
+			})
+		})
 	})
 }
 ```
@@ -78,6 +74,26 @@ Feature: Application command line tool
 		When flag -invalid is provided
 		Then usage should be printed false
 		And exit status should be 1
+```
+
+**Example** implementation:
+```go
+f.TestCases(testCases, func(t *testing.T, f *bdd.Feature, tc testCase) {
+	var exitStatus int
+	arguments := []string{}
+
+	f.When("flag <flag> is provided", func() {
+		arguments = append(arguments, tc.Flag)
+	})
+	f.Then("usage should be printed <printed>", func() {
+		var output string
+		output, exitStatus = runApp(t, arguments)
+		assert.Equal(t, tc.Printed, strings.Contains(output, "usage"))
+	})
+	f.And("exit status should be <exit_status>", func() {
+		assert.Equal(t, tc.ExitStatus, exitStatus)
+	})
+})
 ```
 
 ## More advanced example
@@ -125,6 +141,8 @@ Usage of gherkingen [FEATURE_FILE]:
         print usage
   -list
         list internal templates
+  -package string
+        name of the generated package (default "generated_test")
   -template string
         template file (default "@/std.struct.v1.go.tmpl")
 ```
