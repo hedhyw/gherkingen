@@ -150,7 +150,7 @@ Usage of gherkingen [FEATURE_FILE]:
 # Output customization
 
 ## Custom templates
-You can provide your own template, it can be based on [internal/assets/std.args.v1.go.tmpl](internal/assets/std.args.v1.go.tmpl). In the command-line tool specify the template
+You can provide your own template, it can be based on [internal/assets/std.struct.v1.go.tmpl](internal/assets/std.struct.v1.go.tmpl). In the command-line tool specify the template
 using `-template` flag: `gherkingen -template example.tmpl raw example.feature`
 
 ## Frameworks support
