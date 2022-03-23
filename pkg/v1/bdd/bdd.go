@@ -181,7 +181,7 @@ func (f *Feature) TestCase(name string, tc interface{}, fn func(t *testing.T, f 
 	})
 }
 
-// TestCase defines a testcase block.
+// TestCases defines testcases block.
 func (f *Feature) TestCases(testCases interface{}, fn interface{}) {
 	f.T.Helper()
 
