@@ -11,7 +11,7 @@ lint: bin/golangci-lint
 
 test:
 	go test -covermode=count -coverprofile=coverage.out ./...
-.PHONY: test.coverage
+.PHONY: test
 
 generate:
 	sh scripts/examples.sh
