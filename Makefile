@@ -1,4 +1,4 @@
-GOLANG_CI_LINT_VER:=v1.43.0
+GOLANG_CI_LINT_VER:=v1.45.0
 
 lint: bin/golangci-lint
 	./bin/golangci-lint run
