@@ -1,5 +1,6 @@
 GOLANG_CI_LINT_VER:=v1.45.0
 OUT_BIN?=${PWD}/bin/gherkingen
+COVER_PACKAGES=${go list ./... | grep -Ev 'examples' | tr '\n' ','}
 
 build:
 	go build -o ${OUT_BIN} cmd/gherkingen/main.go
@@ -10,7 +11,8 @@ lint: bin/golangci-lint
 .PHONY: lint
 
 test:
-	go test -covermode=count -coverprofile=coverage.out ./...
+	go test -coverpkg=github.com/hedhyw/gherkingen/internal/app -covermode=count -coverprofile=coverage.out ./...
+	go tool cover -func=coverage.out
 .PHONY: test
 
 generate:
