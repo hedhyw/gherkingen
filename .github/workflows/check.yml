@@ -1,20 +1,16 @@
 name: check-gherkingen
 
-on: [push, pull_request]
+on: [pull_request]
 
 jobs:
   test:
     name: Test
-    strategy:
-      matrix:
-        go-version: ["1.17.8"]
-        platform: [ubuntu-latest, macos-latest, windows-latest]
-    runs-on: ${{matrix.platform}}
+    runs-on: ubuntu-latest
     steps:
-      - name: Set up Go ${{matrix.go-version}}
+      - name: Set up Go
         uses: actions/setup-go@v2
         with:
-          go-version: ${{matrix.go-version}}
+          go-version: '1.17.8'
         id: go
 
       - name: Check out code into the Go module directory
