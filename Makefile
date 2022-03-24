@@ -1,4 +1,9 @@
 GOLANG_CI_LINT_VER:=v1.45.0
+OUT_BIN?=${PWD}/bin/gherkingen
+
+build:
+	go build -o ${OUT_BIN} cmd/gherkingen/main.go
+.PHONY: build
 
 lint: bin/golangci-lint
 	./bin/golangci-lint run
@@ -6,7 +11,7 @@ lint: bin/golangci-lint
 
 test:
 	go test -covermode=count -coverprofile=coverage.out ./...
-.PHONY: test.coverage
+.PHONY: test
 
 generate:
 	sh scripts/examples.sh

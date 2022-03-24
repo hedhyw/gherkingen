@@ -103,9 +103,18 @@ See [internal/app/app.feature](internal/app/app.feature) and [internal/app/app_t
 
 # Install
 
-Run:
+## Go
+
 ```
 go install github.com/hedhyw/gherkingen/cmd/gherkingen@latest
+```
+
+## Source
+
+```
+git clone git@github.com:hedhyw/gherkingen.git
+cd gherkingen
+go install cmd/gherkingen/main.go
 ```
 
 # Usage
@@ -146,6 +155,23 @@ Usage of gherkingen [FEATURE_FILE]:
         name of the generated package (default "generated_test")
   -template string
         template file (default "@/std.struct.v1.go.tmpl")
+```
+
+## Running in docker
+
+```sh
+docker run --rm -it --read-only --network none \
+	--volume $PWD:/host/ \
+	hedhyw/gherkingen:latest \
+	-- /host/<RELATIVE_PATH_TO_FEATURE_FILE>
+```
+
+Passing arguments:
+```sh
+# Any command-line tool arguments also can be used.
+# Example:
+docker run --rm -it --read-only --network none \
+	hedhyw/gherkingen:latest -list
 ```
 
 # Output customization
