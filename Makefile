@@ -10,7 +10,7 @@ lint: bin/golangci-lint
 .PHONY: lint
 
 test:
-	go test -covermode=count -coverprofile=coverage.out ./...
+	go test -coverpkg=./... -covermode=count -coverprofile=coverage.out ./...
 .PHONY: test
 
 generate:
