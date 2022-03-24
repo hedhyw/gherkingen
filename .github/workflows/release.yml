@@ -47,6 +47,6 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           context: .
-          platforms: linux/amd64,linux/arm64,linux/arm/v7,linux/arm/v6
+          platforms: linux/amd64,linux/arm/v6,linux/386
           push: true
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/gherkingen:latest,${{ secrets.DOCKERHUB_USERNAME }}/gherkingen:${{ steps.vars.outputs.tag }}
