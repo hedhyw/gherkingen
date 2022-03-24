@@ -1,11 +1,6 @@
 name: check-gherkingen
 
-on:
-  push:
-    branches:
-      - main
-  pull_request:
-    types: [opened, reopened]
+on: [push, pull_request]
 
 jobs:
   test:
