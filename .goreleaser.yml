@@ -55,10 +55,9 @@ brews:
     description: BDD tests boilerplate generator for Golang
     license: MIT
     homepage: https://github.com/hedhyw/gherkingen
-    folder: Formula
     tap:
       owner: hedhyw
-      name: gherkingen
+      name: homebrew-gherkingen
     test: system "#{bin}/gherkingen", "-help"
     install: |-
       bin.install "gherkingen"
