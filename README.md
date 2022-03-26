@@ -103,6 +103,40 @@ See [internal/app/app.feature](internal/app/app.feature) and [internal/app/app_t
 
 # Install
 
+## Package
+
+Latest DEB and RPM packages are available on [the releases page](https://github.com/hedhyw/gherkingen/releases/latest).
+
+## MacOS/Linux HomeBrew
+
+```sh
+# Install the package using HomeBrew.
+brew install hedhyw/gherkingen/gherkingen
+
+# Check that the generator is working.
+gherkingen -help
+```
+
+## Standalone Binary
+
+Download latest archive `*.tar.gz` for your target platform from [the releases page](https://github.com/hedhyw/gherkingen/releases/latest) and extract it to `/usr/local/bin/gherkingen`. Add this path to `PATH` environment.
+
+Example flow:
+```sh
+# Check the signature of a downloaded atchive with the file task_checksums.txt from the release page.
+
+# Remove old binaries.
+rm -rf /usr/local/gherkingen
+# Restore folder structure.
+mkdir -p /usr/local/gherkingen
+# Extract archive to target path.
+tar -C /usr/local/gherkingen -xzf DOWNLOAD_ARCHIVE.TAR.GZ
+# Add `/usr/local/gherkingen` to PATH environment variable.
+export PATH=/usr/local/gherkingen:$PATH
+# Check that the generator is working.
+gherkingen -help
+```
+
 ## Go
 
 ```
@@ -161,6 +195,10 @@ Usage of gherkingen [FEATURE_FILE]:
 
 ## Running in docker
 
+Docker image: https://hub.docker.com/r/hedhyw/gherkingen
+
+Running gherkingen in docker, `<RELATIVE_PATH_TO_FEATURE_FILE>` is
+a path to a feature file relatively to the current directory.
 ```sh
 docker run --rm -it --read-only --network none \
 	--volume $PWD:/host/ \
