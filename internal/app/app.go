@@ -7,8 +7,9 @@ import (
 	"strings"
 	"time"
 
-	"github.com/google/uuid"
 	"github.com/hedhyw/gherkingen/internal/model"
+
+	"github.com/google/uuid"
 )
 
 const (
@@ -56,8 +57,10 @@ func Run(arguments []string, out io.Writer) (err error) {
 	}
 
 	if *permanentIDs {
+		// nolint:gosec // Usage for uniq ids.
 		uuid.SetRand(rand.New(rand.NewSource(0)))
 	} else {
+		// nolint:gosec // Usage for uniq ids.
 		uuid.SetRand(rand.New(rand.NewSource(time.Now().UnixNano())))
 	}
 
