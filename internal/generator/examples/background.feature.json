@@ -1,0 +1,250 @@
+{
+    "Feature": {
+        "Location": {
+            "Line": 1,
+            "Column": 1
+        },
+        "Tags": [],
+        "Language": "en",
+        "Keyword": "Feature",
+        "Name": "Multiple site support",
+        "Description": "  Only blog owners can post to a blog, except administrators,\n  who can post to all blogs.",
+        "Children": [
+            {
+                "Background": {
+                    "Location": {
+                        "Line": 5,
+                        "Column": 3
+                    },
+                    "Keyword": "Background",
+                    "Name": "",
+                    "Description": "",
+                    "Steps": [
+                        {
+                            "Location": {
+                                "Line": 6,
+                                "Column": 5
+                            },
+                            "Keyword": "Given ",
+                            "Text": "a global administrator named \"Greg\"",
+                            "ID": "183fd9b6-9c62-461e-a463-54e173eac4c5",
+                            "GoType": "string",
+                            "GoName": "Given",
+                            "GoValue": "\"a global administrator named \\\"Greg\\\"\""
+                        },
+                        {
+                            "Location": {
+                                "Line": 7,
+                                "Column": 5
+                            },
+                            "Keyword": "And ",
+                            "Text": "a blog named \"Greg's anti-tax rants\"",
+                            "ID": "b435a7e4-88fa-4e60-a462-b0cd12d4cd3b",
+                            "GoType": "string",
+                            "GoName": "And",
+                            "GoValue": "\"a blog named \\\"Greg's anti-tax rants\\\"\""
+                        },
+                        {
+                            "Location": {
+                                "Line": 8,
+                                "Column": 5
+                            },
+                            "Keyword": "And ",
+                            "Text": "a customer named \"Dr. Bill\"",
+                            "ID": "dcb71e46-62c3-48a4-b799-fc961be485ad",
+                            "GoType": "string",
+                            "GoName": "And",
+                            "GoValue": "\"a customer named \\\"Dr. Bill\\\"\""
+                        },
+                        {
+                            "Location": {
+                                "Line": 9,
+                                "Column": 5
+                            },
+                            "Keyword": "And ",
+                            "Text": "a blog named \"Expensive Therapy\" owned by \"Dr. Bill\"",
+                            "ID": "8c00100c-855a-48b2-b10f-8a04b963d694",
+                            "GoType": "string",
+                            "GoName": "And",
+                            "GoValue": "\"a blog named \\\"Expensive Therapy\\\" owned by \\\"Dr. Bill\\\"\""
+                        }
+                    ],
+                    "ID": "e02fbd8d-0215-4cd5-aee6-79ae37604a3f",
+                    "GoType": "string",
+                    "GoName": "Background",
+                    "GoValue": "\"\""
+                }
+            },
+            {
+                "Scenario": {
+                    "Location": {
+                        "Line": 11,
+                        "Column": 3
+                    },
+                    "Tags": [],
+                    "Keyword": "Scenario",
+                    "Name": "Dr. Bill posts to his own blog",
+                    "Description": "",
+                    "Steps": [
+                        {
+                            "Location": {
+                                "Line": 12,
+                                "Column": 5
+                            },
+                            "Keyword": "Given ",
+                            "Text": "I am logged in as Dr. Bill",
+                            "ID": "25c6366d-8714-448d-9f45-821083535ca3",
+                            "GoType": "string",
+                            "GoName": "Given",
+                            "GoValue": "\"I am logged in as Dr. Bill\""
+                        },
+                        {
+                            "Location": {
+                                "Line": 13,
+                                "Column": 5
+                            },
+                            "Keyword": "When ",
+                            "Text": "I try to post to \"Expensive Therapy\"",
+                            "ID": "19c01103-88b3-416d-9f2b-9bc700d7a010",
+                            "GoType": "string",
+                            "GoName": "When",
+                            "GoValue": "\"I try to post to \\\"Expensive Therapy\\\"\""
+                        },
+                        {
+                            "Location": {
+                                "Line": 14,
+                                "Column": 5
+                            },
+                            "Keyword": "Then ",
+                            "Text": "I should see \"Your article was published.\"",
+                            "ID": "047d7268-7d28-4d9d-a350-22e0b534b3eb",
+                            "GoType": "string",
+                            "GoName": "Then",
+                            "GoValue": "\"I should see \\\"Your article was published.\\\"\""
+                        }
+                    ],
+                    "Examples": [],
+                    "ID": "85e42db6-db24-4e7e-8967-232a4c3c1233",
+                    "GoType": "string",
+                    "GoName": "Scenario",
+                    "GoValue": "\"Dr. Bill posts to his own blog\""
+                }
+            },
+            {
+                "Scenario": {
+                    "Location": {
+                        "Line": 16,
+                        "Column": 3
+                    },
+                    "Tags": [],
+                    "Keyword": "Scenario",
+                    "Name": "Dr. Bill tries to post to somebody else's blog, and fails",
+                    "Description": "",
+                    "Steps": [
+                        {
+                            "Location": {
+                                "Line": 17,
+                                "Column": 5
+                            },
+                            "Keyword": "Given ",
+                            "Text": "I am logged in as Dr. Bill",
+                            "ID": "436a9557-2692-443d-bdd3-cebe0f7962e7",
+                            "GoType": "string",
+                            "GoName": "Given",
+                            "GoValue": "\"I am logged in as Dr. Bill\""
+                        },
+                        {
+                            "Location": {
+                                "Line": 18,
+                                "Column": 5
+                            },
+                            "Keyword": "When ",
+                            "Text": "I try to post to \"Greg's anti-tax rants\"",
+                            "ID": "98375552-0a4a-4b1e-a2e2-2ba15bb9102d",
+                            "GoType": "string",
+                            "GoName": "When",
+                            "GoValue": "\"I try to post to \\\"Greg's anti-tax rants\\\"\""
+                        },
+                        {
+                            "Location": {
+                                "Line": 19,
+                                "Column": 5
+                            },
+                            "Keyword": "Then ",
+                            "Text": "I should see \"Hey! That's not your blog!\"",
+                            "ID": "cd03d0e5-37bf-42a9-a1cd-3176b94f3618",
+                            "GoType": "string",
+                            "GoName": "Then",
+                            "GoValue": "\"I should see \\\"Hey! That's not your blog!\\\"\""
+                        }
+                    ],
+                    "Examples": [],
+                    "ID": "6ab1b0f3-af9c-42ad-b123-4a75b979e732",
+                    "GoType": "string",
+                    "GoName": "Scenario",
+                    "GoValue": "\"Dr. Bill tries to post to somebody else's blog, and fails\""
+                }
+            },
+            {
+                "Scenario": {
+                    "Location": {
+                        "Line": 21,
+                        "Column": 3
+                    },
+                    "Tags": [],
+                    "Keyword": "Scenario",
+                    "Name": "Greg posts to a client's blog",
+                    "Description": "",
+                    "Steps": [
+                        {
+                            "Location": {
+                                "Line": 22,
+                                "Column": 5
+                            },
+                            "Keyword": "Given ",
+                            "Text": "I am logged in as Greg",
+                            "ID": "f8ab6717-d4d7-4efd-be32-8e07f6d2686e",
+                            "GoType": "string",
+                            "GoName": "Given",
+                            "GoValue": "\"I am logged in as Greg\""
+                        },
+                        {
+                            "Location": {
+                                "Line": 23,
+                                "Column": 5
+                            },
+                            "Keyword": "When ",
+                            "Text": "I try to post to \"Expensive Therapy\"",
+                            "ID": "627254ba-c807-4c95-91e2-e132933fd62f",
+                            "GoType": "string",
+                            "GoName": "When",
+                            "GoValue": "\"I try to post to \\\"Expensive Therapy\\\"\""
+                        },
+                        {
+                            "Location": {
+                                "Line": 24,
+                                "Column": 5
+                            },
+                            "Keyword": "Then ",
+                            "Text": "I should see \"Your article was published.\"",
+                            "ID": "5821a178-19fd-4aed-83a3-a12c9178188b",
+                            "GoType": "string",
+                            "GoName": "Then",
+                            "GoValue": "\"I should see \\\"Your article was published.\\\"\""
+                        }
+                    ],
+                    "Examples": [],
+                    "ID": "fdcfb448-ab32-4e58-bfee-d90e291af2ef",
+                    "GoType": "string",
+                    "GoName": "Scenario",
+                    "GoValue": "\"Greg posts to a client's blog\""
+                }
+            }
+        ],
+        "GoType": "string",
+        "GoName": "MultipleSiteSupport",
+        "GoValue": "\"Multiple site support\""
+    },
+    "Comments": [],
+    "PackageName": "examples_test"
+}

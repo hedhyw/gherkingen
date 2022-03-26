@@ -6,4 +6,9 @@ for f in internal/generator/examples/*.feature; do
     -format go \
     $f \
     > ${f}_test.go
+  go run cmd/gherkingen/main.go \
+    -package examples_test \
+    -format json \
+    $f \
+    > ${f}.json
 done

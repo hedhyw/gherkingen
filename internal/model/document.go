@@ -7,15 +7,25 @@ import (
 )
 
 type goData struct {
-	GoType  goType `json:"GoType"`
-	GoName  string `json:"GoName"`
+	// GoType represents a name of the type in Golang.
+	// Example: int
+	GoType goType `json:"GoType"`
+	// GoType represents a valid identifier in Golang.
+	// Example: SomeValue
+	GoName string `json:"GoName"`
+	// GoType is a valid quoted string that can be used as a values in Golang.
+	// Example: "Some\"Value"
 	GoValue string `json:"GoValue"`
 }
 
 // GherkinDocument is a core document.
+//
+// More details: https://cucumber.io/docs/cucumber/
 type GherkinDocument struct {
-	URI      string     `json:"URI,omitempty"`
-	Feature  *Feature   `json:"Feature,omitempty"`
+	URI string `json:"URI,omitempty"`
+	// Feature is a root element of the document.
+	Feature *Feature `json:"Feature,omitempty"`
+	// Comments to the feature.
 	Comments []*Comment `json:"Comments"`
 }
 
@@ -35,13 +45,36 @@ func (to *GherkinDocument) From(from *messages.GherkinDocument) *GherkinDocument
 }
 
 // Background is a gherkin's background.
+//
+// Occasionally you’ll find yourself repeating the same Given steps in
+// all of the scenarios in a Feature.
+//
+// Since it is repeated in every scenario, this is an indication that
+// those steps are not essential to describe the scenarios; they are
+// incidental details. You can literally move such Given steps to the
+// background, by grouping them under a Background section.
+//
+// A Background allows you to add some context to the scenarios that
+// follow it. It can contain one or more Given steps, which are run
+// before each scenario, but after any Before hooks.
+//
+// A Background is placed before the first Scenario/Example, at the same
+// level of indentation.
+//
+// More details: https://cucumber.io/docs/gherkin/reference/#background
 type Background struct {
-	Location    *Location `json:"Location"`
-	Keyword     string    `json:"Keyword"`
-	Name        string    `json:"Name"`
-	Description string    `json:"Description"`
-	Steps       []*Step   `json:"Steps"`
-	ID          string    `json:"ID"`
+	// Location in the source.
+	Location *Location `json:"Location"`
+	// Keyword of the block.
+	Keyword string `json:"Keyword"`
+	// Name of the block.
+	Name string `json:"Name"`
+	// Description of the block.
+	Description string `json:"Description"`
+	// Steps of the background.
+	Steps []*Step `json:"Steps"`
+	// ID is a unique identifier of the block.
+	ID string `json:"ID"`
 
 	goData
 }
@@ -72,8 +105,10 @@ func (to *Background) From(from *messages.Background) *Background {
 
 // Comment is a gherkin's comment.
 type Comment struct {
+	// Location in the source.
 	Location *Location `json:"Location"`
-	Text     string    `json:"Text"`
+	// Text of the block.
+	Text string `json:"Text"`
 }
 
 // From converts to Comment.
@@ -106,8 +141,10 @@ func (to CommentsSlice) From(from []*messages.Comment) CommentsSlice {
 
 // DataTable is a gherkin's dataTable.
 type DataTable struct {
-	Location *Location   `json:"Location"`
-	Rows     []*TableRow `json:"Rows"`
+	// Location in the source.
+	Location *Location `json:"Location"`
+	// Rows of the table.
+	Rows []*TableRow `json:"Rows"`
 }
 
 // From converts to DataTable.
@@ -126,10 +163,16 @@ func (to *DataTable) From(from *messages.DataTable) *DataTable {
 
 // DocString is a gherkin's docString.
 type DocString struct {
-	Location  *Location `json:"Location"`
-	MediaType string    `json:"MediaType,omitempty"`
-	Content   string    `json:"Content"`
-	Delimiter string    `json:"Delimiter"`
+	// Location in the source.
+	Location *Location `json:"Location"`
+	// MediaType of the documentation.
+	// Example: text/plain;charset=UTF-8.
+	// More details: https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types
+	MediaType string `json:"MediaType,omitempty"`
+	// Content of the documentation.
+	Content string `json:"Content"`
+	// Delimeter that is used.
+	Delimiter string `json:"Delimiter"`
 }
 
 // From converts to DocString.
@@ -150,15 +193,23 @@ func (to *DocString) From(from *messages.DocString) *DocString {
 
 // Examples is a gherkin's examples.
 type Examples struct {
-	Location    *Location `json:"Location"`
-	Tags        []*Tag    `json:"Tags"`
-	Keyword     string    `json:"Keyword"`
-	Name        string    `json:"Name"`
-	Description string    `json:"Description"`
-	ID          string    `json:"ID"`
+	// Location in the source.
+	Location *Location `json:"Location"`
+	// Tags provides a way of organizing blocks.
+	Tags []*Tag `json:"Tags"`
+	// Keyword of the block.
+	Keyword string `json:"Keyword"`
+	// Name of the block.
+	Name string `json:"Name"`
+	// Description of the block.
+	Description string `json:"Description"`
+	// ID is a unique identifier of the block.
+	ID string `json:"ID"`
 
-	TableHeader *TableRow   `json:"TableHeader,omitempty"`
-	TableBody   []*TableRow `json:"TableBody"`
+	// TableHeader contains a header of a table example.
+	TableHeader *TableRow `json:"TableHeader,omitempty"`
+	// TableBody contains a body of a table example.
+	TableBody []*TableRow `json:"TableBody"`
 }
 
 // From converts to Examples.
@@ -200,15 +251,35 @@ func (to ExamplesSlice) From(from []*messages.Examples) ExamplesSlice {
 	return to
 }
 
-// Feature is a gherkin's feature.
+// Feature is a root element of the document.
+//
+// The purpose of the Feature keyword is to provide a high-level
+// description of a software feature, and to group related scenarios.
+//
+// The first primary keyword in a Gherkin document must always be Feature,
+// followed by a : and a short text that describes the feature.
+//
+// More details: https://cucumber.io/docs/gherkin/reference/#feature
 type Feature struct {
-	Location    *Location       `json:"Location"`
-	Tags        []*Tag          `json:"Tags"`
-	Language    string          `json:"Language"`
-	Keyword     string          `json:"Keyword"`
-	Name        string          `json:"Name"`
-	Description string          `json:"Description"`
-	Children    []*FeatureChild `json:"Children"`
+	// Location of a block in the document.
+	// Location in the source.
+	Location *Location `json:"Location"`
+	// Tags provides a way of organizing blocks.
+	Tags []*Tag `json:"Tags"`
+	// Langauge of the document.
+	// More details: https://cucumber.io/docs/gherkin/reference/#spoken-languages
+	Language string `json:"Language"`
+	// Keyword is always "Feature".
+	// Keyword of the block.
+	Keyword string `json:"Keyword"`
+	// Name is a text of the feature.
+	// Name of the block.
+	Name string `json:"Name"`
+	// Descriptions contains additional information about the feature.
+	// Description of the block.
+	Description string `json:"Description"`
+	// Children elements of the feature.
+	Children []*FeatureChild `json:"Children"`
 
 	goData
 }
@@ -240,9 +311,12 @@ func (to *Feature) From(from *messages.Feature) *Feature {
 
 // FeatureChild is a gherkin's featureChild.
 type FeatureChild struct {
-	Rule       *Rule       `json:"Rule,omitempty"`
+	// Rule for the feature.
+	Rule *Rule `json:"Rule,omitempty"`
+	// Background for the feature.
 	Background *Background `json:"Background,omitempty"`
-	Scenario   *Scenario   `json:"Scenario,omitempty"`
+	// Scenario for the feature.
+	Scenario *Scenario `json:"Scenario,omitempty"`
 }
 
 // From converts to FeatureChild.
@@ -276,13 +350,20 @@ func (to FeatureChildrenSlice) From(from []*messages.FeatureChild) FeatureChildr
 
 // Rule is a gherkin's rule.
 type Rule struct {
-	Location    *Location    `json:"Location"`
-	Tags        []*Tag       `json:"Tags"`
-	Keyword     string       `json:"Keyword"`
-	Name        string       `json:"Name"`
-	Description string       `json:"Description"`
-	Children    []*RuleChild `json:"Children"`
-	ID          string       `json:"ID"`
+	// Location in the source.
+	Location *Location `json:"Location"`
+	// Tags provides a way of organizing blocks.
+	Tags []*Tag `json:"Tags"`
+	// Keyword of the block.
+	Keyword string `json:"Keyword"`
+	// Name of the block.
+	Name string `json:"Name"`
+	// Description of the block.
+	Description string `json:"Description"`
+	// Children of the rule.
+	Children []*RuleChild `json:"Children"`
+	// ID is a unique identifier of the block.
+	ID string `json:"ID"`
 
 	goData
 }
@@ -314,8 +395,10 @@ func (to *Rule) From(from *messages.Rule) *Rule {
 
 // RuleChild is a gherkin's ruleChild.
 type RuleChild struct {
+	// Background of the rule.
 	Background *Background `json:"Background,omitempty"`
-	Scenario   *Scenario   `json:"Scenario,omitempty"`
+	// Scenration of the rule.
+	Scenario *Scenario `json:"Scenario,omitempty"`
 }
 
 // From converts to RuleChild.
@@ -348,14 +431,22 @@ func (to RuleChildSlice) From(from []*messages.RuleChild) RuleChildSlice {
 
 // Scenario is a gherkin's scenario.
 type Scenario struct {
-	Location    *Location   `json:"Location"`
-	Tags        []*Tag      `json:"Tags"`
-	Keyword     string      `json:"Keyword"`
-	Name        string      `json:"Name"`
-	Description string      `json:"Description"`
-	Steps       []*Step     `json:"Steps"`
-	Examples    []*Examples `json:"Examples"`
-	ID          string      `json:"ID"`
+	// Location in the source.
+	Location *Location `json:"Location"`
+	// Tags provides a way of organizing blocks.
+	Tags []*Tag `json:"Tags"`
+	// Keyword of the block.
+	Keyword string `json:"Keyword"`
+	// Name of the block.
+	Name string `json:"Name"`
+	// Description of the block.
+	Description string `json:"Description"`
+	// Steps of the scenario.
+	Steps []*Step `json:"Steps"`
+	// Examples of the scenario.
+	Examples []*Examples `json:"Examples"`
+	// ID is a unique identifier of the block.
+	ID string `json:"ID"`
 
 	goData
 }
@@ -388,12 +479,19 @@ func (to *Scenario) From(from *messages.Scenario) *Scenario {
 
 // Step is a gherkin's step.
 type Step struct {
-	Location  *Location  `json:"Location"`
-	Keyword   string     `json:"Keyword"`
-	Text      string     `json:"Text"`
+	// Location in the source.
+	Location *Location `json:"Location"`
+	// Keyword can be one of: Given, When, Then, And, or But.
+	// Keyword of the block.
+	Keyword string `json:"Keyword"`
+	// Text of the block.
+	Text string `json:"Text"`
+	// DocString is a documenation of the step.
 	DocString *DocString `json:"DocString,omitempty"`
+	// DataTable contains an example of the step.
 	DataTable *DataTable `json:"DataTable,omitempty"`
-	ID        string     `json:"ID"`
+	// ID is a unique identifier of the block.
+	ID string `json:"ID"`
 
 	goData
 }
@@ -438,8 +536,10 @@ func (to StepsSlice) From(from []*messages.Step) StepsSlice {
 
 // TableCell is a gherkin's tableCell.
 type TableCell struct {
+	// Location in the source.
 	Location *Location `json:"Location"`
-	Value    string    `json:"Value"`
+	// Value of the cell.
+	Value string `json:"Value"`
 
 	goData
 }
@@ -490,11 +590,14 @@ func (to TableCellSlice) From(from []*messages.TableCell, goTypes []goType, igno
 	return to
 }
 
-// TableRow is a gherkin's tableRow.
+// TableRow is a row of the example.
 type TableRow struct {
-	Location *Location    `json:"Location"`
-	Cells    []*TableCell `json:"Cells"`
-	ID       string       `json:"ID"`
+	// Location in the source.
+	Location *Location `json:"Location"`
+	// Cells contains example cells.
+	Cells []*TableCell `json:"Cells"`
+	// ID is a unique identifier of the block.
+	ID string `json:"ID"`
 
 	goData
 }
@@ -568,9 +671,12 @@ func (to TableRowSlice) From(from []*messages.TableRow) TableRowSlice {
 
 // Tag is a gherkin's tag.
 type Tag struct {
+	// Location in the source.
 	Location *Location `json:"Location"`
-	Name     string    `json:"Name"`
-	ID       string    `json:"ID"`
+	// Name of the block.
+	Name string `json:"Name"`
+	// ID is a unique identifier of the block.
+	ID string `json:"ID"`
 }
 
 // From converts to Tag.
@@ -604,11 +710,14 @@ func (to TagsSlice) From(from []*messages.Tag) TagsSlice {
 
 // Location is a gherkin's location.
 type Location struct {
-	Line   int64 `json:"Line"`
+	// Column of the parent element.
+	Line int64 `json:"Line"`
+	// Column of the parent element.
 	Column int64 `json:"Column,omitempty"`
 }
 
 // From converts to Location.
+// Location in the source.
 func (to *Location) From(from *messages.Location) *Location {
 	if from == nil {
 		return nil

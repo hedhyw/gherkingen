@@ -193,6 +193,18 @@ create a pull request for supporting templates for them. For this:
 Templates are very customizable, so you can even generate non-golang code. In the command-line tool specify `raw` format using `-format` flag and your template using `-template` flag:
 `gherkingen -format raw -template example.tmpl example.feature`.
 
-## License
+## Creating templates
 
-See [License](License).
+Useful resources:
+| Resource                           | Link                                                 |
+|------------------------------------|------------------------------------------------------|
+| Golang template documentation      | [text/template](https://pkg.go.dev/text/template)    |
+| Root template object documentation | [TemplateData](https://pkg.go.dev/github.com/hedhyw/gherkingen@v1.0.0/internal/model#TemplateData) |
+| Example template                   | [std.struct.v1.go.tmpl](./internal/assets/std.struct.v1.go.tmpl) |
+| Example json representation        | [readme.feature.json](internal/generator/examples/readme.feature.json) |
+
+There is a way to return a json representation of `TemplateData` object for your feature, for this run `gherkingen -format json <EXAMPLE.feature>`.
+
+# License
+
+See [LICENSE](LICENSE).

@@ -1,0 +1,123 @@
+{
+    "Feature": {
+        "Location": {
+            "Line": 1,
+            "Column": 1
+        },
+        "Tags": [],
+        "Language": "en",
+        "Keyword": "Feature",
+        "Name": "Some terse yet descriptive text of what is desired",
+        "Description": "  In order to realize a named business value\n  As an explicit system actor\n  I want to gain some beneficial outcome which furthers the goal",
+        "Children": [
+            {
+                "Scenario": {
+                    "Location": {
+                        "Line": 6,
+                        "Column": 3
+                    },
+                    "Tags": [],
+                    "Keyword": "Scenario",
+                    "Name": "Some determinable business situation",
+                    "Description": "",
+                    "Steps": [
+                        {
+                            "Location": {
+                                "Line": 7,
+                                "Column": 5
+                            },
+                            "Keyword": "Given ",
+                            "Text": "some precondition",
+                            "ID": "777fd146-a718-496b-a037-7cc5c1d24b01",
+                            "GoType": "string",
+                            "GoName": "Given",
+                            "GoValue": "\"some precondition\""
+                        },
+                        {
+                            "Location": {
+                                "Line": 8,
+                                "Column": 7
+                            },
+                            "Keyword": "And ",
+                            "Text": "some other precondition",
+                            "ID": "0b731932-e270-4fa2-97f8-c365714eb6a6",
+                            "GoType": "string",
+                            "GoName": "And",
+                            "GoValue": "\"some other precondition\""
+                        },
+                        {
+                            "Location": {
+                                "Line": 9,
+                                "Column": 6
+                            },
+                            "Keyword": "When ",
+                            "Text": "some action by the actor",
+                            "ID": "f3f9ba0a-9a6a-46a3-8612-9a2c14f53c83",
+                            "GoType": "string",
+                            "GoName": "When",
+                            "GoValue": "\"some action by the actor\""
+                        },
+                        {
+                            "Location": {
+                                "Line": 10,
+                                "Column": 7
+                            },
+                            "Keyword": "And ",
+                            "Text": "some other action",
+                            "ID": "1d5d1374-1919-4fd2-a2ec-d8203a2348d6",
+                            "GoType": "string",
+                            "GoName": "And",
+                            "GoValue": "\"some other action\""
+                        },
+                        {
+                            "Location": {
+                                "Line": 11,
+                                "Column": 7
+                            },
+                            "Keyword": "And ",
+                            "Text": "yet another action",
+                            "ID": "cfa2cee8-e556-41d8-a5c1-565b82e15675",
+                            "GoType": "string",
+                            "GoName": "And",
+                            "GoValue": "\"yet another action\""
+                        },
+                        {
+                            "Location": {
+                                "Line": 12,
+                                "Column": 6
+                            },
+                            "Keyword": "Then ",
+                            "Text": "some testable outcome is achieved",
+                            "ID": "69fc8808-fc1b-4252-b44b-b9b45014dd5b",
+                            "GoType": "string",
+                            "GoName": "Then",
+                            "GoValue": "\"some testable outcome is achieved\""
+                        },
+                        {
+                            "Location": {
+                                "Line": 13,
+                                "Column": 7
+                            },
+                            "Keyword": "And ",
+                            "Text": "something else we can check happens too",
+                            "ID": "2e342b38-6734-4be1-a730-04ae4939cdfa",
+                            "GoType": "string",
+                            "GoName": "And",
+                            "GoValue": "\"something else we can check happens too\""
+                        }
+                    ],
+                    "Examples": [],
+                    "ID": "b6bc8a25-9024-470d-b07d-6962744709a8",
+                    "GoType": "string",
+                    "GoName": "Scenario",
+                    "GoValue": "\"Some determinable business situation\""
+                }
+            }
+        ],
+        "GoType": "string",
+        "GoName": "SomeTerseYetDescriptiveTextOfWhatIsDesired",
+        "GoValue": "\"Some terse yet descriptive text of what is desired\""
+    },
+    "Comments": [],
+    "PackageName": "examples_test"
+}

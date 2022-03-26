@@ -1,0 +1,38 @@
+{
+    "Feature": {
+        "Location": {
+            "Line": 1,
+            "Column": 1
+        },
+        "Tags": [],
+        "Language": "en",
+        "Keyword": "Feature",
+        "Name": "Guess the word",
+        "Description": "  The word guess game is a turn-based game for two players.\n  The Maker makes a word for the Breaker to guess. The game\n  is over when the Breaker guesses the Maker's word.",
+        "Children": [
+            {
+                "Scenario": {
+                    "Location": {
+                        "Line": 7,
+                        "Column": 3
+                    },
+                    "Tags": [],
+                    "Keyword": "Example",
+                    "Name": "Maker starts a game",
+                    "Description": "",
+                    "Steps": [],
+                    "Examples": [],
+                    "ID": "b1cb146a-8baf-4584-a964-538100c71a7a",
+                    "GoType": "string",
+                    "GoName": "Example",
+                    "GoValue": "\"Maker starts a game\""
+                }
+            }
+        ],
+        "GoType": "string",
+        "GoName": "GuessTheWord",
+        "GoValue": "\"Guess the word\""
+    },
+    "Comments": [],
+    "PackageName": "examples_test"
+}
