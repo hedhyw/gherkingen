@@ -3,9 +3,13 @@ package app
 import (
 	"flag"
 	"io"
+	"math/rand"
 	"strings"
+	"time"
 
 	"github.com/hedhyw/gherkingen/internal/model"
+
+	"github.com/google/uuid"
 )
 
 const (
@@ -15,6 +19,7 @@ const (
 
 // Run the application.
 func Run(arguments []string, out io.Writer) (err error) {
+	flag.CommandLine.Init(flag.CommandLine.Name(), flag.ContinueOnError)
 	flag.CommandLine.SetOutput(out)
 
 	outputFormat := flag.String(
@@ -26,6 +31,11 @@ func Run(arguments []string, out io.Writer) (err error) {
 		"template",
 		internalPathPrefix+defaultTemplate,
 		"template file",
+	)
+	permanentIDs := flag.Bool(
+		"permanent-ids",
+		false,
+		"The same calls to the generator always produces the same output",
 	)
 	help := flag.Bool(
 		"help",
@@ -44,6 +54,14 @@ func Run(arguments []string, out io.Writer) (err error) {
 	)
 	if err = flag.CommandLine.Parse(arguments); err != nil {
 		return err
+	}
+
+	if *permanentIDs {
+		// nolint:gosec // Usage for uniq ids.
+		uuid.SetRand(rand.New(rand.NewSource(0)))
+	} else {
+		// nolint:gosec // Usage for uniq ids.
+		uuid.SetRand(rand.New(rand.NewSource(time.Now().UnixNano())))
 	}
 
 	var inputFile string

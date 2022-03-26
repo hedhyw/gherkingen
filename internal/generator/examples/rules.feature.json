@@ -1,0 +1,225 @@
+{
+    "Feature": {
+        "Location": {
+            "Line": 1,
+            "Column": 1
+        },
+        "Tags": [],
+        "Language": "en",
+        "Keyword": "Feature",
+        "Name": "Highlander",
+        "Description": "",
+        "Children": [
+            {
+                "Rule": {
+                    "Location": {
+                        "Line": 2,
+                        "Column": 3
+                    },
+                    "Tags": [],
+                    "Keyword": "Rule",
+                    "Name": "There can be only One",
+                    "Description": "",
+                    "Children": [
+                        {
+                            "Background": {
+                                "Location": {
+                                    "Line": 3,
+                                    "Column": 5
+                                },
+                                "Keyword": "Background",
+                                "Name": "",
+                                "Description": "",
+                                "Steps": [
+                                    {
+                                        "Location": {
+                                            "Line": 4,
+                                            "Column": 7
+                                        },
+                                        "Keyword": "Given ",
+                                        "Text": "I have overdue tasks",
+                                        "ID": "0194fdc2-fa2f-4cc0-81d3-ff12045b73c8",
+                                        "GoType": "string",
+                                        "GoName": "Given",
+                                        "GoValue": "\"I have overdue tasks\""
+                                    }
+                                ],
+                                "ID": "6e4ff95f-f662-45ee-a82a-bdf44a2d0b75",
+                                "GoType": "string",
+                                "GoName": "Background",
+                                "GoValue": "\"\""
+                            }
+                        },
+                        {
+                            "Scenario": {
+                                "Location": {
+                                    "Line": 6,
+                                    "Column": 5
+                                },
+                                "Tags": [],
+                                "Keyword": "Example",
+                                "Name": "Only One -- More than one alive",
+                                "Description": "",
+                                "Steps": [
+                                    {
+                                        "Location": {
+                                            "Line": 7,
+                                            "Column": 7
+                                        },
+                                        "Keyword": "Given ",
+                                        "Text": "there are 3 ninjas",
+                                        "ID": "fb180daf-48a7-4ee0-b10d-394651850fd4",
+                                        "GoType": "string",
+                                        "GoName": "Given",
+                                        "GoValue": "\"there are 3 ninjas\""
+                                    },
+                                    {
+                                        "Location": {
+                                            "Line": 8,
+                                            "Column": 7
+                                        },
+                                        "Keyword": "And ",
+                                        "Text": "there are more than one ninja alive",
+                                        "ID": "a178892e-e285-4ce1-9114-55780875d64e",
+                                        "GoType": "string",
+                                        "GoName": "And",
+                                        "GoValue": "\"there are more than one ninja alive\""
+                                    },
+                                    {
+                                        "Location": {
+                                            "Line": 9,
+                                            "Column": 7
+                                        },
+                                        "Keyword": "When ",
+                                        "Text": "2 ninjas meet, they will fight",
+                                        "ID": "e2d3d0d0-de6b-48f9-b44c-e85ff044c6b1",
+                                        "GoType": "string",
+                                        "GoName": "When",
+                                        "GoValue": "\"2 ninjas meet, they will fight\""
+                                    },
+                                    {
+                                        "Location": {
+                                            "Line": 10,
+                                            "Column": 7
+                                        },
+                                        "Keyword": "Then ",
+                                        "Text": "one ninja dies (but not me)",
+                                        "ID": "f83b8e88-3bbf-457a-ab99-c5b252c7429c",
+                                        "GoType": "string",
+                                        "GoName": "Then",
+                                        "GoValue": "\"one ninja dies (but not me)\""
+                                    },
+                                    {
+                                        "Location": {
+                                            "Line": 11,
+                                            "Column": 7
+                                        },
+                                        "Keyword": "And ",
+                                        "Text": "there is one ninja less alive",
+                                        "ID": "32f3a8ae-b79e-4856-b659-c18f0dcecc77",
+                                        "GoType": "string",
+                                        "GoName": "And",
+                                        "GoValue": "\"there is one ninja less alive\""
+                                    }
+                                ],
+                                "Examples": [],
+                                "ID": "c75e7a81-bfde-475f-a7cf-e242cf3cc354",
+                                "GoType": "string",
+                                "GoName": "Example",
+                                "GoValue": "\"Only One -- More than one alive\""
+                            }
+                        },
+                        {
+                            "Scenario": {
+                                "Location": {
+                                    "Line": 13,
+                                    "Column": 5
+                                },
+                                "Tags": [],
+                                "Keyword": "Example",
+                                "Name": "Only One -- One alive",
+                                "Description": "",
+                                "Steps": [
+                                    {
+                                        "Location": {
+                                            "Line": 14,
+                                            "Column": 7
+                                        },
+                                        "Keyword": "Given ",
+                                        "Text": "there is only 1 ninja alive",
+                                        "ID": "f3ede2d6-becc-4ea3-ae5e-88526a9f4a57",
+                                        "GoType": "string",
+                                        "GoName": "Given",
+                                        "GoValue": "\"there is only 1 ninja alive\""
+                                    },
+                                    {
+                                        "Location": {
+                                            "Line": 15,
+                                            "Column": 7
+                                        },
+                                        "Keyword": "Then ",
+                                        "Text": "he (or she) will live forever ;-)",
+                                        "ID": "8bcb9ef2-d4a6-4314-b68d-6d299761ea9e",
+                                        "GoType": "string",
+                                        "GoName": "Then",
+                                        "GoValue": "\"he (or she) will live forever ;-)\""
+                                    }
+                                ],
+                                "Examples": [],
+                                "ID": "4f5aa6ae-c3fc-48c6-aae0-81ac8120c720",
+                                "GoType": "string",
+                                "GoName": "Example",
+                                "GoValue": "\"Only One -- One alive\""
+                            }
+                        }
+                    ],
+                    "ID": "efcd6cea-84b6-425e-a07b-e063716f96dd",
+                    "GoType": "string",
+                    "GoName": "Rule",
+                    "GoValue": "\"There can be only One\""
+                }
+            },
+            {
+                "Rule": {
+                    "Location": {
+                        "Line": 17,
+                        "Column": 3
+                    },
+                    "Tags": [],
+                    "Keyword": "Rule",
+                    "Name": "There can be Two (in some cases)",
+                    "Description": "",
+                    "Children": [
+                        {
+                            "Scenario": {
+                                "Location": {
+                                    "Line": 18,
+                                    "Column": 5
+                                },
+                                "Tags": [],
+                                "Keyword": "Example",
+                                "Name": "Two -- Dead and Reborn as Phoenix",
+                                "Description": "",
+                                "Steps": [],
+                                "Examples": [],
+                                "ID": "cdd01d75-045c-4f00-8f8a-796bce6c512c",
+                                "GoType": "string",
+                                "GoName": "Example",
+                                "GoValue": "\"Two -- Dead and Reborn as Phoenix\""
+                            }
+                        }
+                    ],
+                    "ID": "3801aaca-eedf-4d5b-9066-64e8c0e4a771",
+                    "GoType": "string",
+                    "GoName": "Rule",
+                    "GoValue": "\"There can be Two (in some cases)\""
+                }
+            }
+        ],
+        "GoType": "string",
+        "GoName": "Highlander",
+        "GoValue": "\"Highlander\""
+    },
+    "Comments": [],
+    "PackageName": "examples_test"
+}

@@ -1,0 +1,257 @@
+{
+    "Feature": {
+        "Location": {
+            "Line": 1,
+            "Column": 1
+        },
+        "Tags": [],
+        "Language": "en",
+        "Keyword": "Feature",
+        "Name": "Application command line tool",
+        "Description": "",
+        "Children": [
+            {
+                "Scenario": {
+                    "Location": {
+                        "Line": 2,
+                        "Column": 3
+                    },
+                    "Tags": [],
+                    "Keyword": "Scenario",
+                    "Name": "User wants to see usage information",
+                    "Description": "",
+                    "Steps": [
+                        {
+                            "Location": {
+                                "Line": 3,
+                                "Column": 5
+                            },
+                            "Keyword": "When ",
+                            "Text": "flag \u003cflag\u003e is provided",
+                            "ID": "0194fdc2-fa2f-4cc0-81d3-ff12045b73c8",
+                            "GoType": "string",
+                            "GoName": "When",
+                            "GoValue": "\"flag \u003cflag\u003e is provided\""
+                        },
+                        {
+                            "Location": {
+                                "Line": 4,
+                                "Column": 5
+                            },
+                            "Keyword": "Then ",
+                            "Text": "usage should be printed \u003cprinted\u003e",
+                            "ID": "6e4ff95f-f662-45ee-a82a-bdf44a2d0b75",
+                            "GoType": "string",
+                            "GoName": "Then",
+                            "GoValue": "\"usage should be printed \u003cprinted\u003e\""
+                        },
+                        {
+                            "Location": {
+                                "Line": 5,
+                                "Column": 5
+                            },
+                            "Keyword": "And ",
+                            "Text": "exit status should be \u003cexit_status\u003e",
+                            "ID": "fb180daf-48a7-4ee0-b10d-394651850fd4",
+                            "GoType": "string",
+                            "GoName": "And",
+                            "GoValue": "\"exit status should be \u003cexit_status\u003e\""
+                        }
+                    ],
+                    "Examples": [
+                        {
+                            "Location": {
+                                "Line": 6,
+                                "Column": 5
+                            },
+                            "Tags": [],
+                            "Keyword": "Examples",
+                            "Name": "",
+                            "Description": "",
+                            "ID": "c75e7a81-bfde-475f-a7cf-e242cf3cc354",
+                            "TableHeader": {
+                                "Location": {
+                                    "Line": 7,
+                                    "Column": 5
+                                },
+                                "Cells": [
+                                    {
+                                        "Location": {
+                                            "Line": 7,
+                                            "Column": 7
+                                        },
+                                        "Value": "\u003cflag\u003e",
+                                        "GoType": "string",
+                                        "GoName": "Flag",
+                                        "GoValue": "\"\u003cflag\u003e\""
+                                    },
+                                    {
+                                        "Location": {
+                                            "Line": 7,
+                                            "Column": 18
+                                        },
+                                        "Value": "\u003cexit_status\u003e",
+                                        "GoType": "int",
+                                        "GoName": "ExitStatus",
+                                        "GoValue": "\"\u003cexit_status\u003e\""
+                                    },
+                                    {
+                                        "Location": {
+                                            "Line": 7,
+                                            "Column": 34
+                                        },
+                                        "Value": "\u003cprinted\u003e",
+                                        "GoType": "bool",
+                                        "GoName": "Printed",
+                                        "GoValue": "\"\u003cprinted\u003e\""
+                                    }
+                                ],
+                                "ID": "a178892e-e285-4ce1-9114-55780875d64e",
+                                "GoType": "string",
+                                "GoName": "FlagExitStatusPrinted",
+                                "GoValue": "\"\u003cflag\u003e_\u003cexit_status\u003e_\u003cprinted\u003e\""
+                            },
+                            "TableBody": [
+                                {
+                                    "Location": {
+                                        "Line": 8,
+                                        "Column": 5
+                                    },
+                                    "Cells": [
+                                        {
+                                            "Location": {
+                                                "Line": 8,
+                                                "Column": 7
+                                            },
+                                            "Value": "--help",
+                                            "GoType": "string",
+                                            "GoName": "Help",
+                                            "GoValue": "\"--help\""
+                                        },
+                                        {
+                                            "Location": {
+                                                "Line": 8,
+                                                "Column": 24
+                                            },
+                                            "Value": "0",
+                                            "GoType": "int",
+                                            "GoName": "Undefined",
+                                            "GoValue": "0"
+                                        },
+                                        {
+                                            "Location": {
+                                                "Line": 8,
+                                                "Column": 34
+                                            },
+                                            "Value": "true",
+                                            "GoType": "bool",
+                                            "GoName": "True",
+                                            "GoValue": "true"
+                                        }
+                                    ],
+                                    "ID": "e2d3d0d0-de6b-48f9-b44c-e85ff044c6b1",
+                                    "GoType": "string",
+                                    "GoName": "Help0True",
+                                    "GoValue": "\"--help_0_true\""
+                                },
+                                {
+                                    "Location": {
+                                        "Line": 9,
+                                        "Column": 5
+                                    },
+                                    "Cells": [
+                                        {
+                                            "Location": {
+                                                "Line": 9,
+                                                "Column": 7
+                                            },
+                                            "Value": "-help",
+                                            "GoType": "string",
+                                            "GoName": "Help",
+                                            "GoValue": "\"-help\""
+                                        },
+                                        {
+                                            "Location": {
+                                                "Line": 9,
+                                                "Column": 24
+                                            },
+                                            "Value": "0",
+                                            "GoType": "int",
+                                            "GoName": "Undefined",
+                                            "GoValue": "0"
+                                        },
+                                        {
+                                            "Location": {
+                                                "Line": 9,
+                                                "Column": 34
+                                            },
+                                            "Value": "true",
+                                            "GoType": "bool",
+                                            "GoName": "True",
+                                            "GoValue": "true"
+                                        }
+                                    ],
+                                    "ID": "f83b8e88-3bbf-457a-ab99-c5b252c7429c",
+                                    "GoType": "string",
+                                    "GoName": "Help0True",
+                                    "GoValue": "\"-help_0_true\""
+                                },
+                                {
+                                    "Location": {
+                                        "Line": 10,
+                                        "Column": 5
+                                    },
+                                    "Cells": [
+                                        {
+                                            "Location": {
+                                                "Line": 10,
+                                                "Column": 7
+                                            },
+                                            "Value": "-invalid",
+                                            "GoType": "string",
+                                            "GoName": "Invalid",
+                                            "GoValue": "\"-invalid\""
+                                        },
+                                        {
+                                            "Location": {
+                                                "Line": 10,
+                                                "Column": 24
+                                            },
+                                            "Value": "1",
+                                            "GoType": "int",
+                                            "GoName": "Undefined",
+                                            "GoValue": "1"
+                                        },
+                                        {
+                                            "Location": {
+                                                "Line": 10,
+                                                "Column": 34
+                                            },
+                                            "Value": "false",
+                                            "GoType": "bool",
+                                            "GoName": "False",
+                                            "GoValue": "false"
+                                        }
+                                    ],
+                                    "ID": "32f3a8ae-b79e-4856-b659-c18f0dcecc77",
+                                    "GoType": "string",
+                                    "GoName": "Invalid1False",
+                                    "GoValue": "\"-invalid_1_false\""
+                                }
+                            ]
+                        }
+                    ],
+                    "ID": "f3ede2d6-becc-4ea3-ae5e-88526a9f4a57",
+                    "GoType": "string",
+                    "GoName": "Scenario",
+                    "GoValue": "\"User wants to see usage information\""
+                }
+            }
+        ],
+        "GoType": "string",
+        "GoName": "ApplicationCommandLineTool",
+        "GoValue": "\"Application command line tool\""
+    },
+    "Comments": [],
+    "PackageName": "examples_test"
+}

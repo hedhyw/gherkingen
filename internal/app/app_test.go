@@ -10,32 +10,10 @@ import (
 	"github.com/hedhyw/gherkingen/pkg/v1/bdd"
 )
 
-func runApp(tb testing.TB, arguments []string, ok bool) string {
-	tb.Helper()
-
-	flag.CommandLine = flag.NewFlagSet("", flag.PanicOnError)
-
-	var buf bytes.Buffer
-	err := app.Run(arguments, &buf)
-
-	if ok == (err != nil) {
-		tb.Errorf("Assertion failed, ok: %t, err: %s", ok, err)
-	}
-
-	if ok {
-		gotLen := buf.Len()
-		if gotLen == 0 {
-			tb.Error("Empty output")
-		}
-	}
-
-	return buf.String()
-}
-
 func TestApplicationCommandLineTool(t *testing.T) {
 	f := bdd.NewFeature(t, "Application command line tool")
 
-	f.Scenario("User wants to generate the output in given format", func(t *testing.T, f *bdd.Feature) {
+	f.Scenario("User wants to generate the output in given format", func(_ *testing.T, f *bdd.Feature) {
 		type testCase struct {
 			Feature   string `field:"<feature>"`
 			Format    string `field:"<format>"`
@@ -64,7 +42,7 @@ func TestApplicationCommandLineTool(t *testing.T) {
 		})
 	})
 
-	f.Scenario("User wants to see usage information", func(t *testing.T, f *bdd.Feature) {
+	f.Scenario("User wants to see usage information", func(_ *testing.T, f *bdd.Feature) {
 		type testCase struct {
 			Flag string `field:"<flag>"`
 		}
@@ -84,7 +62,7 @@ func TestApplicationCommandLineTool(t *testing.T) {
 		})
 	})
 
-	f.Scenario("User wants to list built-in templates", func(t *testing.T, f *bdd.Feature) {
+	f.Scenario("User wants to list built-in templates", func(_ *testing.T, f *bdd.Feature) {
 		type testCase struct {
 			Flag string `field:"<flag>"`
 		}
@@ -104,7 +82,7 @@ func TestApplicationCommandLineTool(t *testing.T) {
 		})
 	})
 
-	f.Scenario("User wants to use custom template", func(t *testing.T, f *bdd.Feature) {
+	f.Scenario("User wants to use custom template", func(_ *testing.T, f *bdd.Feature) {
 		type testCase struct {
 			Feature  string `field:"<feature>"`
 			Template string `field:"<template>"`
@@ -124,11 +102,12 @@ func TestApplicationCommandLineTool(t *testing.T) {
 				arguments = append(arguments, tc.Feature)
 			})
 			f.Then("the output should be generated", func() {
+				runApp(t, arguments, true)
 			})
 		})
 	})
 
-	f.Scenario("User wants to set custom package", func(t *testing.T, f *bdd.Feature) {
+	f.Scenario("User wants to set custom package", func(_ *testing.T, f *bdd.Feature) {
 		type testCase struct {
 			Package string `field:"<package>"`
 		}
@@ -151,4 +130,70 @@ func TestApplicationCommandLineTool(t *testing.T) {
 			})
 		})
 	})
+
+	f.Scenario("User wants to generate a permanent json output", func(_ *testing.T, f *bdd.Feature) {
+		type testCase struct {
+			TheSameIDs bool `field:"<TheSameIDs>"`
+		}
+
+		testCases := map[string]testCase{
+			"true":  {true},
+			"false": {false},
+		}
+
+		f.TestCases(testCases, func(t *testing.T, f *bdd.Feature, tc testCase) {
+			arguments := []string{}
+			f.When("format is json", func() {
+				arguments = append(arguments, "-format", "json")
+			})
+			f.And("-permanent-ids is <TheSameIDs>", func() {
+				if tc.TheSameIDs {
+					arguments = append(arguments, "-permanent-ids")
+				}
+			})
+			f.Then("calling generation twice will produce the same output <TheSameIDs>", func() {
+				arguments = append(arguments, "app.feature")
+
+				firstOut := runApp(t, arguments, true)
+				secondOut := runApp(t, arguments, true)
+				theSameOut := firstOut == secondOut
+				if theSameOut != tc.TheSameIDs {
+					t.Fatalf("%s\n---\n%s\n", firstOut, secondOut)
+				}
+			})
+		})
+	})
+
+	f.Scenario("User gives an invalid flag", func(t *testing.T, f *bdd.Feature) {
+		arguments := []string{}
+		f.When("flag -invalid is provided", func() {
+			arguments = append(arguments, "-invalid")
+		})
+		f.Then("a generation failed", func() {
+			arguments = append(arguments, "app.feature")
+			runApp(t, arguments, false)
+		})
+	})
+}
+
+func runApp(tb testing.TB, arguments []string, ok bool) string {
+	tb.Helper()
+
+	flag.CommandLine = flag.NewFlagSet("", flag.PanicOnError)
+
+	var buf bytes.Buffer
+	err := app.Run(arguments, &buf)
+
+	if ok == (err != nil) {
+		tb.Errorf("Assertion failed, ok: %t, err: %s", ok, err)
+	}
+
+	if ok {
+		gotLen := buf.Len()
+		if gotLen == 0 {
+			tb.Error("Empty output")
+		}
+	}
+
+	return buf.String()
 }
