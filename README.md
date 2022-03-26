@@ -240,7 +240,7 @@ Useful resources:
 | Resource                                  | Link                                                 |
 |-------------------------------------------|------------------------------------------------------|
 | Golang template documentation             | [text/template](https://pkg.go.dev/text/template)    |
-| Root template object struct documentation | [TemplateData](https://pkg.go.dev/github.com/hedhyw/gherkingen@v1.0.0/internal/model#TemplateData) |
+| Root template object struct documentation | [TemplateData](https://pkg.go.dev/github.com/hedhyw/gherkingen/internal/model#TemplateData) |
 | Example template                          | [std.struct.v1.go.tmpl](./internal/assets/std.struct.v1.go.tmpl) |
 | Example json representation of a root template object | [readme.feature.json](internal/generator/examples/readme.feature.json)     |
 
