@@ -123,7 +123,7 @@ Download latest archive `*.tar.gz` for your target platform from [the releases p
 
 Example flow:
 ```sh
-# Check the signature of a downloaded atchive with the file task_checksums.txt from the release page.
+# Check the signature of a downloaded archive and the sigature in the file task_checksums.txt from the release page.
 
 # Remove old binaries.
 rm -rf /usr/local/gherkingen
@@ -131,6 +131,7 @@ rm -rf /usr/local/gherkingen
 mkdir -p /usr/local/gherkingen
 # Extract archive to target path.
 tar -C /usr/local/gherkingen -xzf DOWNLOAD_ARCHIVE.TAR.GZ
+
 # Add `/usr/local/gherkingen` to PATH environment variable.
 export PATH=/usr/local/gherkingen:$PATH
 # Check that the generator is working.
