@@ -196,14 +196,16 @@ Templates are very customizable, so you can even generate non-golang code. In th
 ## Creating templates
 
 Useful resources:
-| Resource                           | Link                                                 |
-|------------------------------------|------------------------------------------------------|
-| Golang template documentation      | [text/template](https://pkg.go.dev/text/template)    |
-| Root template object documentation | [TemplateData](https://pkg.go.dev/github.com/hedhyw/gherkingen@v1.0.0/internal/model#TemplateData) |
-| Example template                   | [std.struct.v1.go.tmpl](./internal/assets/std.struct.v1.go.tmpl) |
-| Example json representation        | [readme.feature.json](internal/generator/examples/readme.feature.json) |
+| Resource                                  | Link                                                 |
+|-------------------------------------------|------------------------------------------------------|
+| Golang template documentation             | [text/template](https://pkg.go.dev/text/template)    |
+| Root template object struct documentation | [TemplateData](https://pkg.go.dev/github.com/hedhyw/gherkingen@v1.0.0/internal/model#TemplateData) |
+| Example template                          | [std.struct.v1.go.tmpl](./internal/assets/std.struct.v1.go.tmpl) |
+| Example json representation of a root template object | [readme.feature.json](internal/generator/examples/readme.feature.json)     |
 
-There is a way to return a json representation of `TemplateData` object for your feature, for this run `gherkingen -format json <EXAMPLE.feature>`.
+There is a way to return a json representation of the root object `TemplateData` for your feature, for this run `gherkingen -format json <EXAMPLE.feature>`.
+
+Any field of the root object can be used directly, example: `{{ .PackageName }}`.
 
 # License
 
