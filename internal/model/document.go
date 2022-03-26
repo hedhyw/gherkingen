@@ -266,7 +266,7 @@ type Feature struct {
 	Location *Location `json:"Location"`
 	// Tags provides a way of organizing blocks.
 	Tags []*Tag `json:"Tags"`
-	// Langauge of the document.
+	// Language of the document.
 	// More details: https://cucumber.io/docs/gherkin/reference/#spoken-languages
 	Language string `json:"Language"`
 	// Keyword is always "Feature".
@@ -486,7 +486,7 @@ type Step struct {
 	Keyword string `json:"Keyword"`
 	// Text of the block.
 	Text string `json:"Text"`
-	// DocString is a documenation of the step.
+	// DocString is a documentation of the step.
 	DocString *DocString `json:"DocString,omitempty"`
 	// DataTable contains an example of the step.
 	DataTable *DataTable `json:"DataTable,omitempty"`
