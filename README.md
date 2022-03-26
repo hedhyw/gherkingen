@@ -111,7 +111,7 @@ Latest DEB and RPM packages are available on [the releases page](https://github.
 
 ```sh
 # Install the package using HomeBrew.
-brew install hedhyw/gherkingen
+brew install hedhyw/gherkingen/gherkingen
 
 # Check that the generator is working.
 gherkingen -help
