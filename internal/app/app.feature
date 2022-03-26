@@ -38,6 +38,19 @@ Feature: Application command line tool
     When <package> is provided
     Then the output should contain <package>
     Examples:
-    | <package> |
-    | app_test  |
+    | <package>     |
+    | app_test      |
     | example_test  |
+  
+  Scenario: User wants to generate a permanent json output
+    When -format is json
+    And -permanent-ids is <TheSameIDs>
+    Then calling generation twice will produce the same output <TheSameIDs>
+    Examples:
+    | <TheSameIDs> |
+    | true         |
+    | false        |
+
+  Scenario: User gives an invalid flag
+    When flag -invalid is provided
+    Then a generation failed

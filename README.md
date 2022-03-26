@@ -153,6 +153,8 @@ Usage of gherkingen [FEATURE_FILE]:
         list internal templates
   -package string
         name of the generated package (default "generated_test")
+  -permanent-ids
+        The same calls to the generator always produces the same output
   -template string
         template file (default "@/std.struct.v1.go.tmpl")
 ```
