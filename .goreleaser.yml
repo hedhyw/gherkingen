@@ -58,7 +58,7 @@ brews:
     folder: Formula
     tap:
       owner: hedhyw
-      name: homebrew-tap
+      name: gherkingen
     test: system "#{bin}/gherkingen", "-help"
     install: |-
       bin.install "gherkingen"
