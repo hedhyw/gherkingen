@@ -8,9 +8,7 @@
 
 **It's a Behaviour Driven Development (BDD) tests generator for Golang.**
 
-<img alt="Golang logo" src="https://raw.githubusercontent.com/rfyiamcool/golang_logo/master/png/golang_55.png" height="200" />
-
-
+<img alt="BDD Gophers by hedhyw" src="./assets/gophers-bdd-by-hedhyw.svg" width="500" />
 
 It accepts a `*.feature` [Cucumber/Gherkin](https://cucumber.io/docs/gherkin/reference/) file and generates a test boilerplate. All that remains is to change the tests a little. The generator supports `go generate` and `go test` for generated tests.
 
