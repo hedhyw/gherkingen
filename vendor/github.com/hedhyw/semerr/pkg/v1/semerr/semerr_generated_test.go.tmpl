@@ -5,6 +5,7 @@ package semerr_test
 import (
 	"errors"
 	"testing"
+	"strings"
 
 	"github.com/hedhyw/semerr/pkg/v1/semerr"
 )
@@ -17,13 +18,13 @@ func TestWrappedErrors(t *testing.T) {
 	testCases := []struct {
 		Name   string
 		Create func(err error) error
-		Permanent bool
+		Temporary bool
 	}{
-	{{- range $errorName, $errorDef := . }}
+	{{- range $errorDef := . }}
 		{
-			Name:      "{{ $errorName }}",
-			Create:    semerr.New{{ $errorName }},
-			Permanent: {{ $errorDef.Permanent }},
+			Name:      "{{ $errorDef.Name }}",
+			Create:    semerr.New{{ $errorDef.Name }},
+			Temporary: {{ $errorDef.Temporary }},
 		},
 	{{- end }}
 	}
@@ -36,13 +37,15 @@ func TestWrappedErrors(t *testing.T) {
 
 			errWrapped := tc.Create(err)
 			switch {
+			case !strings.HasSuffix(tc.Name, "Error"):
+				t.Fatal(tc.Name)
 			case tc.Create(nil) != nil:
 				t.Fatal()
 			case errWrapped.Error() != err.Error():
 				t.Fatal("exp", err.Error(), "got", errWrapped.Error())
 			case !errors.Is(errWrapped, err):
 				t.Fatal()
-			case semerr.IsTemporaryError(errWrapped) == tc.Permanent:
+			case semerr.IsTemporaryError(errWrapped) != tc.Temporary:
 				t.Fatal()
 			}
 		})
