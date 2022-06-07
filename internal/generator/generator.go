@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"fmt"
 
+	"github.com/hedhyw/gherkingen/internal/docprocessor"
 	"github.com/hedhyw/gherkingen/internal/model"
 
 	"github.com/cucumber/gherkin-go/v19"
@@ -25,8 +26,13 @@ func Generate(args model.GenerateArgs) (out []byte, err error) {
 		return nil, semerr.Error("package name should be defined")
 	}
 
+	docProcessor, err := docprocessor.NewProcessor()
+	if err != nil {
+		return nil, fmt.Errorf("creating document processor: %w", err)
+	}
+
 	tmplData := &model.TemplateData{
-		GherkinDocument: (&model.GherkinDocument{}).From(gherkinDocument),
+		GherkinDocument: (&model.GherkinDocument{}).From(gherkinDocument, docProcessor),
 		PackageName:     args.PackageName,
 	}
 

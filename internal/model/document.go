@@ -30,14 +30,17 @@ type GherkinDocument struct {
 }
 
 // From converts to GherkinDocument.
-func (to *GherkinDocument) From(from *messages.GherkinDocument) *GherkinDocument {
+func (to *GherkinDocument) From(
+	from *messages.GherkinDocument,
+	p *Processor,
+) *GherkinDocument {
 	if from == nil {
 		return nil
 	}
 
 	*to = GherkinDocument{
 		URI:      from.Uri,
-		Feature:  (&Feature{}).From(from.Feature),
+		Feature:  (&Feature{}).From(from.Feature, p),
 		Comments: CommentsSlice{}.From(from.Comments),
 	}
 
@@ -80,7 +83,7 @@ type Background struct {
 }
 
 // From converts to Background.
-func (to *Background) From(from *messages.Background) *Background {
+func (to *Background) From(from *messages.Background, p *Processor) *Background {
 	if from == nil {
 		return nil
 	}
@@ -90,12 +93,12 @@ func (to *Background) From(from *messages.Background) *Background {
 		Keyword:     from.Keyword,
 		Name:        from.Name,
 		Description: from.Description,
-		Steps:       StepsSlice{}.From(from.Steps),
+		Steps:       StepsSlice{}.From(from.Steps, p),
 		ID:          from.Id,
 
 		goData: goData{
-			GoType:  goTypeString,
-			GoName:  goName(from.Keyword),
+			GoType:  GOTypeString,
+			GoName:  goName(from.Keyword, p),
 			GoValue: goString(from.Name),
 		},
 	}
@@ -148,14 +151,14 @@ type DataTable struct {
 }
 
 // From converts to DataTable.
-func (to *DataTable) From(from *messages.DataTable) *DataTable {
+func (to *DataTable) From(from *messages.DataTable, p *Processor) *DataTable {
 	if from == nil {
 		return nil
 	}
 
 	*to = DataTable{
 		Location: (&Location{}).From(from.Location),
-		Rows:     TableRowSlice{}.From(from.Rows),
+		Rows:     TableRowSlice{}.From(from.Rows, p),
 	}
 
 	return to
@@ -213,7 +216,7 @@ type Examples struct {
 }
 
 // From converts to Examples.
-func (to *Examples) From(from *messages.Examples) *Examples {
+func (to *Examples) From(from *messages.Examples, p *Processor) *Examples {
 	if from == nil {
 		return nil
 	}
@@ -230,8 +233,9 @@ func (to *Examples) From(from *messages.Examples) *Examples {
 			from.TableHeader,
 			determinateGoTypes(from.TableBody),
 			true, // Ignore go type, because header cells are always strings.
+			p,
 		),
-		TableBody: TableRowSlice{}.From(from.TableBody),
+		TableBody: TableRowSlice{}.From(from.TableBody, p),
 	}
 
 	return to
@@ -241,11 +245,11 @@ func (to *Examples) From(from *messages.Examples) *Examples {
 type ExamplesSlice []*Examples
 
 // From converts to ExamplesSlice.
-func (to ExamplesSlice) From(from []*messages.Examples) ExamplesSlice {
+func (to ExamplesSlice) From(from []*messages.Examples, p *Processor) ExamplesSlice {
 	to = make(ExamplesSlice, 0, len(from))
 
 	for _, f := range from {
-		to = append(to, (&Examples{}).From(f))
+		to = append(to, (&Examples{}).From(f, p))
 	}
 
 	return to
@@ -285,7 +289,7 @@ type Feature struct {
 }
 
 // From converts to Feature.
-func (to *Feature) From(from *messages.Feature) *Feature {
+func (to *Feature) From(from *messages.Feature, p *Processor) *Feature {
 	if from == nil {
 		return nil
 	}
@@ -297,11 +301,11 @@ func (to *Feature) From(from *messages.Feature) *Feature {
 		Keyword:     from.Keyword,
 		Name:        from.Name,
 		Description: from.Description,
-		Children:    FeatureChildrenSlice{}.From(from.Children),
+		Children:    FeatureChildrenSlice{}.From(from.Children, p),
 
 		goData: goData{
-			GoType:  goTypeString,
-			GoName:  goName(from.Name),
+			GoType:  GOTypeString,
+			GoName:  goName(from.Name, p),
 			GoValue: goString(from.Name),
 		},
 	}
@@ -320,15 +324,15 @@ type FeatureChild struct {
 }
 
 // From converts to FeatureChild.
-func (to *FeatureChild) From(from *messages.FeatureChild) *FeatureChild {
+func (to *FeatureChild) From(from *messages.FeatureChild, p *Processor) *FeatureChild {
 	if from == nil {
 		return nil
 	}
 
 	*to = FeatureChild{
-		Rule:       (&Rule{}).From(from.Rule),
-		Background: (&Background{}).From(from.Background),
-		Scenario:   (&Scenario{}).From(from.Scenario),
+		Rule:       (&Rule{}).From(from.Rule, p),
+		Background: (&Background{}).From(from.Background, p),
+		Scenario:   (&Scenario{}).From(from.Scenario, p),
 	}
 
 	return to
@@ -338,11 +342,11 @@ func (to *FeatureChild) From(from *messages.FeatureChild) *FeatureChild {
 type FeatureChildrenSlice []*FeatureChild
 
 // From converts to FeatureChildrenSlice.
-func (to FeatureChildrenSlice) From(from []*messages.FeatureChild) FeatureChildrenSlice {
+func (to FeatureChildrenSlice) From(from []*messages.FeatureChild, p *Processor) FeatureChildrenSlice {
 	to = make(FeatureChildrenSlice, 0, len(from))
 
 	for _, f := range from {
-		to = append(to, (&FeatureChild{}).From(f))
+		to = append(to, (&FeatureChild{}).From(f, p))
 	}
 
 	return to
@@ -369,7 +373,7 @@ type Rule struct {
 }
 
 // From converts to Rule.
-func (to *Rule) From(from *messages.Rule) *Rule {
+func (to *Rule) From(from *messages.Rule, p *Processor) *Rule {
 	if from == nil {
 		return nil
 	}
@@ -380,12 +384,12 @@ func (to *Rule) From(from *messages.Rule) *Rule {
 		Keyword:     from.Keyword,
 		Name:        from.Name,
 		Description: from.Description,
-		Children:    RuleChildSlice{}.From(from.Children),
+		Children:    RuleChildSlice{}.From(from.Children, p),
 		ID:          from.Id,
 
 		goData: goData{
-			GoType:  goTypeString,
-			GoName:  goName(from.Keyword),
+			GoType:  GOTypeString,
+			GoName:  goName(from.Keyword, p),
 			GoValue: goString(from.Name),
 		},
 	}
@@ -402,14 +406,14 @@ type RuleChild struct {
 }
 
 // From converts to RuleChild.
-func (to *RuleChild) From(from *messages.RuleChild) *RuleChild {
+func (to *RuleChild) From(from *messages.RuleChild, p *Processor) *RuleChild {
 	if from == nil {
 		return nil
 	}
 
 	*to = RuleChild{
-		Background: (&Background{}).From(from.Background),
-		Scenario:   (&Scenario{}).From(from.Scenario),
+		Background: (&Background{}).From(from.Background, p),
+		Scenario:   (&Scenario{}).From(from.Scenario, p),
 	}
 
 	return to
@@ -419,11 +423,11 @@ func (to *RuleChild) From(from *messages.RuleChild) *RuleChild {
 type RuleChildSlice []*RuleChild
 
 // From converts to RuleChildSlice.
-func (to RuleChildSlice) From(from []*messages.RuleChild) RuleChildSlice {
+func (to RuleChildSlice) From(from []*messages.RuleChild, p *Processor) RuleChildSlice {
 	to = make(RuleChildSlice, 0, len(from))
 
 	for _, f := range from {
-		to = append(to, (&RuleChild{}).From(f))
+		to = append(to, (&RuleChild{}).From(f, p))
 	}
 
 	return to
@@ -452,7 +456,7 @@ type Scenario struct {
 }
 
 // From converts to Scenario.
-func (to *Scenario) From(from *messages.Scenario) *Scenario {
+func (to *Scenario) From(from *messages.Scenario, p *Processor) *Scenario {
 	if from == nil {
 		return nil
 	}
@@ -463,13 +467,13 @@ func (to *Scenario) From(from *messages.Scenario) *Scenario {
 		Keyword:     from.Keyword,
 		Name:        from.Name,
 		Description: from.Description,
-		Steps:       StepsSlice{}.From(from.Steps),
-		Examples:    ExamplesSlice{}.From(from.Examples),
+		Steps:       StepsSlice{}.From(from.Steps, p),
+		Examples:    ExamplesSlice{}.From(from.Examples, p),
 		ID:          from.Id,
 
 		goData: goData{
-			GoType:  goTypeString,
-			GoName:  goName(from.Keyword),
+			GoType:  GOTypeString,
+			GoName:  goName(from.Keyword, p),
 			GoValue: goString(from.Name),
 		},
 	}
@@ -497,7 +501,7 @@ type Step struct {
 }
 
 // From converts to Step.
-func (to *Step) From(from *messages.Step) *Step {
+func (to *Step) From(from *messages.Step, p *Processor) *Step {
 	if from == nil {
 		return nil
 	}
@@ -507,12 +511,12 @@ func (to *Step) From(from *messages.Step) *Step {
 		Keyword:   from.Keyword,
 		Text:      from.Text,
 		DocString: (&DocString{}).From(from.DocString),
-		DataTable: (&DataTable{}).From(from.DataTable),
+		DataTable: (&DataTable{}).From(from.DataTable, p),
 		ID:        from.Id,
 
 		goData: goData{
-			GoType:  goTypeString,
-			GoName:  goName(from.Keyword),
+			GoType:  GOTypeString,
+			GoName:  goName(from.Keyword, p),
 			GoValue: goString(from.Text),
 		},
 	}
@@ -524,11 +528,11 @@ func (to *Step) From(from *messages.Step) *Step {
 type StepsSlice []*Step
 
 // From converts to StepsSlice.
-func (to StepsSlice) From(from []*messages.Step) StepsSlice {
+func (to StepsSlice) From(from []*messages.Step, p *Processor) StepsSlice {
 	to = make(StepsSlice, 0, len(from))
 
 	for _, f := range from {
-		to = append(to, (&Step{}).From(f))
+		to = append(to, (&Step{}).From(f, p))
 	}
 
 	return to
@@ -545,7 +549,12 @@ type TableCell struct {
 }
 
 // From converts to TableCell.
-func (to *TableCell) From(from *messages.TableCell, gt goType, ignoreGoTypes bool) *TableCell {
+func (to *TableCell) From(
+	from *messages.TableCell,
+	gt goType,
+	ignoreGoTypes bool,
+	p *Processor,
+) *TableCell {
 	if from == nil {
 		return nil
 	}
@@ -563,7 +572,7 @@ func (to *TableCell) From(from *messages.TableCell, gt goType, ignoreGoTypes boo
 
 		goData: goData{
 			GoType:  gt,
-			GoName:  goName(from.Value),
+			GoName:  goName(from.Value, p),
 			GoValue: gv,
 		},
 	}
@@ -575,16 +584,21 @@ func (to *TableCell) From(from *messages.TableCell, gt goType, ignoreGoTypes boo
 type TableCellSlice []*TableCell
 
 // From converts to TableCellSlice.
-func (to TableCellSlice) From(from []*messages.TableCell, goTypes []goType, ignoreGoTypes bool) TableCellSlice {
+func (to TableCellSlice) From(
+	from []*messages.TableCell,
+	goTypes []goType,
+	ignoreGoTypes bool,
+	p *Processor,
+) TableCellSlice {
 	to = make(TableCellSlice, 0, len(from))
 
 	for i, f := range from {
-		gt := goTypeString
+		gt := GOTypeString
 		if i < len(goTypes) {
 			gt = goTypes[i]
 		}
 
-		to = append(to, (&TableCell{}).From(f, gt, ignoreGoTypes))
+		to = append(to, (&TableCell{}).From(f, gt, ignoreGoTypes, p))
 	}
 
 	return to
@@ -603,12 +617,17 @@ type TableRow struct {
 }
 
 // From converts to TableRow.
-func (to *TableRow) From(from *messages.TableRow, goTypes []goType, ignoreGoTypes bool) *TableRow {
+func (to *TableRow) From(
+	from *messages.TableRow,
+	goTypes []goType,
+	ignoreGoTypes bool,
+	p *Processor,
+) *TableRow {
 	if from == nil {
 		return nil
 	}
 
-	cells := TableCellSlice{}.From(from.Cells, goTypes, ignoreGoTypes)
+	cells := TableCellSlice{}.From(from.Cells, goTypes, ignoreGoTypes, p)
 
 	values := make([]string, 0, len(cells))
 	for _, c := range cells {
@@ -622,8 +641,8 @@ func (to *TableRow) From(from *messages.TableRow, goTypes []goType, ignoreGoType
 		Cells:    cells,
 
 		goData: goData{
-			GoType:  goTypeString,
-			GoName:  goName(value),
+			GoType:  GOTypeString,
+			GoName:  goName(value, p),
 			GoValue: goString(value),
 		},
 	}
@@ -659,11 +678,11 @@ func determinateGoTypes(from []*messages.TableRow) (goTypes []goType) {
 }
 
 // From converts to TableRowSlice.
-func (to TableRowSlice) From(from []*messages.TableRow) TableRowSlice {
+func (to TableRowSlice) From(from []*messages.TableRow, p *Processor) TableRowSlice {
 	to = make(TableRowSlice, 0, len(from))
 
 	for _, f := range from {
-		to = append(to, (&TableRow{}).From(f, determinateGoTypes(from), false))
+		to = append(to, (&TableRow{}).From(f, determinateGoTypes(from), false, p))
 	}
 
 	return to

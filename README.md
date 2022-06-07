@@ -200,7 +200,7 @@ Running gherkingen in docker, `<RELATIVE_PATH_TO_FEATURE_FILE>` is
 a path to a feature file relatively to the current directory.
 ```sh
 docker run --rm -it --read-only --network none \
-	--volume $PWD:/host/ \
+	--volume $PWD:/host/:ro \
 	hedhyw/gherkingen:latest \
 	-- /host/<RELATIVE_PATH_TO_FEATURE_FILE>
 ```

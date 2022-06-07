@@ -19,11 +19,13 @@ func Formats() []string {
 	}
 }
 
-type goType string
+// GoType definition.
+type GoType string
 
+// Possible go types.
 const (
-	goTypeString  goType = "string"
-	goTypeInt     goType = "int"
-	goTypeFloat64 goType = "float64"
-	goTypeBool    goType = "bool"
+	GoTypeString  GoType = "string"
+	GoTypeInt     GoType = "int"
+	GoTypeFloat64 GoType = "float64"
+	GoTypeBool    GoType = "bool"
 )
