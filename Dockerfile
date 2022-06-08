@@ -1,4 +1,4 @@
-ARG GOLANG_DOCKER_TAG=1.17.8-alpine3.15
+ARG GOLANG_DOCKER_TAG=1.18.3-alpine3.15
 ARG ALPINE_DOCKER_TAG=3.15
 
 FROM golang:$GOLANG_DOCKER_TAG as builder
@@ -8,7 +8,8 @@ RUN apk update && apk upgrade && apk add --no-cache make
 WORKDIR /build
 COPY . .
 
-RUN make build OUT_PATH=/build/bin/gherkingen
+ARG APPLICATION_VERSION=unknown
+RUN make build OUT_PATH=/build/bin/gherkingen VERSION=$APPLICATION_VERSION
 
 FROM alpine:$ALPINE_DOCKER_TAG
 
