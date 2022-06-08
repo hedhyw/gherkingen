@@ -15,7 +15,7 @@ jobs:
       - name: Set up Go
         uses: actions/setup-go@v2
         with:
-          go-version: '1.17.8'
+          go-version: '1.18.3'
 
       - name: Run GoReleaser
         uses: goreleaser/goreleaser-action@v2
@@ -54,3 +54,5 @@ jobs:
           platforms: linux/amd64,linux/arm/v6,linux/386
           push: true
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/gherkingen:latest,${{ secrets.DOCKERHUB_USERNAME }}/gherkingen:${{ steps.vars.outputs.tag }}
+          build-args: |
+            APPLICATION_VERSION=${{ steps.vars.outputs.tag }}
