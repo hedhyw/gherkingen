@@ -54,3 +54,19 @@ Feature: Application command line tool
   Scenario: User gives an invalid flag
     When flag -invalid is provided
     Then a generation failed
+
+  Scenario: User wants to know version
+    When <flag> is provided
+    Then version is printed
+    Examples:
+    | <flag>    |
+    | --version |
+    | -version  |
+
+  Scenario: User specifies a file, but the file is not found
+    When inexistent <template> is provided
+    And  <feature> is provided
+    Then the user recieves an error
+    Examples:
+    | <feature>   | <template> |
+    | app.feature | not_found  |
