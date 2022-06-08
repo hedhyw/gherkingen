@@ -66,7 +66,7 @@ Feature: Application command line tool
   Scenario: User specifies a file, but the file is not found
     When inexistent <template> is provided
     And  <feature> is provided
-    Then the user recieves an error
+    Then the user receives an error
     Examples:
     | <feature>   | <template> |
     | app.feature | not_found  |

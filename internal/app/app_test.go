@@ -220,7 +220,7 @@ func TestApplicationCommandLineTool(t *testing.T) {
 			f.And("<feature> is provided", func() {
 				arguments = append(arguments, tc.Feature)
 			})
-			f.Then("the user recieves an error", func() {
+			f.Then("the user receives an error", func() {
 				runApp(t, arguments, false)
 			})
 		})

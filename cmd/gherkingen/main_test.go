@@ -5,7 +5,7 @@ import (
 	"testing"
 )
 
-func TestMainVersion(t *testing.T) {
+func TestMainVersion(_ *testing.T) {
 	os.Args = append(os.Args, "-version")
 	main()
 }
