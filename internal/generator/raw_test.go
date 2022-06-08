@@ -52,3 +52,17 @@ func TestGenerateRaw(t *testing.T) {
 		})
 	}
 }
+
+func TestGenerateRaw_failed(t *testing.T) {
+	t.Parallel()
+
+	_, err := generator.Generate(model.GenerateArgs{
+		Format:         model.FormatRaw,
+		InputSource:    exampleFeature,
+		TemplateSource: []byte("{{"),
+		PackageName:    "generated_test.go",
+	})
+	if err == nil {
+		t.Fatal(err)
+	}
+}

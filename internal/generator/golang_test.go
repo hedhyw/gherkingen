@@ -38,6 +38,20 @@ func TestGenerateGo(t *testing.T) {
 	}
 }
 
+func TestGenerateGoFormattingFailed(t *testing.T) {
+	t.Parallel()
+
+	_, err := generator.Generate(model.GenerateArgs{
+		Format:         model.FormatGo,
+		InputSource:    exampleFeature,
+		TemplateSource: []byte("-"),
+		PackageName:    "generated_test",
+	})
+	if err == nil {
+		t.Fatal(err)
+	}
+}
+
 func TestGenerateAssetTemplatesShouldNotFail(t *testing.T) {
 	t.Parallel()
 

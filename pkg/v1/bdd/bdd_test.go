@@ -22,7 +22,7 @@ func TestBDDTestCases(t *testing.T) {
 
 		var gotSum int
 
-		f.TestCases(testCases, func(t *testing.T, f *bdd.Feature, tc testCase) {
+		f.TestCases(testCases, func(_ *testing.T, _ *bdd.Feature, tc testCase) {
 			gotSum += tc.Inc
 		})
 
@@ -42,19 +42,19 @@ func TestBDD(t *testing.T) {
 		called++
 	}
 
-	f.Rule("rule", func(t *testing.T, f *bdd.Feature) {
-		f.Background("background", func(t *testing.T, f *bdd.Feature) {
+	f.Rule("rule", func(_ *testing.T, f *bdd.Feature) {
+		f.Background("background", func(_ *testing.T, f *bdd.Feature) {
 			f.Then("then", inc)
 		})
 
-		f.Scenario("simple", func(t *testing.T, f *bdd.Feature) {
+		f.Scenario("simple", func(_ *testing.T, f *bdd.Feature) {
 			tc := struct {
 				Fn string `field:"<field>"`
 			}{
 				Fn: "FUNC",
 			}
 
-			f.Example("example", func(t *testing.T, f *bdd.Feature) {
+			f.Example("example", func(_ *testing.T, f *bdd.Feature) {
 				f.TestCase("testCase", tc, func(t *testing.T, f *bdd.Feature) {
 					f.Given("given <field> called", inc)
 					f.But("but <field> called", inc)

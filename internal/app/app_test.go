@@ -10,6 +10,8 @@ import (
 	"github.com/hedhyw/gherkingen/pkg/v1/bdd"
 )
 
+const testVersion = "0.0.1"
+
 func TestApplicationCommandLineTool(t *testing.T) {
 	f := bdd.NewFeature(t, "Application command line tool")
 
@@ -174,6 +176,55 @@ func TestApplicationCommandLineTool(t *testing.T) {
 			runApp(t, arguments, false)
 		})
 	})
+
+	f.Scenario("User wants to know version", func(_ *testing.T, f *bdd.Feature) {
+		type testCase struct {
+			Flag string `field:"<flag>"`
+		}
+
+		testCases := map[string]testCase{
+			"--version": {"--version"},
+			"-version":  {"-version"},
+		}
+
+		f.TestCases(testCases, func(t *testing.T, f *bdd.Feature, tc testCase) {
+			arguments := []string{}
+
+			f.When("<flag> is provided", func() {
+				arguments = append(arguments, tc.Flag)
+			})
+			f.Then("version is printed", func() {
+				out := runApp(t, arguments, true)
+				if !strings.Contains(out, testVersion) {
+					t.Fatalf("expected %q in %q", testVersion, out)
+				}
+			})
+		})
+	})
+
+	f.Scenario("User specifies a file, but the file is not found", func(_ *testing.T, f *bdd.Feature) {
+		type testCase struct {
+			Feature  string `field:"<feature>"`
+			Template string `field:"<template>"`
+		}
+
+		testCases := map[string]testCase{
+			"app.feature_not_found": {"app.feature", "not_found"},
+		}
+
+		f.TestCases(testCases, func(t *testing.T, f *bdd.Feature, tc testCase) {
+			arguments := []string{}
+			f.When("inexistent <template> is provided", func() {
+				arguments = append(arguments, "-template", tc.Template)
+			})
+			f.And("<feature> is provided", func() {
+				arguments = append(arguments, tc.Feature)
+			})
+			f.Then("the user receives an error", func() {
+				runApp(t, arguments, false)
+			})
+		})
+	})
 }
 
 func runApp(tb testing.TB, arguments []string, ok bool) string {
@@ -182,7 +233,7 @@ func runApp(tb testing.TB, arguments []string, ok bool) string {
 	flag.CommandLine = flag.NewFlagSet("", flag.PanicOnError)
 
 	var buf bytes.Buffer
-	err := app.Run(arguments, &buf)
+	err := app.Run(arguments, &buf, testVersion)
 
 	if ok == (err != nil) {
 		tb.Errorf("Assertion failed, ok: %t, err: %s", ok, err)

@@ -18,7 +18,7 @@ const (
 )
 
 // Run the application.
-func Run(arguments []string, out io.Writer) (err error) {
+func Run(arguments []string, out io.Writer, version string) (err error) {
 	flag.CommandLine.Init(flag.CommandLine.Name(), flag.ContinueOnError)
 	flag.CommandLine.SetOutput(out)
 
@@ -37,12 +37,12 @@ func Run(arguments []string, out io.Writer) (err error) {
 		false,
 		"The same calls to the generator always produces the same output",
 	)
-	help := flag.Bool(
+	helpCmd := flag.Bool(
 		"help",
 		false,
 		"print usage",
 	)
-	list := flag.Bool(
+	listCmd := flag.Bool(
 		"list",
 		false,
 		"list internal templates",
@@ -51,6 +51,11 @@ func Run(arguments []string, out io.Writer) (err error) {
 		"package",
 		"generated_test",
 		"name of the generated package",
+	)
+	versionCmd := flag.Bool(
+		"version",
+		false,
+		"print version",
 	)
 	if err = flag.CommandLine.Parse(arguments); err != nil {
 		return err
@@ -70,9 +75,11 @@ func Run(arguments []string, out io.Writer) (err error) {
 	}
 
 	switch {
-	case *list:
+	case *versionCmd:
+		return runVersion(out, version)
+	case *listCmd:
 		return runListTemplates(out)
-	case *help, inputFile == "":
+	case *helpCmd, inputFile == "":
 		return runHelp()
 	default:
 		return runGenerator(
