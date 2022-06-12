@@ -6,7 +6,7 @@ import (
 )
 
 func runVersion(w io.Writer, version string) error {
-	fmt.Fprintln(w, "github.com/hedhyw/gherkingen/v2@"+version)
+	fmt.Fprintln(w, "github.com/hedhyw/gherkingen@"+version)
 
 	return nil
 }
