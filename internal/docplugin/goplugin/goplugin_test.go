@@ -69,8 +69,8 @@ func TestGoPluginProcess(t *testing.T) {
 
 		doc := getExampleDocument()
 		if assert.NoError(t, p.Process(ctx, doc)) {
-			val := doc.Feature.Children[0].Scenario.Examples[1].TableBody[0].Cells[0].Value
-			assert.Equal(t, "hello_world", val)
+			pd := doc.Feature.Children[0].Scenario.Examples[1].TableBody[0].PluginData
+			assert.Equal(t, "\"hello_world\"", pd["GoValue"])
 		}
 	})
 
