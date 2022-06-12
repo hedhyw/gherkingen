@@ -6,8 +6,8 @@ import (
 	"reflect"
 	"strings"
 
-	"github.com/hedhyw/gherkingen/internal/docplugin/goplugin/goaliaser"
-	"github.com/hedhyw/gherkingen/internal/model"
+	"github.com/hedhyw/gherkingen/v2/internal/docplugin/goplugin/goaliaser"
+	"github.com/hedhyw/gherkingen/v2/internal/model"
 )
 
 const maxRecursionDepth = 10

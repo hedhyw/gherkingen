@@ -6,6 +6,9 @@
 *.dylib
 bin
 
+# IDE
+.vscode
+
 # Test binary, built with `go test -c`
 *.test
 

@@ -3,7 +3,7 @@ package examples_test
 import (
 	"testing"
 
-	"github.com/hedhyw/gherkingen/pkg/v1/bdd"
+	"github.com/hedhyw/gherkingen/v2/pkg/bdd"
 )
 
 func TestIssueExample(t *testing.T) {

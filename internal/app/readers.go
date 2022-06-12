@@ -7,7 +7,7 @@ import (
 	"os"
 	"strings"
 
-	"github.com/hedhyw/gherkingen/internal/assets"
+	"github.com/hedhyw/gherkingen/v2/internal/assets"
 
 	"github.com/hedhyw/semerr/pkg/v1/semerr"
 )

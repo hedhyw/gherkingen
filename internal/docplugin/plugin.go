@@ -3,7 +3,7 @@ package docplugin
 import (
 	"context"
 
-	"github.com/hedhyw/gherkingen/internal/model"
+	"github.com/hedhyw/gherkingen/v2/internal/model"
 )
 
 // Plugin injects extra data to document.

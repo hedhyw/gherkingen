@@ -4,8 +4,8 @@ import (
 	"context"
 	"testing"
 
-	"github.com/hedhyw/gherkingen/internal/docplugin/goplugin"
-	"github.com/hedhyw/gherkingen/internal/model"
+	"github.com/hedhyw/gherkingen/v2/internal/docplugin/goplugin"
+	"github.com/hedhyw/gherkingen/v2/internal/model"
 
 	"github.com/stretchr/testify/assert"
 )
@@ -65,7 +65,7 @@ func TestGoPluginProcess(t *testing.T) {
 	t.Run("Examples_underscore", func(t *testing.T) {
 		t.Parallel()
 
-		// It tests https://github.com/hedhyw/gherkingen/issues/26.
+		// It tests https://github.com/hedhyw/gherkingen/v2/issues/26.
 
 		doc := getExampleDocument()
 		if assert.NoError(t, p.Process(ctx, doc)) {
