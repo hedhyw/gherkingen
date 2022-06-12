@@ -1,4 +1,4 @@
-module github.com/hedhyw/gherkingen
+module github.com/hedhyw/gherkingen/v2
 
 go 1.18
 

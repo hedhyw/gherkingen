@@ -4,7 +4,7 @@ import (
 	"strconv"
 	"testing"
 
-	"github.com/hedhyw/gherkingen/internal/model"
+	"github.com/hedhyw/gherkingen/v2/internal/model"
 
 	"github.com/cucumber/messages-go/v16"
 	"github.com/stretchr/testify/assert"

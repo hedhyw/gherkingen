@@ -3,7 +3,7 @@ package main
 import (
 	"os"
 
-	"github.com/hedhyw/gherkingen/internal/app"
+	"github.com/hedhyw/gherkingen/v2/internal/app"
 )
 
 // Version will be set on build.

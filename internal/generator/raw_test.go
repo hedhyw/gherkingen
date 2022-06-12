@@ -3,8 +3,8 @@ package generator_test
 import (
 	"testing"
 
-	"github.com/hedhyw/gherkingen/internal/generator"
-	"github.com/hedhyw/gherkingen/internal/model"
+	"github.com/hedhyw/gherkingen/v2/internal/generator"
+	"github.com/hedhyw/gherkingen/v2/internal/model"
 
 	"github.com/stretchr/testify/assert"
 )

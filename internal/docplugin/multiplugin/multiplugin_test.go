@@ -4,9 +4,9 @@ import (
 	"context"
 	"testing"
 
-	"github.com/hedhyw/gherkingen/internal/docplugin/goplugin"
-	"github.com/hedhyw/gherkingen/internal/docplugin/multiplugin"
-	"github.com/hedhyw/gherkingen/internal/model"
+	"github.com/hedhyw/gherkingen/v2/internal/docplugin/goplugin"
+	"github.com/hedhyw/gherkingen/v2/internal/docplugin/multiplugin"
+	"github.com/hedhyw/gherkingen/v2/internal/model"
 
 	"github.com/hedhyw/semerr/pkg/v1/semerr"
 	"github.com/stretchr/testify/assert"

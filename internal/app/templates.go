@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"io"
 
-	"github.com/hedhyw/gherkingen/internal/assets"
+	"github.com/hedhyw/gherkingen/v2/internal/assets"
 )
 
 func runListTemplates(out io.Writer) (err error) {

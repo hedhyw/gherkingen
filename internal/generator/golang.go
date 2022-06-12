@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"go/format"
 
-	"github.com/hedhyw/gherkingen/internal/model"
+	"github.com/hedhyw/gherkingen/v2/internal/model"
 )
 
 // generateGo generates raw output and formates it with go formatter.

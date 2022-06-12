@@ -5,8 +5,8 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/hedhyw/gherkingen/internal/docplugin"
-	"github.com/hedhyw/gherkingen/internal/model"
+	"github.com/hedhyw/gherkingen/v2/internal/docplugin"
+	"github.com/hedhyw/gherkingen/v2/internal/model"
 
 	"github.com/cucumber/gherkin-go/v19"
 	"github.com/google/uuid"
