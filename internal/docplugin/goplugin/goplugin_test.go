@@ -62,6 +62,18 @@ func TestGoPluginProcess(t *testing.T) {
 		assert.Error(t, p.Process(ctx, doc))
 	})
 
+	t.Run("Examples_underscore", func(t *testing.T) {
+		t.Parallel()
+
+		// It tests https://github.com/hedhyw/gherkingen/issues/26.
+
+		doc := getExampleDocument()
+		if assert.NoError(t, p.Process(ctx, doc)) {
+			pd := doc.Feature.Children[0].Scenario.Examples[1].TableBody[0].PluginData
+			assert.Equal(t, "\"hello_world\"", pd["GoValue"])
+		}
+	})
+
 	t.Run("TableCell", func(t *testing.T) {
 		t.Parallel()
 
@@ -158,6 +170,24 @@ func getExampleDocument() *model.GherkinDocument {
 						TableBody: []*model.TableRow{{
 							Cells: []*model.TableCell{{
 								Value:      "5",
+								PluginData: make(map[string]any),
+							}},
+							PluginData: make(map[string]any),
+						}},
+						PluginData: map[string]any{},
+					}, {
+						Keyword: "Keyword",
+						Name:    "Name",
+						TableHeader: &model.TableRow{
+							Cells: []*model.TableCell{{
+								Value:      "<Message>",
+								PluginData: make(map[string]any),
+							}},
+							PluginData: make(map[string]any),
+						},
+						TableBody: []*model.TableRow{{
+							Cells: []*model.TableCell{{
+								Value:      "hello world",
 								PluginData: make(map[string]any),
 							}},
 							PluginData: make(map[string]any),

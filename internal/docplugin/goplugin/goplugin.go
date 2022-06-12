@@ -20,13 +20,15 @@ const (
 
 // GoPlugin injects golang specific information: go types, aliases.
 type GoPlugin struct {
-	aliaser *goaliaser.Aliaser
+	aliaser             *goaliaser.Aliaser
+	exampleNameReplacer *strings.Replacer
 }
 
 // New initializes a new go plugin.
 func New() *GoPlugin {
 	return &GoPlugin{
-		aliaser: goaliaser.New(),
+		aliaser:             goaliaser.New(),
+		exampleNameReplacer: strings.NewReplacer(" ", "_", "\t", "_"),
 	}
 }
 
@@ -158,15 +160,19 @@ func (p GoPlugin) handleStruct(
 			val.PluginData[dataFieldGoType] = string(goTypeString)
 		}
 	case model.TableRow:
-		values := make([]string, 0, len(val.Cells))
-		for _, c := range val.Cells {
-			values = append(values, c.Value)
-		}
-
-		val.PluginData[dataFieldGoValue] = p.aliaser.StringValue(strings.Join(values, "_"))
+		val.PluginData[dataFieldGoValue] = p.prepareExampleName(val)
 	}
 
 	return nil
+}
+
+func (p GoPlugin) prepareExampleName(row model.TableRow) string {
+	values := make([]string, 0, len(row.Cells))
+	for _, c := range row.Cells {
+		values = append(values, p.exampleNameReplacer.Replace(c.Value))
+	}
+
+	return p.aliaser.StringValue(strings.Join(values, "_"))
 }
 
 func (p GoPlugin) fillExampleHeaderTypes(examples *model.Examples) (err error) {
