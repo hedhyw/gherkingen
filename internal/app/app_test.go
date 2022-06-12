@@ -3,11 +3,13 @@ package app_test
 import (
 	"bytes"
 	"flag"
-	"strings"
 	"testing"
 
 	"github.com/hedhyw/gherkingen/internal/app"
 	"github.com/hedhyw/gherkingen/pkg/v1/bdd"
+
+	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/require"
 )
 
 const testVersion = "0.0.1"
@@ -126,9 +128,7 @@ func TestApplicationCommandLineTool(t *testing.T) {
 			})
 			f.Then("the output should contain <package>", func() {
 				out := runApp(t, arguments, true)
-				if !strings.Contains(out, tc.Package) {
-					t.Fatal(out)
-				}
+				assert.Contains(t, out, tc.Package)
 			})
 		})
 	})
@@ -158,9 +158,10 @@ func TestApplicationCommandLineTool(t *testing.T) {
 
 				firstOut := runApp(t, arguments, true)
 				secondOut := runApp(t, arguments, true)
-				theSameOut := firstOut == secondOut
-				if theSameOut != tc.TheSameIDs {
-					t.Fatalf("%s\n---\n%s\n", firstOut, secondOut)
+				if tc.TheSameIDs {
+					assert.Equal(t, firstOut, secondOut)
+				} else {
+					assert.NotEqual(t, firstOut, secondOut)
 				}
 			})
 		})
@@ -195,9 +196,7 @@ func TestApplicationCommandLineTool(t *testing.T) {
 			})
 			f.Then("version is printed", func() {
 				out := runApp(t, arguments, true)
-				if !strings.Contains(out, testVersion) {
-					t.Fatalf("expected %q in %q", testVersion, out)
-				}
+				assert.Contains(t, out, testVersion)
 			})
 		})
 	})
@@ -234,16 +233,13 @@ func runApp(tb testing.TB, arguments []string, ok bool) string {
 
 	var buf bytes.Buffer
 	err := app.Run(arguments, &buf, testVersion)
-
-	if ok == (err != nil) {
-		tb.Errorf("Assertion failed, ok: %t, err: %s", ok, err)
-	}
-
 	if ok {
+		require.NoError(tb, err)
+
 		gotLen := buf.Len()
-		if gotLen == 0 {
-			tb.Error("Empty output")
-		}
+		assert.NotZero(tb, gotLen)
+	} else {
+		require.Error(tb, err)
 	}
 
 	return buf.String()

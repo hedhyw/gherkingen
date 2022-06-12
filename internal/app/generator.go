@@ -4,6 +4,8 @@ import (
 	"fmt"
 	"io"
 
+	"github.com/hedhyw/gherkingen/internal/docplugin/goplugin"
+	"github.com/hedhyw/gherkingen/internal/docplugin/multiplugin"
 	"github.com/hedhyw/gherkingen/internal/generator"
 	"github.com/hedhyw/gherkingen/internal/model"
 )
@@ -25,11 +27,12 @@ func runGenerator(
 		return err
 	}
 
-	data, err := generator.Generate(model.GenerateArgs{
+	data, err := generator.Generate(generator.Args{
 		Format:         outputFormat,
 		InputSource:    inputSource,
 		TemplateSource: templateSource,
 		PackageName:    packageName,
+		Plugin:         multiplugin.New(goplugin.New()),
 	})
 	if err != nil {
 		return err
