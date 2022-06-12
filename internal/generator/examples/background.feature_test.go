@@ -3,7 +3,7 @@ package examples_test
 import (
 	"testing"
 
-	"github.com/hedhyw/gherkingen/v2/pkg/v1/bdd"
+	"github.com/hedhyw/gherkingen/v2/pkg/bdd"
 )
 
 func TestMultipleSiteSupport(t *testing.T) {

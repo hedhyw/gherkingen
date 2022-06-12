@@ -6,7 +6,7 @@ import (
 	"testing"
 
 	"github.com/hedhyw/gherkingen/v2/internal/app"
-	"github.com/hedhyw/gherkingen/v2/pkg/v1/bdd"
+	"github.com/hedhyw/gherkingen/v2/pkg/bdd"
 
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
