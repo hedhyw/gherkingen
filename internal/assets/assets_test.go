@@ -5,17 +5,17 @@ import (
 	"testing"
 
 	"github.com/hedhyw/gherkingen/internal/assets"
+
+	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/require"
 )
 
 func TestTemplates(t *testing.T) {
 	t.Parallel()
 
 	names, err := assets.Templates()
-	switch {
-	case err != nil:
-		t.Fatal(err)
-	case len(names) == 0:
-		t.Fatal(names)
+	if assert.NoError(t, err) {
+		assert.NotEmpty(t, names)
 	}
 }
 
@@ -33,23 +33,13 @@ func TestOpenTemplate(t *testing.T) {
 			t.Parallel()
 
 			f, err := assets.OpenTemplate(f)
-			if err != nil {
-				t.Fatal(err)
-			}
+			require.NoError(t, err)
 
-			defer func() {
-				err := f.Close()
-				if err != nil {
-					t.Fatal(err)
-				}
-			}()
+			defer func() { assert.NoError(t, f.Close()) }()
 
 			data, err := ioutil.ReadAll(f)
-			switch {
-			case err != nil:
-				t.Fatal(err)
-			case len(data) == 0:
-				t.Fatal()
+			if assert.NoError(t, err) {
+				assert.NotEmpty(t, data)
 			}
 		})
 	}

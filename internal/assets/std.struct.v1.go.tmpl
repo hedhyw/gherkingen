@@ -8,9 +8,9 @@ import (
 
 {{ define "Background" }}
     {{ $Background := . }}
-    f.{{ $Background.GoName }}({{ $Background.GoValue }}, func(t *testing.T, f *bdd.Feature) {
+    f.{{ $Background.PluginData.GoName }}({{ $Background.PluginData.GoValue }}, func(t *testing.T, f *bdd.Feature) {
         {{- range $Background.Steps }}
-        f.{{ .GoName }}({{.GoValue}}, func() {
+        f.{{ .PluginData.GoName }}({{.PluginData.GoValue}}, func() {
             
         })
         {{- end }}
@@ -19,23 +19,23 @@ import (
 
 {{ define "Scenario" }}
     {{ $Scenario := . }}
-    f.{{ $Scenario.GoName }}({{ $Scenario.GoValue }}, func(t *testing.T, f *bdd.Feature) {
+    f.{{ $Scenario.PluginData.GoName }}({{ $Scenario.PluginData.GoValue }}, func(t *testing.T, f *bdd.Feature) {
         {{- range $Scenario.Examples }}
 
         {{- /* Define test case struct. */ -}}
 
         type testCase struct {
             {{- range .TableHeader.Cells }}
-			{{ .GoName }} {{ .GoType }} `field:"{{.Value}}"`
+			{{ .PluginData.GoName }} {{ .PluginData.GoType }} `field:"{{.Value}}"`
             {{- end -}}
 		}
 
         testCases := map[string]testCase{
             {{- range .TableBody }}
-			{{ .GoValue }}: {
+			{{ .PluginData.GoValue }}: {
             {{- /* Struct fields start. */ -}}
                 {{- range $index, $cell := .Cells -}}
-                {{- if $index -}},{{ end }} {{- $cell.GoValue -}}
+                {{- if $index -}},{{ end }} {{- $cell.PluginData.GoValue -}}
                 {{- end -}}
             {{- /* Struct fields end. */ -}}
             },
@@ -44,14 +44,14 @@ import (
 
         f.TestCases(testCases, func(t *testing.T, f *bdd.Feature, tc testCase) {
             {{- range $Scenario.Steps }}
-            f.{{ .GoName }}({{ .GoValue }}, func() {
+            f.{{ .PluginData.GoName }}({{ .PluginData.GoValue }}, func() {
                 
             })
             {{- end }}
         })
         {{- else }}
         {{- range $Scenario.Steps }}
-        f.{{ .GoName }}({{.GoValue}}, func() {
+        f.{{ .PluginData.GoName }}({{.PluginData.GoValue}}, func() {
             
         })
         {{- end }}
@@ -61,7 +61,7 @@ import (
 
 {{ define "Rule" }}
     {{ $Rule := . }}
-    f.{{ $Rule.GoName }}({{ $Rule.GoValue }}, func(t *testing.T, f *bdd.Feature) {
+    f.{{ $Rule.PluginData.GoName }}({{ $Rule.PluginData.GoValue }}, func(t *testing.T, f *bdd.Feature) {
         {{- range $Rule.Children }}
 
         {{ if .Background }}
@@ -76,8 +76,8 @@ import (
     })
 {{ end }}
 
-func Test{{ .Feature.GoName }}(t *testing.T) {
-    f := bdd.NewFeature(t, {{ .Feature.GoValue }})
+func Test{{ .Feature.PluginData.GoName }}(t *testing.T) {
+    f := bdd.NewFeature(t, {{ .Feature.PluginData.GoValue }})
     {{ if .Feature.Description }}
     /* {{ .Feature.Description }} */
     {{ end }}

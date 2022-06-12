@@ -5,6 +5,8 @@ import (
 
 	"github.com/hedhyw/gherkingen/internal/generator"
 	"github.com/hedhyw/gherkingen/internal/model"
+
+	"github.com/stretchr/testify/assert"
 )
 
 func TestGenerateRaw(t *testing.T) {
@@ -36,18 +38,15 @@ func TestGenerateRaw(t *testing.T) {
 		t.Run(tc.Template, func(t *testing.T) {
 			t.Parallel()
 
-			gotDataRaw, err := generator.Generate(model.GenerateArgs{
+			gotDataRaw, err := generator.Generate(generator.Args{
 				Format:         model.FormatRaw,
 				InputSource:    exampleFeature,
 				TemplateSource: []byte(tc.Template),
 				PackageName:    "generated_test.go",
+				Plugin:         requireNewPlugin(t),
 			})
-			if err != nil {
-				t.Fatal(err)
-			}
-
-			if tc.Exp != string(gotDataRaw) {
-				t.Fatalf("%s", gotDataRaw)
+			if assert.NoError(t, err) {
+				assert.Equal(t, tc.Exp, string(gotDataRaw))
 			}
 		})
 	}
@@ -56,13 +55,12 @@ func TestGenerateRaw(t *testing.T) {
 func TestGenerateRaw_failed(t *testing.T) {
 	t.Parallel()
 
-	_, err := generator.Generate(model.GenerateArgs{
+	_, err := generator.Generate(generator.Args{
 		Format:         model.FormatRaw,
 		InputSource:    exampleFeature,
 		TemplateSource: []byte("{{"),
 		PackageName:    "generated_test.go",
+		Plugin:         requireNewPlugin(t),
 	})
-	if err == nil {
-		t.Fatal(err)
-	}
+	assert.Error(t, err)
 }

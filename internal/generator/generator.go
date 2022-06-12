@@ -2,8 +2,10 @@ package generator
 
 import (
 	"bytes"
+	"context"
 	"fmt"
 
+	"github.com/hedhyw/gherkingen/internal/docplugin"
 	"github.com/hedhyw/gherkingen/internal/model"
 
 	"github.com/cucumber/gherkin-go/v19"
@@ -11,8 +13,17 @@ import (
 	"github.com/hedhyw/semerr/pkg/v1/semerr"
 )
 
+// Args contains required arguments for Generate.
+type Args struct {
+	Format         model.Format
+	InputSource    []byte
+	TemplateSource []byte
+	PackageName    string
+	Plugin         docplugin.Plugin
+}
+
 // Generate generates output consider template from gherkin source.
-func Generate(args model.GenerateArgs) (out []byte, err error) {
+func Generate(args Args) (out []byte, err error) {
 	gherkinDocument, err := gherkin.ParseGherkinDocument(
 		bytes.NewReader(args.InputSource),
 		uuid.NewString,
@@ -25,8 +36,15 @@ func Generate(args model.GenerateArgs) (out []byte, err error) {
 		return nil, semerr.Error("package name should be defined")
 	}
 
+	doc := (&model.GherkinDocument{}).From(gherkinDocument)
+
+	err = args.Plugin.Process(context.Background(), doc)
+	if err != nil {
+		return nil, fmt.Errorf("processing plugin: %s: %w", args.Plugin.Name(), err)
+	}
+
 	tmplData := &model.TemplateData{
-		GherkinDocument: (&model.GherkinDocument{}).From(gherkinDocument),
+		GherkinDocument: doc,
 		PackageName:     args.PackageName,
 	}
 

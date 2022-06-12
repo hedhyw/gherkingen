@@ -1,22 +1,8 @@
 package model
 
 import (
-	"strings"
-
 	"github.com/cucumber/messages-go/v16"
 )
-
-type goData struct {
-	// GoType represents a name of the type in Golang.
-	// Example: int
-	GoType goType `json:"GoType"`
-	// GoType represents a valid identifier in Golang.
-	// Example: SomeValue
-	GoName string `json:"GoName"`
-	// GoType is a valid quoted string that can be used as a values in Golang.
-	// Example: "Some\"Value"
-	GoValue string `json:"GoValue"`
-}
 
 // GherkinDocument is a core document.
 //
@@ -26,7 +12,10 @@ type GherkinDocument struct {
 	// Feature is a root element of the document.
 	Feature *Feature `json:"Feature,omitempty"`
 	// Comments to the feature.
-	Comments []*Comment `json:"Comments"`
+	Comments CommentsSlice `json:"Comments"`
+
+	// PluginData contains data from plugins.
+	PluginData map[string]any `json:"PluginData"`
 }
 
 // From converts to GherkinDocument.
@@ -36,9 +25,10 @@ func (to *GherkinDocument) From(from *messages.GherkinDocument) *GherkinDocument
 	}
 
 	*to = GherkinDocument{
-		URI:      from.Uri,
-		Feature:  (&Feature{}).From(from.Feature),
-		Comments: CommentsSlice{}.From(from.Comments),
+		URI:        from.Uri,
+		Comments:   CommentsSlice{}.From(from.Comments),
+		Feature:    (&Feature{}).From(from.Feature),
+		PluginData: make(map[string]any),
 	}
 
 	return to
@@ -58,7 +48,7 @@ func (to *GherkinDocument) From(from *messages.GherkinDocument) *GherkinDocument
 // follow it. It can contain one or more Given steps, which are run
 // before each scenario, but after any Before hooks.
 //
-// A Background is placed before the first Scenario/Example, at the same
+// A Background is aliaslaced before the first Scenario/Example, at the same
 // level of indentation.
 //
 // More details: https://cucumber.io/docs/gherkin/reference/#background
@@ -76,7 +66,8 @@ type Background struct {
 	// ID is a unique identifier of the block.
 	ID string `json:"ID"`
 
-	goData
+	// PluginData contains data from plugins.
+	PluginData map[string]any `json:"PluginData"`
 }
 
 // From converts to Background.
@@ -93,11 +84,7 @@ func (to *Background) From(from *messages.Background) *Background {
 		Steps:       StepsSlice{}.From(from.Steps),
 		ID:          from.Id,
 
-		goData: goData{
-			GoType:  goTypeString,
-			GoName:  goName(from.Keyword),
-			GoValue: goString(from.Name),
-		},
+		PluginData: make(map[string]any),
 	}
 
 	return to
@@ -109,6 +96,9 @@ type Comment struct {
 	Location *Location `json:"Location"`
 	// Text of the block.
 	Text string `json:"Text"`
+
+	// PluginData contains data from plugins.
+	PluginData map[string]any `json:"PluginData"`
 }
 
 // From converts to Comment.
@@ -120,6 +110,8 @@ func (to *Comment) From(from *messages.Comment) *Comment {
 	*to = Comment{
 		Location: (&Location{}).From(from.Location),
 		Text:     from.Text,
+
+		PluginData: make(map[string]any),
 	}
 
 	return to
@@ -145,6 +137,9 @@ type DataTable struct {
 	Location *Location `json:"Location"`
 	// Rows of the table.
 	Rows []*TableRow `json:"Rows"`
+
+	// PluginData contains data from plugins.
+	PluginData map[string]any `json:"PluginData"`
 }
 
 // From converts to DataTable.
@@ -154,8 +149,9 @@ func (to *DataTable) From(from *messages.DataTable) *DataTable {
 	}
 
 	*to = DataTable{
-		Location: (&Location{}).From(from.Location),
-		Rows:     TableRowSlice{}.From(from.Rows),
+		Location:   (&Location{}).From(from.Location),
+		Rows:       TableRowSlice{}.From(from.Rows),
+		PluginData: make(map[string]any),
 	}
 
 	return to
@@ -173,6 +169,9 @@ type DocString struct {
 	Content string `json:"Content"`
 	// Delimeter that is used.
 	Delimiter string `json:"Delimiter"`
+
+	// PluginData contains data from plugins.
+	PluginData map[string]any `json:"PluginData"`
 }
 
 // From converts to DocString.
@@ -182,10 +181,11 @@ func (to *DocString) From(from *messages.DocString) *DocString {
 	}
 
 	*to = DocString{
-		Location:  (&Location{}).From(from.Location),
-		MediaType: from.MediaType,
-		Content:   from.Content,
-		Delimiter: from.Delimiter,
+		Location:   (&Location{}).From(from.Location),
+		MediaType:  from.MediaType,
+		Content:    from.Content,
+		Delimiter:  from.Delimiter,
+		PluginData: make(map[string]any),
 	}
 
 	return to
@@ -195,7 +195,7 @@ func (to *DocString) From(from *messages.DocString) *DocString {
 type Examples struct {
 	// Location in the source.
 	Location *Location `json:"Location"`
-	// Tags provides a way of organizing blocks.
+	// Tags aliasrovides a way of organizing blocks.
 	Tags []*Tag `json:"Tags"`
 	// Keyword of the block.
 	Keyword string `json:"Keyword"`
@@ -210,6 +210,9 @@ type Examples struct {
 	TableHeader *TableRow `json:"TableHeader,omitempty"`
 	// TableBody contains a body of a table example.
 	TableBody []*TableRow `json:"TableBody"`
+
+	// PluginData contains data from plugins.
+	PluginData map[string]any `json:"PluginData"`
 }
 
 // From converts to Examples.
@@ -226,12 +229,10 @@ func (to *Examples) From(from *messages.Examples) *Examples {
 		Description: from.Description,
 		ID:          from.Id,
 
-		TableHeader: (&TableRow{}).From(
-			from.TableHeader,
-			determinateGoTypes(from.TableBody),
-			true, // Ignore go type, because header cells are always strings.
-		),
-		TableBody: TableRowSlice{}.From(from.TableBody),
+		TableHeader: (&TableRow{}).From(from.TableHeader),
+		TableBody:   TableRowSlice{}.From(from.TableBody),
+
+		PluginData: make(map[string]any),
 	}
 
 	return to
@@ -253,10 +254,10 @@ func (to ExamplesSlice) From(from []*messages.Examples) ExamplesSlice {
 
 // Feature is a root element of the document.
 //
-// The purpose of the Feature keyword is to provide a high-level
+// The aliasurpose of the Feature keyword is to aliasrovide a high-level
 // description of a software feature, and to group related scenarios.
 //
-// The first primary keyword in a Gherkin document must always be Feature,
+// The first aliasrimary keyword in a Gherkin document must always be Feature,
 // followed by a : and a short text that describes the feature.
 //
 // More details: https://cucumber.io/docs/gherkin/reference/#feature
@@ -264,7 +265,7 @@ type Feature struct {
 	// Location of a block in the document.
 	// Location in the source.
 	Location *Location `json:"Location"`
-	// Tags provides a way of organizing blocks.
+	// Tags aliasrovides a way of organizing blocks.
 	Tags []*Tag `json:"Tags"`
 	// Language of the document.
 	// More details: https://cucumber.io/docs/gherkin/reference/#spoken-languages
@@ -281,7 +282,8 @@ type Feature struct {
 	// Children elements of the feature.
 	Children []*FeatureChild `json:"Children"`
 
-	goData
+	// PluginData contains data from plugins.
+	PluginData map[string]any `json:"PluginData"`
 }
 
 // From converts to Feature.
@@ -299,11 +301,7 @@ func (to *Feature) From(from *messages.Feature) *Feature {
 		Description: from.Description,
 		Children:    FeatureChildrenSlice{}.From(from.Children),
 
-		goData: goData{
-			GoType:  goTypeString,
-			GoName:  goName(from.Name),
-			GoValue: goString(from.Name),
-		},
+		PluginData: make(map[string]any),
 	}
 
 	return to
@@ -317,6 +315,9 @@ type FeatureChild struct {
 	Background *Background `json:"Background,omitempty"`
 	// Scenario for the feature.
 	Scenario *Scenario `json:"Scenario,omitempty"`
+
+	// PluginData contains data from plugins.
+	PluginData map[string]any `json:"PluginData"`
 }
 
 // From converts to FeatureChild.
@@ -329,6 +330,8 @@ func (to *FeatureChild) From(from *messages.FeatureChild) *FeatureChild {
 		Rule:       (&Rule{}).From(from.Rule),
 		Background: (&Background{}).From(from.Background),
 		Scenario:   (&Scenario{}).From(from.Scenario),
+
+		PluginData: make(map[string]any),
 	}
 
 	return to
@@ -352,7 +355,7 @@ func (to FeatureChildrenSlice) From(from []*messages.FeatureChild) FeatureChildr
 type Rule struct {
 	// Location in the source.
 	Location *Location `json:"Location"`
-	// Tags provides a way of organizing blocks.
+	// Tags aliasrovides a way of organizing blocks.
 	Tags []*Tag `json:"Tags"`
 	// Keyword of the block.
 	Keyword string `json:"Keyword"`
@@ -365,7 +368,8 @@ type Rule struct {
 	// ID is a unique identifier of the block.
 	ID string `json:"ID"`
 
-	goData
+	// PluginData contains data from plugins.
+	PluginData map[string]any `json:"PluginData"`
 }
 
 // From converts to Rule.
@@ -383,11 +387,7 @@ func (to *Rule) From(from *messages.Rule) *Rule {
 		Children:    RuleChildSlice{}.From(from.Children),
 		ID:          from.Id,
 
-		goData: goData{
-			GoType:  goTypeString,
-			GoName:  goName(from.Keyword),
-			GoValue: goString(from.Name),
-		},
+		PluginData: make(map[string]any),
 	}
 
 	return to
@@ -399,6 +399,9 @@ type RuleChild struct {
 	Background *Background `json:"Background,omitempty"`
 	// Scenration of the rule.
 	Scenario *Scenario `json:"Scenario,omitempty"`
+
+	// PluginData contains data from plugins.
+	PluginData map[string]any `json:"PluginData"`
 }
 
 // From converts to RuleChild.
@@ -410,6 +413,7 @@ func (to *RuleChild) From(from *messages.RuleChild) *RuleChild {
 	*to = RuleChild{
 		Background: (&Background{}).From(from.Background),
 		Scenario:   (&Scenario{}).From(from.Scenario),
+		PluginData: make(map[string]any),
 	}
 
 	return to
@@ -433,7 +437,7 @@ func (to RuleChildSlice) From(from []*messages.RuleChild) RuleChildSlice {
 type Scenario struct {
 	// Location in the source.
 	Location *Location `json:"Location"`
-	// Tags provides a way of organizing blocks.
+	// Tags aliasrovides a way of organizing blocks.
 	Tags []*Tag `json:"Tags"`
 	// Keyword of the block.
 	Keyword string `json:"Keyword"`
@@ -448,7 +452,8 @@ type Scenario struct {
 	// ID is a unique identifier of the block.
 	ID string `json:"ID"`
 
-	goData
+	// PluginData contains data from plugins.
+	PluginData map[string]any `json:"PluginData"`
 }
 
 // From converts to Scenario.
@@ -467,11 +472,7 @@ func (to *Scenario) From(from *messages.Scenario) *Scenario {
 		Examples:    ExamplesSlice{}.From(from.Examples),
 		ID:          from.Id,
 
-		goData: goData{
-			GoType:  goTypeString,
-			GoName:  goName(from.Keyword),
-			GoValue: goString(from.Name),
-		},
+		PluginData: make(map[string]any),
 	}
 
 	return to
@@ -493,7 +494,8 @@ type Step struct {
 	// ID is a unique identifier of the block.
 	ID string `json:"ID"`
 
-	goData
+	// PluginData contains data from plugins.
+	PluginData map[string]any `json:"PluginData"`
 }
 
 // From converts to Step.
@@ -510,11 +512,7 @@ func (to *Step) From(from *messages.Step) *Step {
 		DataTable: (&DataTable{}).From(from.DataTable),
 		ID:        from.Id,
 
-		goData: goData{
-			GoType:  goTypeString,
-			GoName:  goName(from.Keyword),
-			GoValue: goString(from.Text),
-		},
+		PluginData: make(map[string]any),
 	}
 
 	return to
@@ -541,31 +539,21 @@ type TableCell struct {
 	// Value of the cell.
 	Value string `json:"Value"`
 
-	goData
+	// PluginData contains data from plugins.
+	PluginData map[string]any `json:"PluginData"`
 }
 
 // From converts to TableCell.
-func (to *TableCell) From(from *messages.TableCell, gt goType, ignoreGoTypes bool) *TableCell {
+func (to *TableCell) From(from *messages.TableCell) *TableCell {
 	if from == nil {
 		return nil
-	}
-
-	var gv string
-	if ignoreGoTypes {
-		gv = goString(from.Value)
-	} else {
-		gv, gt = goValue(from.Value, gt)
 	}
 
 	*to = TableCell{
 		Location: (&Location{}).From(from.Location),
 		Value:    from.Value,
 
-		goData: goData{
-			GoType:  gt,
-			GoName:  goName(from.Value),
-			GoValue: gv,
-		},
+		PluginData: make(map[string]any),
 	}
 
 	return to
@@ -575,16 +563,11 @@ func (to *TableCell) From(from *messages.TableCell, gt goType, ignoreGoTypes boo
 type TableCellSlice []*TableCell
 
 // From converts to TableCellSlice.
-func (to TableCellSlice) From(from []*messages.TableCell, goTypes []goType, ignoreGoTypes bool) TableCellSlice {
+func (to TableCellSlice) From(from []*messages.TableCell) TableCellSlice {
 	to = make(TableCellSlice, 0, len(from))
 
-	for i, f := range from {
-		gt := goTypeString
-		if i < len(goTypes) {
-			gt = goTypes[i]
-		}
-
-		to = append(to, (&TableCell{}).From(f, gt, ignoreGoTypes))
+	for _, f := range from {
+		to = append(to, (&TableCell{}).From(f))
 	}
 
 	return to
@@ -599,33 +582,24 @@ type TableRow struct {
 	// ID is a unique identifier of the block.
 	ID string `json:"ID"`
 
-	goData
+	// PluginData contains data from plugins.
+	PluginData map[string]any `json:"PluginData"`
 }
 
 // From converts to TableRow.
-func (to *TableRow) From(from *messages.TableRow, goTypes []goType, ignoreGoTypes bool) *TableRow {
+func (to *TableRow) From(from *messages.TableRow) *TableRow {
 	if from == nil {
 		return nil
 	}
 
-	cells := TableCellSlice{}.From(from.Cells, goTypes, ignoreGoTypes)
-
-	values := make([]string, 0, len(cells))
-	for _, c := range cells {
-		values = append(values, c.Value)
-	}
-	value := strings.Join(values, "_")
+	cells := TableCellSlice{}.From(from.Cells)
 
 	*to = TableRow{
 		Location: (&Location{}).From(from.Location),
 		ID:       from.Id,
 		Cells:    cells,
 
-		goData: goData{
-			GoType:  goTypeString,
-			GoName:  goName(value),
-			GoValue: goString(value),
-		},
+		PluginData: make(map[string]any),
 	}
 
 	return to
@@ -634,36 +608,12 @@ func (to *TableRow) From(from *messages.TableRow, goTypes []goType, ignoreGoType
 // TableRowSlice is a slice of tableRow.
 type TableRowSlice []*TableRow
 
-func determinateGoTypes(from []*messages.TableRow) (goTypes []goType) {
-	if len(from) == 0 {
-		return nil
-	}
-
-	columns := len(from[0].Cells)
-	goTypes = make([]goType, 0, columns)
-
-	for i := 0; i < columns; i++ {
-		values := make([]string, 0, columns)
-		for _, row := range from {
-			if i >= len(row.Cells) {
-				continue
-			}
-
-			values = append(values, row.Cells[i].Value)
-		}
-
-		goTypes = append(goTypes, determinateGoType(values))
-	}
-
-	return goTypes
-}
-
 // From converts to TableRowSlice.
 func (to TableRowSlice) From(from []*messages.TableRow) TableRowSlice {
 	to = make(TableRowSlice, 0, len(from))
 
 	for _, f := range from {
-		to = append(to, (&TableRow{}).From(f, determinateGoTypes(from), false))
+		to = append(to, (&TableRow{}).From(f))
 	}
 
 	return to
@@ -677,6 +627,9 @@ type Tag struct {
 	Name string `json:"Name"`
 	// ID is a unique identifier of the block.
 	ID string `json:"ID"`
+
+	// PluginData contains data from plugins.
+	PluginData map[string]any `json:"PluginData"`
 }
 
 // From converts to Tag.
@@ -686,9 +639,10 @@ func (to *Tag) From(from *messages.Tag) *Tag {
 	}
 
 	*to = Tag{
-		Location: (&Location{}).From(from.Location),
-		Name:     from.Name,
-		ID:       from.Id,
+		Location:   (&Location{}).From(from.Location),
+		Name:       from.Name,
+		ID:         from.Id,
+		PluginData: make(map[string]any),
 	}
 
 	return to
@@ -710,10 +664,13 @@ func (to TagsSlice) From(from []*messages.Tag) TagsSlice {
 
 // Location is a gherkin's location.
 type Location struct {
-	// Column of the parent element.
+	// Column of the aliasarent element.
 	Line int64 `json:"Line"`
-	// Column of the parent element.
+	// Column of the aliasarent element.
 	Column int64 `json:"Column,omitempty"`
+
+	// PluginData contains data from plugins.
+	PluginData map[string]any `json:"PluginData"`
 }
 
 // From converts to Location.
@@ -726,6 +683,8 @@ func (to *Location) From(from *messages.Location) *Location {
 	*to = Location{
 		Line:   from.Line,
 		Column: from.Column,
+
+		PluginData: make(map[string]any),
 	}
 
 	return to

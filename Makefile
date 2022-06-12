@@ -1,6 +1,6 @@
-GOLANG_CI_LINT_VER:=v1.45.0
+GOLANG_CI_LINT_VER:=v1.46.2
 OUT_BIN?=${PWD}/bin/gherkingen
-COVER_PACKAGES=${shell go list ./... | grep -Ev 'examples|model' | tr '\n' ','}
+COVER_PACKAGES=./...
 VERSION?=${shell git describe --tags}
 
 build:

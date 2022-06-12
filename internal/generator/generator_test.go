@@ -6,6 +6,8 @@ import (
 
 	"github.com/hedhyw/gherkingen/internal/generator"
 	"github.com/hedhyw/gherkingen/internal/model"
+
+	"github.com/stretchr/testify/assert"
 )
 
 //go:embed generator_test.feature
@@ -16,33 +18,33 @@ func TestGenerate_Failed(t *testing.T) {
 
 	testCases := []struct {
 		Name    string
-		Prepare func(args *model.GenerateArgs)
+		Prepare func(args *generator.Args)
 		OK      bool
 	}{{
 		OK:      true,
 		Name:    "ok",
-		Prepare: func(args *model.GenerateArgs) {},
+		Prepare: func(args *generator.Args) {},
 	}, {
 		OK:   false,
 		Name: "invalid_format",
-		Prepare: func(args *model.GenerateArgs) {
+		Prepare: func(args *generator.Args) {
 			args.Format = "invalid"
 		},
 	}, {
 		Name: "invalid_source",
-		Prepare: func(args *model.GenerateArgs) {
+		Prepare: func(args *generator.Args) {
 			args.InputSource = []byte("INVALID")
 		},
 	}, {
 		OK:   false,
 		Name: "invalid_template",
-		Prepare: func(args *model.GenerateArgs) {
+		Prepare: func(args *generator.Args) {
 			args.TemplateSource = []byte(`{{ .Unknown }}`)
 		},
 	}, {
 		OK:   false,
 		Name: "no_package",
-		Prepare: func(args *model.GenerateArgs) {
+		Prepare: func(args *generator.Args) {
 			args.PackageName = ""
 		},
 	}}
@@ -53,18 +55,21 @@ func TestGenerate_Failed(t *testing.T) {
 		t.Run(tc.Name, func(t *testing.T) {
 			t.Parallel()
 
-			args := model.GenerateArgs{
+			args := generator.Args{
 				Format:         model.FormatGo,
 				InputSource:    exampleFeature,
 				TemplateSource: []byte(``),
 				PackageName:    "generated_test",
+				Plugin:         requireNewPlugin(t),
 			}
 
 			tc.Prepare(&args)
 
 			_, err := generator.Generate(args)
-			if (err == nil) != tc.OK {
-				t.Fatal(tc.OK, err)
+			if tc.OK {
+				assert.NoError(t, err)
+			} else {
+				assert.Error(t, err)
 			}
 		})
 	}

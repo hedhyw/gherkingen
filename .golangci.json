@@ -20,7 +20,9 @@
       "tagliatelle",
       "scopelint",
       "golint",
-      "interfacer"
+      "interfacer",
+      "nonamedreturns",
+      "exhaustruct"
     ]
   },
   "linters-settings": {

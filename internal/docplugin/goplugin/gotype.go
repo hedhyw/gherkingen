@@ -1,42 +1,28 @@
-package model
+package goplugin
 
 import (
-	"fmt"
 	"strconv"
 	"strings"
-	"unicode"
-
-	"github.com/iancoleman/strcase"
 )
 
-func goString(in string) string {
-	return fmt.Sprintf("%q", in)
-}
+// goType definition.
+type goType string
 
-func goName(in string) string {
-	alias := make([]rune, 0, len(in))
-
-	for _, r := range in {
-		switch {
-		case
-			unicode.IsDigit(r) && len(alias) != 0,
-			unicode.IsLetter(r):
-
-			alias = append(alias, r)
-		case unicode.IsSpace(r), r == '_':
-			alias = append(alias, '_')
-		}
-	}
-
-	if len(alias) == 0 {
-		return "Undefined"
-	}
-
-	return strcase.ToCamel(string(alias))
-}
+// Possible go types.
+const (
+	goTypeString  goType = "string"
+	goTypeInt     goType = "int"
+	goTypeFloat64 goType = "float64"
+	goTypeBool    goType = "bool"
+)
 
 func determinateGoType(values []string) goType {
-	priority := [...]goType{goTypeInt, goTypeBool, goTypeFloat64, goTypeString}
+	priority := [...]goType{
+		goTypeInt,
+		goTypeBool,
+		goTypeFloat64,
+		goTypeString,
+	}
 
 	goTypeCounters := make(map[goType]int, len(values))
 	goTypeCounters[goTypeString] = len(values)
@@ -102,25 +88,4 @@ func goBool(val string) string {
 	}
 
 	return strconv.FormatBool(b)
-}
-
-func goValue(val string, goType goType) (string, goType) {
-	switch goType {
-	case goTypeInt:
-		if val := goInt(val); val != "" {
-			return val, goTypeInt
-		}
-	case goTypeBool:
-		if val := goBool(val); val != "" {
-			return val, goTypeBool
-		}
-	case goTypeFloat64:
-		if val := goFloat64(val); val != "" {
-			return val, goTypeFloat64
-		}
-	case goTypeString:
-	default:
-	}
-
-	return goString(val), goTypeString
 }
