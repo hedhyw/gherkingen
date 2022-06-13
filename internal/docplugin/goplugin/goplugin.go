@@ -155,7 +155,9 @@ func (p GoPlugin) handleStruct(
 		val.PluginData[dataFieldGoValue] = p.aliaser.StringValue(val.Text)
 		val.PluginData[dataFieldGoType] = string(goTypeString)
 	case model.TableCell:
-		val.PluginData[dataFieldGoValue] = p.aliaser.StringValue(val.Value)
+		if val.PluginData[dataFieldGoValue] == nil {
+			val.PluginData[dataFieldGoValue] = p.aliaser.StringValue(val.Value)
+		}
 		if val.PluginData[dataFieldGoType] == nil {
 			val.PluginData[dataFieldGoType] = string(goTypeString)
 		}
@@ -199,13 +201,18 @@ func (p GoPlugin) fillExampleHeaderTypes(examples *model.Examples) (err error) {
 			return fmt.Errorf("invalid header cells: %w", err)
 		}
 
+		goType := determinateGoType(values)
 		cell := examples.TableHeader.Cells[i]
-		cell.PluginData[dataFieldGoType] = goTypeString
+		cell.PluginData[dataFieldGoType] = string(goType)
 		cell.PluginData[dataFieldGoValue] = p.aliaser.StringValue(cell.Value)
 		cell.PluginData[dataFieldGoName] = p.aliaser.NameAlias(cell.Value)
 
 		for _, row := range examples.TableBody {
-			row.PluginData[dataFieldGoType] = string(determinateGoType(values))
+			cell := row.Cells[i]
+
+			goVal, goType := goValue(p.aliaser, cell.Value, goType)
+			cell.PluginData[dataFieldGoValue] = goVal
+			cell.PluginData[dataFieldGoType] = goType
 		}
 	}
 

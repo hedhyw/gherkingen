@@ -3,6 +3,8 @@ package goplugin
 import (
 	"strconv"
 	"strings"
+
+	"github.com/hedhyw/gherkingen/v2/internal/docplugin/goplugin/goaliaser"
 )
 
 // goType definition.
@@ -88,4 +90,29 @@ func goBool(val string) string {
 	}
 
 	return strconv.FormatBool(b)
+}
+
+func goValue(
+	alias *goaliaser.Aliaser,
+	val string,
+	goType goType,
+) (string, goType) {
+	switch goType {
+	case goTypeInt:
+		if val := goInt(val); val != "" {
+			return val, goTypeInt
+		}
+	case goTypeBool:
+		if val := goBool(val); val != "" {
+			return val, goTypeBool
+		}
+	case goTypeFloat64:
+		if val := goFloat64(val); val != "" {
+			return val, goTypeFloat64
+		}
+	case goTypeString:
+	default:
+	}
+
+	return alias.StringValue(val), goTypeString
 }
