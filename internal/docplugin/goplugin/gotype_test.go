@@ -5,6 +5,7 @@ import (
 	"testing"
 
 	"github.com/hedhyw/gherkingen/v2/internal/docplugin/goplugin/goaliaser"
+
 	"github.com/stretchr/testify/assert"
 )
 
