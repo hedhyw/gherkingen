@@ -83,7 +83,7 @@ func TestGoPluginProcess(t *testing.T) {
 			assert.Equal(t, "Title", pd["GoName"])
 			assert.Equal(t, "\"<Title>\"", pd["GoValue"])
 
-			pd = doc.Feature.Children[0].Scenario.Examples[0].TableBody[0].PluginData
+			pd = doc.Feature.Children[0].Scenario.Examples[0].TableHeader.Cells[0].PluginData
 			assert.Equal(t, "int", pd["GoType"])
 		}
 	})

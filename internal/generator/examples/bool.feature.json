@@ -8,7 +8,7 @@
         "Tags": [],
         "Language": "en",
         "Keyword": "Feature",
-        "Name": "Application command line tool",
+        "Name": "Type determinatiopn",
         "Description": "",
         "Children": [
             {
@@ -20,7 +20,7 @@
                     },
                     "Tags": [],
                     "Keyword": "Scenario",
-                    "Name": "User wants to see usage information",
+                    "Name": "All type are determinated",
                     "Description": "",
                     "Steps": [
                         {
@@ -30,12 +30,12 @@
                                 "PluginData": {}
                             },
                             "Keyword": "When ",
-                            "Text": "flag \u003cflag\u003e is provided",
+                            "Text": "generator comleted",
                             "ID": "0194fdc2-fa2f-4cc0-81d3-ff12045b73c8",
                             "PluginData": {
                                 "GoName": "When",
                                 "GoType": "string",
-                                "GoValue": "\"flag \u003cflag\u003e is provided\""
+                                "GoValue": "\"generator comleted\""
                             }
                         },
                         {
@@ -45,34 +45,19 @@
                                 "PluginData": {}
                             },
                             "Keyword": "Then ",
-                            "Text": "usage should be printed \u003cprinted\u003e",
+                            "Text": "correct types are shown",
                             "ID": "6e4ff95f-f662-45ee-a82a-bdf44a2d0b75",
                             "PluginData": {
                                 "GoName": "Then",
                                 "GoType": "string",
-                                "GoValue": "\"usage should be printed \u003cprinted\u003e\""
-                            }
-                        },
-                        {
-                            "Location": {
-                                "Line": 5,
-                                "Column": 5,
-                                "PluginData": {}
-                            },
-                            "Keyword": "And ",
-                            "Text": "exit status should be \u003cexit_status\u003e",
-                            "ID": "fb180daf-48a7-4ee0-b10d-394651850fd4",
-                            "PluginData": {
-                                "GoName": "And",
-                                "GoType": "string",
-                                "GoValue": "\"exit status should be \u003cexit_status\u003e\""
+                                "GoValue": "\"correct types are shown\""
                             }
                         }
                     ],
                     "Examples": [
                         {
                             "Location": {
-                                "Line": 6,
+                                "Line": 5,
                                 "Column": 5,
                                 "PluginData": {}
                             },
@@ -80,60 +65,159 @@
                             "Keyword": "Examples",
                             "Name": "",
                             "Description": "",
-                            "ID": "c75e7a81-bfde-475f-a7cf-e242cf3cc354",
+                            "ID": "f83b8e88-3bbf-457a-ab99-c5b252c7429c",
                             "TableHeader": {
                                 "Location": {
-                                    "Line": 7,
+                                    "Line": 6,
                                     "Column": 5,
                                     "PluginData": {}
                                 },
                                 "Cells": [
                                     {
                                         "Location": {
-                                            "Line": 7,
+                                            "Line": 6,
                                             "Column": 7,
+                                            "PluginData": {}
+                                        },
+                                        "Value": "\u003cbool\u003e",
+                                        "PluginData": {
+                                            "GoName": "Bool",
+                                            "GoType": "bool",
+                                            "GoValue": "\"\u003cbool\u003e\""
+                                        }
+                                    },
+                                    {
+                                        "Location": {
+                                            "Line": 6,
+                                            "Column": 16,
+                                            "PluginData": {}
+                                        },
+                                        "Value": "\u003cint\u003e",
+                                        "PluginData": {
+                                            "GoName": "Int",
+                                            "GoType": "int",
+                                            "GoValue": "\"\u003cint\u003e\""
+                                        }
+                                    },
+                                    {
+                                        "Location": {
+                                            "Line": 6,
+                                            "Column": 24,
+                                            "PluginData": {}
+                                        },
+                                        "Value": "\u003cstring\u003e",
+                                        "PluginData": {
+                                            "GoName": "String",
+                                            "GoType": "string",
+                                            "GoValue": "\"\u003cstring\u003e\""
+                                        }
+                                    },
+                                    {
+                                        "Location": {
+                                            "Line": 6,
+                                            "Column": 35,
                                             "PluginData": {}
                                         },
                                         "Value": "\u003cflag\u003e",
                                         "PluginData": {
                                             "GoName": "Flag",
-                                            "GoType": "string",
+                                            "GoType": "bool",
                                             "GoValue": "\"\u003cflag\u003e\""
                                         }
                                     },
                                     {
                                         "Location": {
-                                            "Line": 7,
-                                            "Column": 18,
+                                            "Line": 6,
+                                            "Column": 44,
                                             "PluginData": {}
                                         },
-                                        "Value": "\u003cexit_status\u003e",
+                                        "Value": "\u003cfloat64\u003e",
                                         "PluginData": {
-                                            "GoName": "ExitStatus",
-                                            "GoType": "int",
-                                            "GoValue": "\"\u003cexit_status\u003e\""
-                                        }
-                                    },
-                                    {
-                                        "Location": {
-                                            "Line": 7,
-                                            "Column": 34,
-                                            "PluginData": {}
-                                        },
-                                        "Value": "\u003cprinted\u003e",
-                                        "PluginData": {
-                                            "GoName": "Printed",
-                                            "GoType": "bool",
-                                            "GoValue": "\"\u003cprinted\u003e\""
+                                            "GoName": "Float64",
+                                            "GoType": "float64",
+                                            "GoValue": "\"\u003cfloat64\u003e\""
                                         }
                                     }
                                 ],
-                                "ID": "a178892e-e285-4ce1-9114-55780875d64e",
+                                "ID": "fb180daf-48a7-4ee0-b10d-394651850fd4",
                                 "PluginData": {
-                                    "GoValue": "\"\u003cflag\u003e_\u003cexit_status\u003e_\u003cprinted\u003e\""
+                                    "GoValue": "\"\u003cbool\u003e_\u003cint\u003e_\u003cstring\u003e_\u003cflag\u003e_\u003cfloat64\u003e\""
                                 }
                             },
                             "TableBody": [
+                                {
+                                    "Location": {
+                                        "Line": 7,
+                                        "Column": 5,
+                                        "PluginData": {}
+                                    },
+                                    "Cells": [
+                                        {
+                                            "Location": {
+                                                "Line": 7,
+                                                "Column": 7,
+                                                "PluginData": {}
+                                            },
+                                            "Value": "true",
+                                            "PluginData": {
+                                                "GoType": "bool",
+                                                "GoValue": "true"
+                                            }
+                                        },
+                                        {
+                                            "Location": {
+                                                "Line": 7,
+                                                "Column": 16,
+                                                "PluginData": {}
+                                            },
+                                            "Value": "1",
+                                            "PluginData": {
+                                                "GoType": "int",
+                                                "GoValue": "1"
+                                            }
+                                        },
+                                        {
+                                            "Location": {
+                                                "Line": 7,
+                                                "Column": 24,
+                                                "PluginData": {}
+                                            },
+                                            "Value": "hello",
+                                            "PluginData": {
+                                                "GoType": "string",
+                                                "GoValue": "\"hello\""
+                                            }
+                                        },
+                                        {
+                                            "Location": {
+                                                "Line": 7,
+                                                "Column": 35,
+                                                "PluginData": {}
+                                            },
+                                            "Value": "-",
+                                            "PluginData": {
+                                                "GoType": "bool",
+                                                "GoValue": "false"
+                                            }
+                                        },
+                                        {
+                                            "Location": {
+                                                "Line": 7,
+                                                "Column": 44,
+                                                "PluginData": {}
+                                            },
+                                            "Value": "1.0",
+                                            "PluginData": {
+                                                "GoType": "float64",
+                                                "GoValue": "1.0"
+                                            }
+                                        }
+                                    ],
+                                    "ID": "a178892e-e285-4ce1-9114-55780875d64e",
+                                    "PluginData": {
+                                        "GoValue": "\"true_1_hello_-_1.0\""
+                                    }
+                                },
                                 {
                                     "Location": {
                                         "Line": 8,
@@ -147,138 +231,64 @@
                                                 "Column": 7,
                                                 "PluginData": {}
                                             },
-                                            "Value": "--help",
-                                            "PluginData": {
-                                                "GoType": "string",
-                                                "GoValue": "\"--help\""
-                                            }
-                                        },
-                                        {
-                                            "Location": {
-                                                "Line": 8,
-                                                "Column": 24,
-                                                "PluginData": {}
-                                            },
-                                            "Value": "0",
-                                            "PluginData": {
-                                                "GoType": "int",
-                                                "GoValue": "0"
-                                            }
-                                        },
-                                        {
-                                            "Location": {
-                                                "Line": 8,
-                                                "Column": 34,
-                                                "PluginData": {}
-                                            },
-                                            "Value": "true",
-                                            "PluginData": {
-                                                "GoType": "bool",
-                                                "GoValue": "true"
-                                            }
-                                        }
-                                    ],
-                                    "ID": "e2d3d0d0-de6b-48f9-b44c-e85ff044c6b1",
-                                    "PluginData": {
-                                        "GoValue": "\"--help_0_true\""
-                                    }
-                                },
-                                {
-                                    "Location": {
-                                        "Line": 9,
-                                        "Column": 5,
-                                        "PluginData": {}
-                                    },
-                                    "Cells": [
-                                        {
-                                            "Location": {
-                                                "Line": 9,
-                                                "Column": 7,
-                                                "PluginData": {}
-                                            },
-                                            "Value": "-help",
-                                            "PluginData": {
-                                                "GoType": "string",
-                                                "GoValue": "\"-help\""
-                                            }
-                                        },
-                                        {
-                                            "Location": {
-                                                "Line": 9,
-                                                "Column": 24,
-                                                "PluginData": {}
-                                            },
-                                            "Value": "0",
-                                            "PluginData": {
-                                                "GoType": "int",
-                                                "GoValue": "0"
-                                            }
-                                        },
-                                        {
-                                            "Location": {
-                                                "Line": 9,
-                                                "Column": 34,
-                                                "PluginData": {}
-                                            },
-                                            "Value": "true",
-                                            "PluginData": {
-                                                "GoType": "bool",
-                                                "GoValue": "true"
-                                            }
-                                        }
-                                    ],
-                                    "ID": "f83b8e88-3bbf-457a-ab99-c5b252c7429c",
-                                    "PluginData": {
-                                        "GoValue": "\"-help_0_true\""
-                                    }
-                                },
-                                {
-                                    "Location": {
-                                        "Line": 10,
-                                        "Column": 5,
-                                        "PluginData": {}
-                                    },
-                                    "Cells": [
-                                        {
-                                            "Location": {
-                                                "Line": 10,
-                                                "Column": 7,
-                                                "PluginData": {}
-                                            },
-                                            "Value": "-invalid",
-                                            "PluginData": {
-                                                "GoType": "string",
-                                                "GoValue": "\"-invalid\""
-                                            }
-                                        },
-                                        {
-                                            "Location": {
-                                                "Line": 10,
-                                                "Column": 24,
-                                                "PluginData": {}
-                                            },
-                                            "Value": "1",
-                                            "PluginData": {
-                                                "GoType": "int",
-                                                "GoValue": "1"
-                                            }
-                                        },
-                                        {
-                                            "Location": {
-                                                "Line": 10,
-                                                "Column": 34,
-                                                "PluginData": {}
-                                            },
                                             "Value": "false",
                                             "PluginData": {
                                                 "GoType": "bool",
                                                 "GoValue": "false"
                                             }
+                                        },
+                                        {
+                                            "Location": {
+                                                "Line": 8,
+                                                "Column": 16,
+                                                "PluginData": {}
+                                            },
+                                            "Value": "2",
+                                            "PluginData": {
+                                                "GoType": "int",
+                                                "GoValue": "2"
+                                            }
+                                        },
+                                        {
+                                            "Location": {
+                                                "Line": 8,
+                                                "Column": 24,
+                                                "PluginData": {}
+                                            },
+                                            "Value": "world",
+                                            "PluginData": {
+                                                "GoType": "string",
+                                                "GoValue": "\"world\""
+                                            }
+                                        },
+                                        {
+                                            "Location": {
+                                                "Line": 8,
+                                                "Column": 35,
+                                                "PluginData": {}
+                                            },
+                                            "Value": "+",
+                                            "PluginData": {
+                                                "GoType": "bool",
+                                                "GoValue": "true"
+                                            }
+                                        },
+                                        {
+                                            "Location": {
+                                                "Line": 8,
+                                                "Column": 44,
+                                                "PluginData": {}
+                                            },
+                                            "Value": "0.0",
+                                            "PluginData": {
+                                                "GoType": "float64",
+                                                "GoValue": "0.0"
+                                            }
                                         }
                                     ],
-                                    "ID": "32f3a8ae-b79e-4856-b659-c18f0dcecc77",
+                                    "ID": "e2d3d0d0-de6b-48f9-b44c-e85ff044c6b1",
                                     "PluginData": {
-                                        "GoValue": "\"-invalid_1_false\""
+                                        "GoValue": "\"false_2_world_+_0.0\""
                                     }
                                 }
                             ],
@@ -289,20 +299,20 @@
                             }
                         }
                     ],
-                    "ID": "f3ede2d6-becc-4ea3-ae5e-88526a9f4a57",
+                    "ID": "32f3a8ae-b79e-4856-b659-c18f0dcecc77",
                     "PluginData": {
                         "GoName": "Scenario",
                         "GoType": "string",
-                        "GoValue": "\"User wants to see usage information\""
+                        "GoValue": "\"All type are determinated\""
                     }
                 },
                 "PluginData": {}
             }
         ],
         "PluginData": {
-            "GoName": "ApplicationCommandLineTool",
+            "GoName": "TypeDeterminatiopn",
             "GoType": "string",
-            "GoValue": "\"Application command line tool\""
+            "GoValue": "\"Type determinatiopn\""
         }
     },
     "Comments": [],
