@@ -139,7 +139,7 @@ gherkingen -help
 ## Go
 
 ```
-go install github.com/hedhyw/gherkingen/cmd/gherkingen@latest
+go install github.com/hedhyw/gherkingen/v2/cmd/gherkingen@latest
 ```
 
 ## Source
