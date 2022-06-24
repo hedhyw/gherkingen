@@ -147,7 +147,9 @@ go install github.com/hedhyw/gherkingen/v2/cmd/gherkingen@latest
 ```
 git clone git@github.com:hedhyw/gherkingen.git
 cd gherkingen
-go install cmd/gherkingen/main.go
+make build
+cp ./bin/gherkingen /usr/local/bin
+chmod +x /usr/local/bin
 ```
 
 # Usage
