@@ -3,9 +3,11 @@ package goplugin
 import (
 	"context"
 	"fmt"
+	"math"
 	"reflect"
 	"strconv"
 	"strings"
+	"unicode"
 
 	"github.com/hedhyw/gherkingen/v2/internal/docplugin/goplugin/goaliaser"
 	"github.com/hedhyw/gherkingen/v2/internal/model"
@@ -14,9 +16,10 @@ import (
 const maxRecursionDepth = 10
 
 const (
-	dataFieldGoType  = "GoType"
-	dataFieldGoValue = "GoValue"
-	dataFieldGoName  = "GoName"
+	dataFieldGoType    = "GoType"
+	dataFieldGoValue   = "GoValue"
+	dataFieldGoName    = "GoName"
+	dataFieldGoComment = "GoComment"
 )
 
 // GoPlugin injects golang specific information: go types, aliases.
@@ -145,6 +148,7 @@ func (p GoPlugin) handleStruct(
 		val.PluginData[dataFieldGoName] = p.aliaser.NameAlias(val.Name)
 		val.PluginData[dataFieldGoValue] = p.aliaser.StringValue(val.Name)
 		val.PluginData[dataFieldGoType] = string(goTypeString)
+		val.PluginData[dataFieldGoComment] = p.prepareFeatureDescription(val.Description)
 	case model.Rule:
 		val.PluginData[dataFieldGoName] = p.aliaser.NameAlias(val.Keyword)
 		val.PluginData[dataFieldGoValue] = p.aliaser.StringValue(val.Name)
@@ -169,6 +173,63 @@ func (p GoPlugin) handleStruct(
 	}
 
 	return nil
+}
+
+func (p GoPlugin) prepareFeatureDescription(descr string) string {
+	lines := strings.Split(descr, "\n")
+
+	if len(lines) == 1 {
+		return strings.TrimSpace(descr)
+	}
+
+	minIndent := math.MaxInt
+
+	for i, l := range lines {
+		l = strings.TrimSpace(l)
+		if l == "" {
+			lines[i] = l
+		}
+	}
+
+	for _, l := range lines {
+		if l == "" {
+			continue
+		}
+
+		if spacesCount := countPrefixSpaces(l); spacesCount < minIndent {
+			minIndent = spacesCount
+		}
+	}
+
+	for i, l := range lines {
+		if l == "" {
+			continue
+		}
+
+		lr := []rune(l)
+
+		if minIndent >= len(lr) {
+			continue
+		}
+
+		lines[i] = "\t" + string(lr[minIndent:])
+	}
+
+	return "\n" + strings.Join(lines, "\n") + "\n"
+}
+
+func countPrefixSpaces(val string) int {
+	var spacesCount int
+
+	for _, r := range val {
+		if !unicode.IsSpace(r) {
+			break
+		}
+
+		spacesCount++
+	}
+
+	return spacesCount
 }
 
 func (p GoPlugin) prepareExampleName(row model.TableRow) string {

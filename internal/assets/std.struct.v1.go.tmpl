@@ -80,8 +80,8 @@ import (
 
 func Test{{ .Feature.PluginData.GoName }}(t *testing.T) {
     f := bdd.NewFeature(t, {{ .Feature.PluginData.GoValue }})
-    {{ if .Feature.Description }}
-    /* {{ .Feature.Description }} */
+    {{ if .Feature.PluginData.GoComment }}
+    /* {{ .Feature.PluginData.GoComment }} */
     {{ end }}
 
     {{- range .Feature.Children }}
