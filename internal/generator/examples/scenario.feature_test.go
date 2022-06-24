@@ -35,7 +35,5 @@ func TestSomeTerseYetDescriptiveTextOfWhatIsDesired(t *testing.T) {
 		f.And("something else we can check happens too", func() {
 
 		})
-
 	})
-
 }

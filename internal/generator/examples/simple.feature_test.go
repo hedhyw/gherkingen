@@ -14,7 +14,5 @@ func TestGuessTheWord(t *testing.T) {
 	is over when the Breaker guesses the Maker's word. */
 
 	f.Example("Maker starts a game", func(t *testing.T, f *bdd.Feature) {
-
 	})
-
 }

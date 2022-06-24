@@ -37,7 +37,6 @@ func TestMultipleSiteSupport(t *testing.T) {
 		f.Then("I should see \"Your article was published.\"", func() {
 
 		})
-
 	})
 
 	f.Scenario("Dr. Bill tries to post to somebody else's blog, and fails", func(t *testing.T, f *bdd.Feature) {
@@ -50,7 +49,6 @@ func TestMultipleSiteSupport(t *testing.T) {
 		f.Then("I should see \"Hey! That's not your blog!\"", func() {
 
 		})
-
 	})
 
 	f.Scenario("Greg posts to a client's blog", func(t *testing.T, f *bdd.Feature) {
@@ -63,7 +61,5 @@ func TestMultipleSiteSupport(t *testing.T) {
 		f.Then("I should see \"Your article was published.\"", func() {
 
 		})
-
 	})
-
 }
