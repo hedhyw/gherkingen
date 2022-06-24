@@ -4,6 +4,7 @@ import (
 	"context"
 	"fmt"
 	"reflect"
+	"strconv"
 	"strings"
 
 	"github.com/hedhyw/gherkingen/v2/internal/docplugin/goplugin/goaliaser"
@@ -22,6 +23,7 @@ const (
 type GoPlugin struct {
 	aliaser             *goaliaser.Aliaser
 	exampleNameReplacer *strings.Replacer
+	usedExampleNames    map[string]struct{}
 }
 
 // New initializes a new go plugin.
@@ -29,6 +31,7 @@ func New() *GoPlugin {
 	return &GoPlugin{
 		aliaser:             goaliaser.New(),
 		exampleNameReplacer: strings.NewReplacer(" ", "_", "\t", "_"),
+		usedExampleNames:    make(map[string]struct{}),
 	}
 }
 
@@ -174,7 +177,23 @@ func (p GoPlugin) prepareExampleName(row model.TableRow) string {
 		values = append(values, p.exampleNameReplacer.Replace(c.Value))
 	}
 
-	return p.aliaser.StringValue(strings.Join(values, "_"))
+	name := strings.Join(values, "_")
+
+	if _, ok := p.usedExampleNames[name]; ok {
+		const duplicateLimit = 50
+
+		for i := 2; i < duplicateLimit; i++ {
+			if _, ok := p.usedExampleNames[name+"_"+strconv.Itoa(i)]; !ok {
+				name += "_" + strconv.Itoa(i)
+
+				break
+			}
+		}
+	}
+
+	p.usedExampleNames[name] = struct{}{}
+
+	return p.aliaser.StringValue(name)
 }
 
 func (p GoPlugin) fillExampleHeaderTypes(examples *model.Examples) (err error) {
