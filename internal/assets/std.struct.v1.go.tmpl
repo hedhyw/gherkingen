@@ -7,7 +7,7 @@ import (
 )
 
 {{ define "Background" }}
-    {{ $Background := . }}
+    {{- $Background := . -}}
     f.{{ $Background.PluginData.GoName }}({{ $Background.PluginData.GoValue }}, func(t *testing.T, f *bdd.Feature) {
         {{- range $Background.Steps }}
         f.{{ .PluginData.GoName }}({{.PluginData.GoValue}}, func() {
@@ -18,8 +18,10 @@ import (
 {{ end }}
 
 {{ define "Scenario" }}
-    {{ $Scenario := . }}
-    f.{{ $Scenario.PluginData.GoName }}({{ $Scenario.PluginData.GoValue }}, func(t *testing.T, f *bdd.Feature) {
+    {{- $Scenario := . -}}
+    f.{{ $Scenario.PluginData.GoName }}({{ $Scenario.PluginData.GoValue }}, func({{- /*
+        t is usualy unused if there are no examples 
+    */ -}}{{- if $Scenario.Examples -}}_{{- else -}}t{{- end -}} *testing.T, f *bdd.Feature) {
         {{- range $Scenario.Examples }}
 
         {{- /* Define test case struct. */ -}}
@@ -54,25 +56,25 @@ import (
         f.{{ .PluginData.GoName }}({{.PluginData.GoValue}}, func() {
             
         })
-        {{- end }}
+        {{- end -}}
         {{ end }}
     })
 {{ end }}
 
 {{ define "Rule" }}
     {{ $Rule := . }}
-    f.{{ $Rule.PluginData.GoName }}({{ $Rule.PluginData.GoValue }}, func(t *testing.T, f *bdd.Feature) {
-        {{- range $Rule.Children }}
+    f.{{ $Rule.PluginData.GoName }}({{ $Rule.PluginData.GoValue }}, func(_ *testing.T, f *bdd.Feature) {
+        {{- range $Rule.Children -}}
 
-        {{ if .Background }}
+        {{- if .Background -}}
         {{ template "Background" .Background }}
-        {{- end }}
+        {{- end -}}
 
-        {{ if .Scenario }}
-        {{ template "Scenario" .Scenario }}
-        {{- end }}
+        {{- if .Scenario -}}
+        {{- template "Scenario" .Scenario -}}
+        {{- end -}}
 
-        {{ end }}
+        {{- end -}}
     })
 {{ end }}
 
@@ -86,15 +88,15 @@ func Test{{ .Feature.PluginData.GoName }}(t *testing.T) {
 
     {{ if .Background }}
     {{ template "Background" .Background }}
-    {{- end }}
+    {{- end -}}
 
     {{ if .Scenario }}
     {{ template "Scenario" .Scenario }}
-    {{- end }}
+    {{- end -}}
 
     {{ if .Rule }}
     {{ template "Rule" .Rule }}
-    {{- end }}
+    {{- end -}}
 
-    {{- end }}
+    {{- end -}}
 }

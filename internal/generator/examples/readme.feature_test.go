@@ -9,7 +9,7 @@ import (
 func TestApplicationCommandLineTool(t *testing.T) {
 	f := bdd.NewFeature(t, "Application command line tool")
 
-	f.Scenario("User wants to see usage information", func(t *testing.T, f *bdd.Feature) {
+	f.Scenario("User wants to see usage information", func(_ *testing.T, f *bdd.Feature) {
 		type testCase struct {
 			Flag       string `field:"<flag>"`
 			ExitStatus int    `field:"<exit_status>"`
@@ -34,5 +34,4 @@ func TestApplicationCommandLineTool(t *testing.T) {
 			})
 		})
 	})
-
 }
