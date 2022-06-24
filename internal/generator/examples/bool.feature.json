@@ -310,6 +310,7 @@
             }
         ],
         "PluginData": {
+            "GoComment": "",
             "GoName": "TypeDeterminatiopn",
             "GoType": "string",
             "GoValue": "\"Type determinatiopn\""

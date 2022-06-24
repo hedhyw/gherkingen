@@ -298,6 +298,7 @@
             }
         ],
         "PluginData": {
+            "GoComment": "\n\tOnly blog owners can post to a blog, except administrators,\n\twho can post to all blogs.\n",
             "GoName": "MultipleSiteSupport",
             "GoType": "string",
             "GoValue": "\"Multiple site support\""

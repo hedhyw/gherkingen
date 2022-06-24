@@ -10,13 +10,6 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-func TestGoPluginName(t *testing.T) {
-	t.Parallel()
-
-	p := goplugin.New()
-	assert.Equal(t, "GoPlugin", p.Name())
-}
-
 // nolint: gocognit,cyclop,maintidx // Unit test.
 func TestGoPluginProcess(t *testing.T) {
 	t.Parallel()
@@ -258,6 +251,94 @@ func TestGoPluginProcess(t *testing.T) {
 
 		assert.Error(t, p.Process(ctx, doc))
 	})
+
+	t.Run("Description_one_line", func(t *testing.T) {
+		t.Parallel()
+
+		p := goplugin.New()
+		doc := getExampleDocument()
+		doc.Feature.Description = "Hello world"
+
+		if assert.NoError(t, p.Process(ctx, doc)) &&
+			assert.NotNil(t, doc.Feature.Description) {
+			assert.Equal(t, "Hello world", doc.Feature.Description)
+		}
+	})
+
+	t.Run("Description_one_line_trim", func(t *testing.T) {
+		t.Parallel()
+
+		p := goplugin.New()
+		doc := getExampleDocument()
+		doc.Feature.Description = "   Hello world     "
+
+		if assert.NoError(t, p.Process(ctx, doc)) &&
+			assert.NotNil(t, doc.Feature.Description) {
+			assert.Equal(t, "Hello world", doc.Feature.PluginData["GoComment"])
+		}
+	})
+
+	t.Run("Description_multline", func(t *testing.T) {
+		t.Parallel()
+
+		p := goplugin.New()
+		doc := getExampleDocument()
+
+		const expecetd = "\n\tHello1\n\tHello2\n\tHello3\n\n"
+
+		doc.Feature.Description = "Hello1\n" +
+			"Hello2\n" +
+			"Hello3\n"
+
+		if assert.NoError(t, p.Process(ctx, doc)) &&
+			assert.NotNil(t, doc.Feature.Description) {
+			assert.Equal(t, expecetd, doc.Feature.PluginData["GoComment"])
+		}
+	})
+
+	t.Run("Description_multline_trim", func(t *testing.T) {
+		t.Parallel()
+
+		p := goplugin.New()
+		doc := getExampleDocument()
+
+		const expected = "\n\tNo spaces\n\t    Two spaces\n\t One space\n\n"
+
+		doc.Feature.Description = "  No spaces\n" +
+			"      Two spaces\n" +
+			"   One space\n"
+
+		if assert.NoError(t, p.Process(ctx, doc)) &&
+			assert.NotNil(t, doc.Feature.Description) {
+			assert.Equal(t, expected, doc.Feature.PluginData["GoComment"])
+		}
+	})
+
+	t.Run("Description_multline_empty_lines", func(t *testing.T) {
+		t.Parallel()
+
+		p := goplugin.New()
+		doc := getExampleDocument()
+
+		const expected = "\n\tHello\n\n\n\t     Worldr\n\n"
+
+		doc.Feature.Description = " Hello\n" +
+			"\n" +
+			"      \n" +
+			"      Worldr\n"
+
+		if assert.NoError(t, p.Process(ctx, doc)) &&
+			assert.NotNil(t, doc.Feature.Description) {
+			assert.Equal(t, expected, doc.Feature.PluginData["GoComment"])
+		}
+	})
+}
+
+func TestGoPluginName(t *testing.T) {
+	t.Parallel()
+
+	p := goplugin.New()
+	assert.Equal(t, "GoPlugin", p.Name())
 }
 
 func getExampleDocument() *model.GherkinDocument {

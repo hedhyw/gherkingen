@@ -9,8 +9,10 @@ import (
 func TestMultipleSiteSupport(t *testing.T) {
 	f := bdd.NewFeature(t, "Multiple site support")
 
-	/*   Only blog owners can post to a blog, except administrators,
-	who can post to all blogs. */
+	/*
+		Only blog owners can post to a blog, except administrators,
+		who can post to all blogs.
+	*/
 
 	f.Background("", func(t *testing.T, f *bdd.Feature) {
 		f.Given("a global administrator named \"Greg\"", func() {

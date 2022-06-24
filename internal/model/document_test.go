@@ -159,7 +159,6 @@ func TestGherkinDocumentFrom(t *testing.T) {
 			assert.NotEmpty(t, obj.Tags)
 			assert.Equal(t, "Keyword", obj.Keyword)
 			assert.Equal(t, "Name", obj.Name)
-			assert.Equal(t, "Description", obj.Description)
 			assert.Equal(t, "en_US", obj.Language)
 			assert.NotEmpty(t, obj.Children)
 			assert.NotNil(t, obj.PluginData)

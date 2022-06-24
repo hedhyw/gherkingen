@@ -266,6 +266,7 @@
             }
         ],
         "PluginData": {
+            "GoComment": "",
             "GoName": "Highlander",
             "GoType": "string",
             "GoValue": "\"Highlander\""

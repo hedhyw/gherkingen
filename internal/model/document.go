@@ -293,15 +293,15 @@ func (to *Feature) From(from *messages.Feature) *Feature {
 	}
 
 	*to = Feature{
-		Location:    (&Location{}).From(from.Location),
-		Tags:        TagsSlice{}.From(from.Tags),
-		Language:    from.Language,
-		Keyword:     from.Keyword,
-		Name:        from.Name,
-		Description: from.Description,
-		Children:    FeatureChildrenSlice{}.From(from.Children),
+		Location: (&Location{}).From(from.Location),
+		Tags:     TagsSlice{}.From(from.Tags),
+		Language: from.Language,
+		Keyword:  from.Keyword,
+		Name:     from.Name,
+		Children: FeatureChildrenSlice{}.From(from.Children),
 
-		PluginData: make(map[string]any),
+		Description: from.Description,
+		PluginData:  make(map[string]any),
 	}
 
 	return to

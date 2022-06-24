@@ -8,19 +8,19 @@
         "Tags": [],
         "Language": "en",
         "Keyword": "Feature",
-        "Name": "Guess the word",
-        "Description": "  The word guess game is a turn-based game for two players.\n  The Maker makes a word for the Breaker to guess. The game\n  is over when the Breaker guesses the Maker's word.",
+        "Name": "Example Issue 27 Multi",
+        "Description": "    Details:\n      - example 1\n      - example 2\n\n      - example 3\n        - example 3.1\n        - example 3.2",
         "Children": [
             {
                 "Scenario": {
                     "Location": {
-                        "Line": 7,
-                        "Column": 3,
+                        "Line": 10,
+                        "Column": 5,
                         "PluginData": {}
                     },
                     "Tags": [],
                     "Keyword": "Example",
-                    "Name": "Maker starts a game",
+                    "Name": "Multi-line comment with indents",
                     "Description": "",
                     "Steps": [],
                     "Examples": [],
@@ -28,17 +28,17 @@
                     "PluginData": {
                         "GoName": "Example",
                         "GoType": "string",
-                        "GoValue": "\"Maker starts a game\""
+                        "GoValue": "\"Multi-line comment with indents\""
                     }
                 },
                 "PluginData": {}
             }
         ],
         "PluginData": {
-            "GoComment": "\n\tThe word guess game is a turn-based game for two players.\n\tThe Maker makes a word for the Breaker to guess. The game\n\tis over when the Breaker guesses the Maker's word.\n",
-            "GoName": "GuessTheWord",
+            "GoComment": "\n\tDetails:\n\t  - example 1\n\t  - example 2\n\n\t  - example 3\n\t    - example 3.1\n\t    - example 3.2\n",
+            "GoName": "ExampleIssue27Multi",
             "GoType": "string",
-            "GoValue": "\"Guess the word\""
+            "GoValue": "\"Example Issue 27 Multi\""
         }
     },
     "Comments": [],

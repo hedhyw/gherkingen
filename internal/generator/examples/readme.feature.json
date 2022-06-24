@@ -300,6 +300,7 @@
             }
         ],
         "PluginData": {
+            "GoComment": "",
             "GoName": "ApplicationCommandLineTool",
             "GoType": "string",
             "GoValue": "\"Application command line tool\""

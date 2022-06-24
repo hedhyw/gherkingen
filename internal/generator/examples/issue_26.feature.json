@@ -106,6 +106,7 @@
             }
         ],
         "PluginData": {
+            "GoComment": "",
             "GoName": "IssueExample",
             "GoType": "string",
             "GoValue": "\"Issue example\""
