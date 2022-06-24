@@ -21,10 +21,11 @@ func TestGoPluginProcess(t *testing.T) {
 	t.Parallel()
 
 	ctx := context.Background()
-	p := goplugin.New()
 
 	t.Run("Background", func(t *testing.T) {
 		t.Parallel()
+
+		p := goplugin.New()
 
 		doc := getExampleDocument()
 		if assert.NoError(t, p.Process(ctx, doc)) {
@@ -38,6 +39,8 @@ func TestGoPluginProcess(t *testing.T) {
 	t.Run("Examples", func(t *testing.T) {
 		t.Parallel()
 
+		p := goplugin.New()
+
 		doc := getExampleDocument()
 		if assert.NoError(t, p.Process(ctx, doc)) {
 			pd := doc.Feature.Children[0].Scenario.Examples[0].PluginData
@@ -49,6 +52,8 @@ func TestGoPluginProcess(t *testing.T) {
 	t.Run("Examples_EmptyTableBody_NoError", func(t *testing.T) {
 		t.Parallel()
 
+		p := goplugin.New()
+
 		doc := getExampleDocument()
 		doc.Feature.Children[0].Scenario.Examples[0].TableBody = nil
 		assert.NoError(t, p.Process(ctx, doc))
@@ -57,6 +62,8 @@ func TestGoPluginProcess(t *testing.T) {
 	t.Run("Examples_TableBody_TableHeader_mismatch", func(t *testing.T) {
 		t.Parallel()
 
+		p := goplugin.New()
+
 		doc := getExampleDocument()
 		doc.Feature.Children[0].Scenario.Examples[0].TableHeader.Cells = nil
 		assert.Error(t, p.Process(ctx, doc))
@@ -64,6 +71,8 @@ func TestGoPluginProcess(t *testing.T) {
 
 	t.Run("Examples_underscore", func(t *testing.T) {
 		t.Parallel()
+
+		p := goplugin.New()
 
 		// It tests https://github.com/hedhyw/gherkingen/v2/issues/26.
 
@@ -76,6 +85,8 @@ func TestGoPluginProcess(t *testing.T) {
 
 	t.Run("TableCell", func(t *testing.T) {
 		t.Parallel()
+
+		p := goplugin.New()
 
 		doc := getExampleDocument()
 		if assert.NoError(t, p.Process(ctx, doc)) {
@@ -91,6 +102,8 @@ func TestGoPluginProcess(t *testing.T) {
 	t.Run("Feature", func(t *testing.T) {
 		t.Parallel()
 
+		p := goplugin.New()
+
 		doc := getExampleDocument()
 		if assert.NoError(t, p.Process(ctx, doc)) {
 			pd := doc.Feature.PluginData
@@ -101,6 +114,8 @@ func TestGoPluginProcess(t *testing.T) {
 
 	t.Run("Rule", func(t *testing.T) {
 		t.Parallel()
+
+		p := goplugin.New()
 
 		doc := getExampleDocument()
 		if assert.NoError(t, p.Process(ctx, doc)) {
@@ -113,6 +128,8 @@ func TestGoPluginProcess(t *testing.T) {
 	t.Run("Scenario", func(t *testing.T) {
 		t.Parallel()
 
+		p := goplugin.New()
+
 		doc := getExampleDocument()
 		if assert.NoError(t, p.Process(ctx, doc)) {
 			pd := doc.Feature.Children[0].Scenario.PluginData
@@ -124,12 +141,119 @@ func TestGoPluginProcess(t *testing.T) {
 	t.Run("Step", func(t *testing.T) {
 		t.Parallel()
 
+		p := goplugin.New()
+
 		doc := getExampleDocument()
 		if assert.NoError(t, p.Process(ctx, doc)) {
 			pd := doc.Feature.Children[0].Scenario.Steps[0].PluginData
 			assert.Equal(t, "Keyword", pd["GoName"])
 			assert.Equal(t, "\"Text\"", pd["GoValue"])
 		}
+	})
+
+	t.Run("Example_Duplicate", func(t *testing.T) {
+		t.Parallel()
+
+		p := goplugin.New()
+
+		doc := getExampleDocument()
+
+		doc.Feature.Children[0].Scenario.Examples[0].TableBody = []*model.TableRow{{
+			Cells: []*model.TableCell{{
+				Value:      "hello world",
+				PluginData: make(map[string]any),
+			}},
+			PluginData: make(map[string]any),
+		}, {
+			Cells: []*model.TableCell{{
+				Value:      "hello_world",
+				PluginData: make(map[string]any),
+			}},
+			PluginData: make(map[string]any),
+		}}
+
+		if assert.NoError(t, p.Process(ctx, doc)) {
+			actualExamples := make([]string, 0, 2)
+
+			for _, ex := range doc.Feature.Children[0].Scenario.Examples[0].TableBody {
+				actualExamples = append(actualExamples, ex.PluginData["GoValue"].(string))
+			}
+
+			assert.Equal(t, []string{`"hello_world"`, `"hello_world_2"`}, actualExamples)
+		}
+	})
+
+	t.Run("Examples_duplicateLimit", func(t *testing.T) {
+		t.Parallel()
+
+		p := goplugin.New()
+
+		doc := getExampleDocument()
+
+		const count = 51
+
+		examples := make([]*model.TableRow, 0, count)
+
+		for i := 0; i < count; i++ {
+			examples = append(examples, &model.TableRow{
+				Cells: []*model.TableCell{{
+					Value:      "hello_world",
+					PluginData: make(map[string]any),
+				}},
+				PluginData: make(map[string]any),
+			})
+		}
+
+		doc.Feature.Children[0].Scenario.Examples[0].TableBody = examples
+
+		if assert.NoError(t, p.Process(ctx, doc)) {
+			actualExamples := make([]string, 0, 3)
+
+			for _, ex := range doc.Feature.Children[0].Scenario.Examples[0].TableBody {
+				actualExamples = append(actualExamples, ex.PluginData["GoValue"].(string))
+			}
+
+			if assert.Len(t, actualExamples, count) {
+				assert.Equal(t,
+					[]string{`"hello_world"`, `"hello_world_2"`, `"hello_world_3"`},
+					actualExamples[:3],
+				)
+
+				assert.Equal(t,
+					`"hello_world_49"`,
+					actualExamples[48],
+				)
+
+				// Out of limit.
+
+				assert.Equal(t,
+					`"hello_world"`,
+					actualExamples[count-2],
+				)
+			}
+		}
+	})
+
+	t.Run("Examples_invalidCells", func(t *testing.T) {
+		t.Parallel()
+
+		p := goplugin.New()
+
+		doc := getExampleDocument()
+
+		examples := []*model.TableRow{{
+			Cells: []*model.TableCell{{
+				Value:      "hello_world",
+				PluginData: make(map[string]any),
+			}},
+			PluginData: make(map[string]any),
+		}, {
+			Cells:      []*model.TableCell{},
+			PluginData: make(map[string]any),
+		}}
+		doc.Feature.Children[0].Scenario.Examples[0].TableBody = examples
+
+		assert.Error(t, p.Process(ctx, doc))
 	})
 }
 
