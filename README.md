@@ -138,8 +138,9 @@ gherkingen -help
 
 ## Go
 
-```
+```bash
 go install github.com/hedhyw/gherkingen/v2/cmd/gherkingen@latest
+# Notice: gherkingen -version will return "unknown" version.
 ```
 
 ## Source
