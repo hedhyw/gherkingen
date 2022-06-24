@@ -17,6 +17,7 @@ func TestGoPluginName(t *testing.T) {
 	assert.Equal(t, "GoPlugin", p.Name())
 }
 
+// nolint: gocognit,cyclop,maintidx // Unit test.
 func TestGoPluginProcess(t *testing.T) {
 	t.Parallel()
 
@@ -176,7 +177,8 @@ func TestGoPluginProcess(t *testing.T) {
 			actualExamples := make([]string, 0, 2)
 
 			for _, ex := range doc.Feature.Children[0].Scenario.Examples[0].TableBody {
-				actualExamples = append(actualExamples, ex.PluginData["GoValue"].(string))
+				goValue, _ := ex.PluginData["GoValue"].(string)
+				actualExamples = append(actualExamples, goValue)
 			}
 
 			assert.Equal(t, []string{`"hello_world"`, `"hello_world_2"`}, actualExamples)
@@ -207,10 +209,11 @@ func TestGoPluginProcess(t *testing.T) {
 		doc.Feature.Children[0].Scenario.Examples[0].TableBody = examples
 
 		if assert.NoError(t, p.Process(ctx, doc)) {
-			actualExamples := make([]string, 0, 3)
+			actualExamples := make([]string, 0, count)
 
 			for _, ex := range doc.Feature.Children[0].Scenario.Examples[0].TableBody {
-				actualExamples = append(actualExamples, ex.PluginData["GoValue"].(string))
+				goValue, _ := ex.PluginData["GoValue"].(string)
+				actualExamples = append(actualExamples, goValue)
 			}
 
 			if assert.Len(t, actualExamples, count) {
