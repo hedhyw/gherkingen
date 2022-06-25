@@ -16,11 +16,10 @@ import (
 const maxRecursionDepth = 10
 
 const (
-	dataFieldGoType    = "GoType"
-	dataFieldGoValue   = "GoValue"
-	dataFieldGoName    = "GoName"
-	dataFieldGoComment = "GoComment"
-
+	dataFieldGoType       = "GoType"
+	dataFieldGoValue      = "GoValue"
+	dataFieldGoName       = "GoName"
+	dataFieldGoComment    = "GoComment"
 	dataFieldGoBackground = "GoHasBackground"
 )
 
@@ -196,11 +195,11 @@ func (p GoPlugin) processFeatureBackground(f model.Feature) {
 
 	for _, ch := range f.Children {
 		if ch.Scenario != nil {
-			ch.Scenario.PluginData[dataFieldGoBackground] = "true"
+			ch.Scenario.PluginData[dataFieldGoBackground] = true
 		}
 
 		if ch.Rule != nil {
-			ch.Rule.PluginData[dataFieldGoBackground] = "true"
+			ch.Rule.PluginData[dataFieldGoBackground] = true
 		}
 	}
 }
@@ -222,7 +221,7 @@ func (p GoPlugin) processRuleBackground(f model.Rule) {
 
 	for _, ch := range f.Children {
 		if ch.Scenario != nil {
-			ch.Scenario.PluginData[dataFieldGoBackground] = "true"
+			ch.Scenario.PluginData[dataFieldGoBackground] = true
 		}
 	}
 }
