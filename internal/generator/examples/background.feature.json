@@ -153,7 +153,7 @@
                     "Examples": [],
                     "ID": "f3ede2d6-becc-4ea3-ae5e-88526a9f4a57",
                     "PluginData": {
-                        "GoHasBackground": "true",
+                        "GoHasBackground": true,
                         "GoName": "Scenario",
                         "GoType": "string",
                         "GoValue": "\"Dr. Bill posts to his own blog\""
@@ -222,7 +222,7 @@
                     "Examples": [],
                     "ID": "cdd01d75-045c-4f00-8f8a-796bce6c512c",
                     "PluginData": {
-                        "GoHasBackground": "true",
+                        "GoHasBackground": true,
                         "GoName": "Scenario",
                         "GoType": "string",
                         "GoValue": "\"Dr. Bill tries to post to somebody else's blog, and fails\""
@@ -291,7 +291,7 @@
                     "Examples": [],
                     "ID": "280ae943-9eb0-46ae-8a08-23ae02d67d86",
                     "PluginData": {
-                        "GoHasBackground": "true",
+                        "GoHasBackground": true,
                         "GoName": "Scenario",
                         "GoType": "string",
                         "GoValue": "\"Greg posts to a client's blog\""

@@ -153,7 +153,7 @@
                     "Examples": [],
                     "ID": "f3ede2d6-becc-4ea3-ae5e-88526a9f4a57",
                     "PluginData": {
-                        "GoHasBackground": "true",
+                        "GoHasBackground": true,
                         "GoName": "Scenario",
                         "GoType": "string",
                         "GoValue": "\"Dr. Bill posts to his own blog\""
@@ -255,7 +255,7 @@
                                 "Examples": [],
                                 "ID": "3801aaca-eedf-4d5b-9066-64e8c0e4a771",
                                 "PluginData": {
-                                    "GoHasBackground": "true",
+                                    "GoHasBackground": true,
                                     "GoName": "Example",
                                     "GoType": "string",
                                     "GoValue": "\"Only One -- One alive\""
@@ -266,7 +266,7 @@
                     ],
                     "ID": "ece0b8b7-c196-4d91-8125-1b7c9c9ca520",
                     "PluginData": {
-                        "GoHasBackground": "true",
+                        "GoHasBackground": true,
                         "GoName": "Rule",
                         "GoType": "string",
                         "GoValue": "\"There can be only One\""
