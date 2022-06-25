@@ -20,6 +20,8 @@ const (
 	dataFieldGoValue   = "GoValue"
 	dataFieldGoName    = "GoName"
 	dataFieldGoComment = "GoComment"
+
+	dataFieldGoBackground = "GoHasBackground"
 )
 
 // GoPlugin injects golang specific information: go types, aliases.
@@ -149,10 +151,12 @@ func (p GoPlugin) handleStruct(
 		val.PluginData[dataFieldGoValue] = p.aliaser.StringValue(val.Name)
 		val.PluginData[dataFieldGoType] = string(goTypeString)
 		val.PluginData[dataFieldGoComment] = p.prepareFeatureDescription(val.Description)
+		p.processFeatureBackground(val)
 	case model.Rule:
 		val.PluginData[dataFieldGoName] = p.aliaser.NameAlias(val.Keyword)
 		val.PluginData[dataFieldGoValue] = p.aliaser.StringValue(val.Name)
 		val.PluginData[dataFieldGoType] = string(goTypeString)
+		p.processRuleBackground(val)
 	case model.Scenario:
 		val.PluginData[dataFieldGoName] = p.aliaser.NameAlias(val.Keyword)
 		val.PluginData[dataFieldGoValue] = p.aliaser.StringValue(val.Name)
@@ -173,6 +177,54 @@ func (p GoPlugin) handleStruct(
 	}
 
 	return nil
+}
+
+func (p GoPlugin) processFeatureBackground(f model.Feature) {
+	var hasBackground bool
+
+	for _, ch := range f.Children {
+		if ch.Background != nil {
+			hasBackground = true
+
+			break
+		}
+	}
+
+	if !hasBackground {
+		return
+	}
+
+	for _, ch := range f.Children {
+		if ch.Scenario != nil {
+			ch.Scenario.PluginData[dataFieldGoBackground] = "true"
+		}
+
+		if ch.Rule != nil {
+			ch.Rule.PluginData[dataFieldGoBackground] = "true"
+		}
+	}
+}
+
+func (p GoPlugin) processRuleBackground(f model.Rule) {
+	var hasBackground bool
+
+	for _, ch := range f.Children {
+		if ch.Background != nil {
+			hasBackground = true
+
+			break
+		}
+	}
+
+	if !hasBackground {
+		return
+	}
+
+	for _, ch := range f.Children {
+		if ch.Scenario != nil {
+			ch.Scenario.PluginData[dataFieldGoBackground] = "true"
+		}
+	}
 }
 
 func (p GoPlugin) prepareFeatureDescription(descr string) string {

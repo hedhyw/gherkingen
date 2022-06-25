@@ -150,6 +150,7 @@
                                 "Examples": [],
                                 "ID": "c75e7a81-bfde-475f-a7cf-e242cf3cc354",
                                 "PluginData": {
+                                    "GoHasBackground": "true",
                                     "GoName": "Example",
                                     "GoType": "string",
                                     "GoValue": "\"Only One -- More than one alive\""
@@ -203,6 +204,7 @@
                                 "Examples": [],
                                 "ID": "4f5aa6ae-c3fc-48c6-aae0-81ac8120c720",
                                 "PluginData": {
+                                    "GoHasBackground": "true",
                                     "GoName": "Example",
                                     "GoType": "string",
                                     "GoValue": "\"Only One -- One alive\""

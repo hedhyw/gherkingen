@@ -8,13 +8,13 @@
         "Tags": [],
         "Language": "en",
         "Keyword": "Feature",
-        "Name": "Multiple site support",
-        "Description": "  Only blog owners can post to a blog, except administrators,\n  who can post to all blogs.",
+        "Name": "Nested background",
+        "Description": "",
         "Children": [
             {
                 "Background": {
                     "Location": {
-                        "Line": 5,
+                        "Line": 2,
                         "Column": 3,
                         "PluginData": {}
                     },
@@ -24,7 +24,7 @@
                     "Steps": [
                         {
                             "Location": {
-                                "Line": 6,
+                                "Line": 3,
                                 "Column": 5,
                                 "PluginData": {}
                             },
@@ -39,7 +39,7 @@
                         },
                         {
                             "Location": {
-                                "Line": 7,
+                                "Line": 4,
                                 "Column": 5,
                                 "PluginData": {}
                             },
@@ -54,7 +54,7 @@
                         },
                         {
                             "Location": {
-                                "Line": 8,
+                                "Line": 5,
                                 "Column": 5,
                                 "PluginData": {}
                             },
@@ -69,7 +69,7 @@
                         },
                         {
                             "Location": {
-                                "Line": 9,
+                                "Line": 6,
                                 "Column": 5,
                                 "PluginData": {}
                             },
@@ -95,7 +95,7 @@
             {
                 "Scenario": {
                     "Location": {
-                        "Line": 11,
+                        "Line": 8,
                         "Column": 3,
                         "PluginData": {}
                     },
@@ -106,7 +106,7 @@
                     "Steps": [
                         {
                             "Location": {
-                                "Line": 12,
+                                "Line": 9,
                                 "Column": 5,
                                 "PluginData": {}
                             },
@@ -121,7 +121,7 @@
                         },
                         {
                             "Location": {
-                                "Line": 13,
+                                "Line": 10,
                                 "Column": 5,
                                 "PluginData": {}
                             },
@@ -136,7 +136,7 @@
                         },
                         {
                             "Location": {
-                                "Line": 14,
+                                "Line": 11,
                                 "Column": 5,
                                 "PluginData": {}
                             },
@@ -162,149 +162,124 @@
                 "PluginData": {}
             },
             {
-                "Scenario": {
+                "Rule": {
                     "Location": {
-                        "Line": 16,
+                        "Line": 13,
                         "Column": 3,
                         "PluginData": {}
                     },
                     "Tags": [],
-                    "Keyword": "Scenario",
-                    "Name": "Dr. Bill tries to post to somebody else's blog, and fails",
+                    "Keyword": "Rule",
+                    "Name": "There can be only One",
                     "Description": "",
-                    "Steps": [
+                    "Children": [
                         {
-                            "Location": {
-                                "Line": 17,
-                                "Column": 5,
-                                "PluginData": {}
+                            "Background": {
+                                "Location": {
+                                    "Line": 14,
+                                    "Column": 5,
+                                    "PluginData": {}
+                                },
+                                "Keyword": "Background",
+                                "Name": "",
+                                "Description": "",
+                                "Steps": [
+                                    {
+                                        "Location": {
+                                            "Line": 15,
+                                            "Column": 7,
+                                            "PluginData": {}
+                                        },
+                                        "Keyword": "Given ",
+                                        "Text": "I have overdue tasks",
+                                        "ID": "8bcb9ef2-d4a6-4314-b68d-6d299761ea9e",
+                                        "PluginData": {
+                                            "GoName": "Given",
+                                            "GoType": "string",
+                                            "GoValue": "\"I have overdue tasks\""
+                                        }
+                                    }
+                                ],
+                                "ID": "4f5aa6ae-c3fc-48c6-aae0-81ac8120c720",
+                                "PluginData": {
+                                    "GoName": "Background",
+                                    "GoType": "string",
+                                    "GoValue": "\"\""
+                                }
                             },
-                            "Keyword": "Given ",
-                            "Text": "I am logged in as Dr. Bill",
-                            "ID": "8bcb9ef2-d4a6-4314-b68d-6d299761ea9e",
-                            "PluginData": {
-                                "GoName": "Given",
-                                "GoType": "string",
-                                "GoValue": "\"I am logged in as Dr. Bill\""
-                            }
+                            "PluginData": {}
                         },
                         {
-                            "Location": {
-                                "Line": 18,
-                                "Column": 5,
-                                "PluginData": {}
+                            "Scenario": {
+                                "Location": {
+                                    "Line": 17,
+                                    "Column": 5,
+                                    "PluginData": {}
+                                },
+                                "Tags": [],
+                                "Keyword": "Example",
+                                "Name": "Only One -- One alive",
+                                "Description": "",
+                                "Steps": [
+                                    {
+                                        "Location": {
+                                            "Line": 18,
+                                            "Column": 7,
+                                            "PluginData": {}
+                                        },
+                                        "Keyword": "Given ",
+                                        "Text": "there is only 1 ninja alive",
+                                        "ID": "efcd6cea-84b6-425e-a07b-e063716f96dd",
+                                        "PluginData": {
+                                            "GoName": "Given",
+                                            "GoType": "string",
+                                            "GoValue": "\"there is only 1 ninja alive\""
+                                        }
+                                    },
+                                    {
+                                        "Location": {
+                                            "Line": 19,
+                                            "Column": 7,
+                                            "PluginData": {}
+                                        },
+                                        "Keyword": "Then ",
+                                        "Text": "he (or she) will live forever ;-)",
+                                        "ID": "cdd01d75-045c-4f00-8f8a-796bce6c512c",
+                                        "PluginData": {
+                                            "GoName": "Then",
+                                            "GoType": "string",
+                                            "GoValue": "\"he (or she) will live forever ;-)\""
+                                        }
+                                    }
+                                ],
+                                "Examples": [],
+                                "ID": "3801aaca-eedf-4d5b-9066-64e8c0e4a771",
+                                "PluginData": {
+                                    "GoHasBackground": "true",
+                                    "GoName": "Example",
+                                    "GoType": "string",
+                                    "GoValue": "\"Only One -- One alive\""
+                                }
                             },
-                            "Keyword": "When ",
-                            "Text": "I try to post to \"Greg's anti-tax rants\"",
-                            "ID": "4f5aa6ae-c3fc-48c6-aae0-81ac8120c720",
-                            "PluginData": {
-                                "GoName": "When",
-                                "GoType": "string",
-                                "GoValue": "\"I try to post to \\\"Greg's anti-tax rants\\\"\""
-                            }
-                        },
-                        {
-                            "Location": {
-                                "Line": 19,
-                                "Column": 5,
-                                "PluginData": {}
-                            },
-                            "Keyword": "Then ",
-                            "Text": "I should see \"Hey! That's not your blog!\"",
-                            "ID": "efcd6cea-84b6-425e-a07b-e063716f96dd",
-                            "PluginData": {
-                                "GoName": "Then",
-                                "GoType": "string",
-                                "GoValue": "\"I should see \\\"Hey! That's not your blog!\\\"\""
-                            }
+                            "PluginData": {}
                         }
                     ],
-                    "Examples": [],
-                    "ID": "cdd01d75-045c-4f00-8f8a-796bce6c512c",
+                    "ID": "ece0b8b7-c196-4d91-8125-1b7c9c9ca520",
                     "PluginData": {
                         "GoHasBackground": "true",
-                        "GoName": "Scenario",
+                        "GoName": "Rule",
                         "GoType": "string",
-                        "GoValue": "\"Dr. Bill tries to post to somebody else's blog, and fails\""
-                    }
-                },
-                "PluginData": {}
-            },
-            {
-                "Scenario": {
-                    "Location": {
-                        "Line": 21,
-                        "Column": 3,
-                        "PluginData": {}
-                    },
-                    "Tags": [],
-                    "Keyword": "Scenario",
-                    "Name": "Greg posts to a client's blog",
-                    "Description": "",
-                    "Steps": [
-                        {
-                            "Location": {
-                                "Line": 22,
-                                "Column": 5,
-                                "PluginData": {}
-                            },
-                            "Keyword": "Given ",
-                            "Text": "I am logged in as Greg",
-                            "ID": "3801aaca-eedf-4d5b-9066-64e8c0e4a771",
-                            "PluginData": {
-                                "GoName": "Given",
-                                "GoType": "string",
-                                "GoValue": "\"I am logged in as Greg\""
-                            }
-                        },
-                        {
-                            "Location": {
-                                "Line": 23,
-                                "Column": 5,
-                                "PluginData": {}
-                            },
-                            "Keyword": "When ",
-                            "Text": "I try to post to \"Expensive Therapy\"",
-                            "ID": "ece0b8b7-c196-4d91-8125-1b7c9c9ca520",
-                            "PluginData": {
-                                "GoName": "When",
-                                "GoType": "string",
-                                "GoValue": "\"I try to post to \\\"Expensive Therapy\\\"\""
-                            }
-                        },
-                        {
-                            "Location": {
-                                "Line": 24,
-                                "Column": 5,
-                                "PluginData": {}
-                            },
-                            "Keyword": "Then ",
-                            "Text": "I should see \"Your article was published.\"",
-                            "ID": "5afc16a2-36a2-4fcd-92d1-2d2a79d074a8",
-                            "PluginData": {
-                                "GoName": "Then",
-                                "GoType": "string",
-                                "GoValue": "\"I should see \\\"Your article was published.\\\"\""
-                            }
-                        }
-                    ],
-                    "Examples": [],
-                    "ID": "280ae943-9eb0-46ae-8a08-23ae02d67d86",
-                    "PluginData": {
-                        "GoHasBackground": "true",
-                        "GoName": "Scenario",
-                        "GoType": "string",
-                        "GoValue": "\"Greg posts to a client's blog\""
+                        "GoValue": "\"There can be only One\""
                     }
                 },
                 "PluginData": {}
             }
         ],
         "PluginData": {
-            "GoComment": "\n\tOnly blog owners can post to a blog, except administrators,\n\twho can post to all blogs.\n",
-            "GoName": "MultipleSiteSupport",
+            "GoComment": "",
+            "GoName": "NestedBackground",
             "GoType": "string",
-            "GoValue": "\"Multiple site support\""
+            "GoValue": "\"Nested background\""
         }
     },
     "Comments": [],
