@@ -8,7 +8,7 @@
 
 **It's a Behaviour Driven Development (BDD) tests generator for Golang.**
 
-<img alt="BDD Gophers by hedhyw" src="./assets/gophers-bdd-by-hedhyw.svg" width="500" />
+![Gopher Gherkingen BDD testing golang](./assets/gopher.png)
 
 It accepts a `*.feature` [Cucumber/Gherkin](https://cucumber.io/docs/gherkin/reference/) file and generates a test boilerplate. All that remains is to change the tests a little. The generator supports `go generate` and `go test` for generated tests.
 
@@ -251,4 +251,5 @@ Any field of the root object can be used directly, example: `{{ .PackageName }}`
 
 # License
 
-See [LICENSE](LICENSE).
+- The library and generator are under [MIT Lecense](LICENSE).
+- [The gopher](./assets/gopher.png) is under [Creative Commons Attribution 3.0](https://creativecommons.org/licenses/by/3.0/) license. It was originally designed by [Renée French](https://en.wikipedia.org/wiki/Ren%C3%A9e_French) and redrawed by me.
