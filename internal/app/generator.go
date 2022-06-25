@@ -3,6 +3,8 @@ package app
 import (
 	"fmt"
 	"io"
+	"path"
+	"strings"
 
 	"github.com/hedhyw/gherkingen/v2/internal/docplugin/goplugin"
 	"github.com/hedhyw/gherkingen/v2/internal/docplugin/multiplugin"
@@ -20,6 +22,10 @@ func runGenerator(
 	templateSource, err := readTemplate(templateFile)
 	if err != nil {
 		return err
+	}
+
+	if outputFormat == model.FormatAutoDetect {
+		outputFormat = detectFormat(templateFile)
 	}
 
 	inputSource, err := readInput(inputFile)
@@ -41,4 +47,16 @@ func runGenerator(
 	fmt.Fprint(out, string(data))
 
 	return nil
+}
+
+func detectFormat(templateFile string) model.Format {
+	templateFile = strings.ToLower(templateFile)
+	switch path.Ext(templateFile) {
+	case ".go":
+		return model.FormatGo
+	case ".tmpl":
+		return detectFormat(strings.TrimSuffix(templateFile, ".tmpl"))
+	default:
+		return model.FormatRaw
+	}
 }
