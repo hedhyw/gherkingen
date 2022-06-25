@@ -24,7 +24,7 @@ func Run(arguments []string, out io.Writer, version string) (err error) {
 
 	outputFormat := flag.String(
 		"format",
-		string(model.FormatGo),
+		string(model.FormatAutoDetect),
 		"output format: "+strings.Join(model.Formats(), ", "),
 	)
 	templateFile := flag.String(

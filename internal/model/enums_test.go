@@ -14,6 +14,7 @@ func TestFormats(t *testing.T) {
 	actualFormats := model.Formats()
 
 	expFormats := [...]string{
+		string(model.FormatAutoDetect),
 		string(model.FormatJSON),
 		string(model.FormatGo),
 		string(model.FormatRaw),
