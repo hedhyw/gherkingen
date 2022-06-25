@@ -10,72 +10,10 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-// nolint: gocognit,cyclop,maintidx // Unit test.
 func TestGoPluginProcess(t *testing.T) {
 	t.Parallel()
 
 	ctx := context.Background()
-
-	t.Run("Background", func(t *testing.T) {
-		t.Parallel()
-
-		p := goplugin.New()
-
-		doc := getExampleDocument()
-		if assert.NoError(t, p.Process(ctx, doc)) {
-			pd := doc.Feature.Children[0].Background.PluginData
-			assert.Equal(t, "\"Name\"", pd["GoValue"])
-			assert.Equal(t, "Keyword", pd["GoName"])
-			assert.Equal(t, "string", pd["GoType"])
-		}
-	})
-
-	t.Run("Examples", func(t *testing.T) {
-		t.Parallel()
-
-		p := goplugin.New()
-
-		doc := getExampleDocument()
-		if assert.NoError(t, p.Process(ctx, doc)) {
-			pd := doc.Feature.Children[0].Scenario.Examples[0].PluginData
-			assert.Equal(t, "\"Keyword\"", pd["GoValue"])
-			assert.Equal(t, "Name", pd["GoName"])
-		}
-	})
-
-	t.Run("Examples_EmptyTableBody_NoError", func(t *testing.T) {
-		t.Parallel()
-
-		p := goplugin.New()
-
-		doc := getExampleDocument()
-		doc.Feature.Children[0].Scenario.Examples[0].TableBody = nil
-		assert.NoError(t, p.Process(ctx, doc))
-	})
-
-	t.Run("Examples_TableBody_TableHeader_mismatch", func(t *testing.T) {
-		t.Parallel()
-
-		p := goplugin.New()
-
-		doc := getExampleDocument()
-		doc.Feature.Children[0].Scenario.Examples[0].TableHeader.Cells = nil
-		assert.Error(t, p.Process(ctx, doc))
-	})
-
-	t.Run("Examples_underscore", func(t *testing.T) {
-		t.Parallel()
-
-		p := goplugin.New()
-
-		// It tests https://github.com/hedhyw/gherkingen/v2/issues/26.
-
-		doc := getExampleDocument()
-		if assert.NoError(t, p.Process(ctx, doc)) {
-			pd := doc.Feature.Children[0].Scenario.Examples[1].TableBody[0].PluginData
-			assert.Equal(t, "\"hello_world\"", pd["GoValue"])
-		}
-	})
 
 	t.Run("TableCell", func(t *testing.T) {
 		t.Parallel()
@@ -142,6 +80,59 @@ func TestGoPluginProcess(t *testing.T) {
 			pd := doc.Feature.Children[0].Scenario.Steps[0].PluginData
 			assert.Equal(t, "Keyword", pd["GoName"])
 			assert.Equal(t, "\"Text\"", pd["GoValue"])
+		}
+	})
+}
+
+func TestExample(t *testing.T) {
+	t.Parallel()
+
+	ctx := context.Background()
+
+	t.Run("Examples", func(t *testing.T) {
+		t.Parallel()
+
+		p := goplugin.New()
+
+		doc := getExampleDocument()
+		if assert.NoError(t, p.Process(ctx, doc)) {
+			pd := doc.Feature.Children[0].Scenario.Examples[0].PluginData
+			assert.Equal(t, "\"Keyword\"", pd["GoValue"])
+			assert.Equal(t, "Name", pd["GoName"])
+		}
+	})
+
+	t.Run("Examples_EmptyTableBody_NoError", func(t *testing.T) {
+		t.Parallel()
+
+		p := goplugin.New()
+
+		doc := getExampleDocument()
+		doc.Feature.Children[0].Scenario.Examples[0].TableBody = nil
+		assert.NoError(t, p.Process(ctx, doc))
+	})
+
+	t.Run("Examples_TableBody_TableHeader_mismatch", func(t *testing.T) {
+		t.Parallel()
+
+		p := goplugin.New()
+
+		doc := getExampleDocument()
+		doc.Feature.Children[0].Scenario.Examples[0].TableHeader.Cells = nil
+		assert.Error(t, p.Process(ctx, doc))
+	})
+
+	t.Run("Examples_underscore", func(t *testing.T) {
+		t.Parallel()
+
+		p := goplugin.New()
+
+		// It tests https://github.com/hedhyw/gherkingen/v2/issues/26.
+
+		doc := getExampleDocument()
+		if assert.NoError(t, p.Process(ctx, doc)) {
+			pd := doc.Feature.Children[0].Scenario.Examples[1].TableBody[0].PluginData
+			assert.Equal(t, "\"hello_world\"", pd["GoValue"])
 		}
 	})
 
@@ -251,6 +242,12 @@ func TestGoPluginProcess(t *testing.T) {
 
 		assert.Error(t, p.Process(ctx, doc))
 	})
+}
+
+func TestDescription_singleLine(t *testing.T) {
+	t.Parallel()
+
+	ctx := context.Background()
 
 	t.Run("Description_one_line", func(t *testing.T) {
 		t.Parallel()
@@ -277,6 +274,12 @@ func TestGoPluginProcess(t *testing.T) {
 			assert.Equal(t, "Hello world", doc.Feature.PluginData["GoComment"])
 		}
 	})
+}
+
+func TestDescription_multiLine(t *testing.T) {
+	t.Parallel()
+
+	ctx := context.Background()
 
 	t.Run("Description_multline", func(t *testing.T) {
 		t.Parallel()
@@ -330,6 +333,105 @@ func TestGoPluginProcess(t *testing.T) {
 		if assert.NoError(t, p.Process(ctx, doc)) &&
 			assert.NotNil(t, doc.Feature.Description) {
 			assert.Equal(t, expected, doc.Feature.PluginData["GoComment"])
+		}
+	})
+}
+
+func TestBackground(t *testing.T) {
+	t.Parallel()
+
+	ctx := context.Background()
+
+	t.Run("Background", func(t *testing.T) {
+		t.Parallel()
+
+		p := goplugin.New()
+
+		doc := getExampleDocument()
+		if assert.NoError(t, p.Process(ctx, doc)) {
+			pd := doc.Feature.Children[0].Background.PluginData
+			assert.Equal(t, "\"Name\"", pd["GoValue"])
+			assert.Equal(t, "Keyword", pd["GoName"])
+			assert.Equal(t, "string", pd["GoType"])
+		}
+	})
+
+	t.Run("Background_Scenario", func(t *testing.T) {
+		t.Parallel()
+
+		p := goplugin.New()
+		doc := getExampleDocument()
+
+		doc.Feature.Children = []*model.FeatureChild{{
+			Background: &model.Background{
+				PluginData: make(map[string]any),
+			},
+			Scenario: &model.Scenario{
+				PluginData: make(map[string]any),
+			},
+		}}
+
+		if assert.NoError(t, p.Process(ctx, doc)) &&
+			assert.NotNil(t, doc.Feature.Description) {
+			assert.Equal(t, true, doc.Feature.Children[0].Scenario.PluginData["GoHasBackground"])
+		}
+	})
+
+	t.Run("No_Background_Scenario", func(t *testing.T) {
+		t.Parallel()
+
+		p := goplugin.New()
+		doc := getExampleDocument()
+
+		doc.Feature.Children = []*model.FeatureChild{{
+			Background: nil,
+			Scenario: &model.Scenario{
+				PluginData: make(map[string]any),
+			},
+		}}
+
+		if assert.NoError(t, p.Process(ctx, doc)) &&
+			assert.NotNil(t, doc.Feature.Description) {
+			assert.NotEqual(t, true, doc.Feature.Children[0].Scenario.PluginData["GoHasBackground"])
+		}
+	})
+
+	t.Run("Background_Rule", func(t *testing.T) {
+		t.Parallel()
+
+		p := goplugin.New()
+		doc := getExampleDocument()
+
+		doc.Feature.Children[0].Rule.Children = []*model.RuleChild{{
+			Background: &model.Background{
+				PluginData: make(map[string]any),
+			},
+			Scenario: &model.Scenario{
+				PluginData: make(map[string]any),
+			},
+		}}
+
+		if assert.NoError(t, p.Process(ctx, doc)) {
+			scenario := doc.Feature.Children[0].Rule.Children[0].Scenario
+			assert.Equal(t, true, scenario.PluginData["GoHasBackground"])
+		}
+	})
+
+	t.Run("No_Background_Rule", func(t *testing.T) {
+		t.Parallel()
+
+		p := goplugin.New()
+		doc := getExampleDocument()
+
+		doc.Feature.Children[0].Rule.Children = []*model.RuleChild{{
+			Scenario: &model.Scenario{
+				PluginData: make(map[string]any),
+			},
+		}}
+
+		if assert.NoError(t, p.Process(ctx, doc)) {
+			scenario := doc.Feature.Children[0].Rule.Children[0].Scenario
+			assert.NotEqual(t, true, scenario.PluginData["GoHasBackground"])
 		}
 	})
 }

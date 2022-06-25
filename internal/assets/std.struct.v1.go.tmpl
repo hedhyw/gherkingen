@@ -8,13 +8,17 @@ import (
 
 {{ define "Background" }}
     {{- $Background := . -}}
-    f.{{ $Background.PluginData.GoName }}({{ $Background.PluginData.GoValue }}, func(t *testing.T, f *bdd.Feature) {
+    background := func(t *testing.T, f *bdd.Feature) interface{} {
+        /* TODO: Feel free to modify return value(s). */
         {{- range $Background.Steps }}
         f.{{ .PluginData.GoName }}({{.PluginData.GoValue}}, func() {
             
         })
         {{- end }}
-    })
+
+        return nil
+    }
+
 {{ end }}
 
 {{ define "Scenario" }}
@@ -45,6 +49,10 @@ import (
 		}
 
         f.TestCases(testCases, func(t *testing.T, f *bdd.Feature, tc testCase) {
+            {{- if $Scenario.PluginData.GoHasBackground }}
+            _ = background(t, f)
+            {{- end -}}
+
             {{- range $Scenario.Steps }}
             f.{{ .PluginData.GoName }}({{ .PluginData.GoValue }}, func() {
                 
@@ -54,7 +62,10 @@ import (
         {{- else }}
         {{- range $Scenario.Steps }}
         f.{{ .PluginData.GoName }}({{.PluginData.GoValue}}, func() {
-            
+            {{- if $Scenario.PluginData.GoHasBackground }}
+            _ = background(t, f)
+            {{- end }}
+
         })
         {{- end -}}
         {{ end }}
@@ -66,13 +77,13 @@ import (
     f.{{ $Rule.PluginData.GoName }}({{ $Rule.PluginData.GoValue }}, func(_ *testing.T, f *bdd.Feature) {
         {{- range $Rule.Children -}}
 
-        {{- if .Background -}}
+        {{- if .Background }}
         {{ template "Background" .Background }}
-        {{- end -}}
+        {{- end }}
 
-        {{- if .Scenario -}}
+        {{- if .Scenario }}
         {{- template "Scenario" .Scenario -}}
-        {{- end -}}
+        {{- end }}
 
         {{- end -}}
     })

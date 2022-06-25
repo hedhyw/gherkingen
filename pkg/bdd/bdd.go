@@ -108,6 +108,7 @@ func (f *Feature) subBlock(name string, fn func(t *testing.T, f *Feature)) {
 // Background defines a background block.
 //
 // Notice: Background is not running for each step.
+// Deprecated: the current template uses a new syntax.
 func (f *Feature) Background(name string, fn func(t *testing.T, f *Feature)) {
 	f.T.Helper()
 
