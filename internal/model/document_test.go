@@ -4,9 +4,9 @@ import (
 	"strconv"
 	"testing"
 
-	messages "github.com/cucumber/common/messages/go/v19"
 	"github.com/hedhyw/gherkingen/v2/internal/model"
 
+	messages "github.com/cucumber/common/messages/go/v19"
 	"github.com/stretchr/testify/assert"
 )
 
