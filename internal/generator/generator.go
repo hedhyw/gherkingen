@@ -8,7 +8,7 @@ import (
 	"github.com/hedhyw/gherkingen/v2/internal/docplugin"
 	"github.com/hedhyw/gherkingen/v2/internal/model"
 
-	"github.com/cucumber/gherkin-go/v19"
+	gherkin "github.com/cucumber/common/gherkin/go/v24"
 	"github.com/google/uuid"
 	"github.com/hedhyw/semerr/pkg/v1/semerr"
 )

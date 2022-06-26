@@ -1,9 +1,9 @@
-# github.com/cucumber/gherkin-go/v19 v19.0.3
+# github.com/cucumber/common/gherkin/go/v24 v24.0.0
 ## explicit; go 1.13
-github.com/cucumber/gherkin-go/v19
-# github.com/cucumber/messages-go/v16 v16.0.1
+github.com/cucumber/common/gherkin/go/v24
+# github.com/cucumber/common/messages/go/v19 v19.1.2
 ## explicit; go 1.13
-github.com/cucumber/messages-go/v16
+github.com/cucumber/common/messages/go/v19
 # github.com/davecgh/go-spew v1.1.1
 ## explicit
 github.com/davecgh/go-spew/spew

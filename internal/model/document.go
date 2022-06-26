@@ -1,7 +1,7 @@
 package model
 
 import (
-	"github.com/cucumber/messages-go/v16"
+	messages "github.com/cucumber/common/messages/go/v19"
 )
 
 // GherkinDocument is a core document.

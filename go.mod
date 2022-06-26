@@ -3,8 +3,8 @@ module github.com/hedhyw/gherkingen/v2
 go 1.18
 
 require (
-	github.com/cucumber/gherkin-go/v19 v19.0.3
-	github.com/cucumber/messages-go/v16 v16.0.1
+	github.com/cucumber/common/gherkin/go/v24 v24.0.0
+	github.com/cucumber/common/messages/go/v19 v19.1.2
 	github.com/google/uuid v1.3.0
 	github.com/hedhyw/semerr v0.4.0
 	github.com/iancoleman/strcase v0.2.0
