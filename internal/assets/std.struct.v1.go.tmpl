@@ -25,8 +25,12 @@ import (
     {{- $Scenario := . -}}
     f.{{ $Scenario.PluginData.GoName }}({{ $Scenario.PluginData.GoValue }}, func({{- /*
         t is usualy unused if there are no examples 
-    */ -}}{{- if $Scenario.Examples -}}_{{- else -}}t{{- end -}} *testing.T, f *bdd.Feature) {
+    */ -}}{{- if and $Scenario.Examples (not $Scenario.PluginData.GoParallel) -}}_{{- else -}}t{{- end -}} *testing.T, f *bdd.Feature) {
         {{- range $Scenario.Examples }}
+        {{- if $Scenario.PluginData.GoParallel }}
+            t.Parallel()
+
+        {{ end -}}
 
         {{- /* Define test case struct. */ -}}
 
@@ -49,6 +53,10 @@ import (
 		}
 
         f.TestCases(testCases, func(t *testing.T, f *bdd.Feature, tc testCase) {
+            {{- if $Scenario.PluginData.GoParallel }}
+            t.Parallel()
+
+            {{ end -}}
             {{- if $Scenario.PluginData.GoHasBackground }}
             _ = background(t, f)
             {{- end -}}
@@ -60,6 +68,10 @@ import (
             {{- end }}
         })
         {{- else }}
+        {{- if $Scenario.PluginData.GoParallel }}
+        t.Parallel()
+
+        {{ end -}}
         {{- range $Scenario.Steps }}
         f.{{ .PluginData.GoName }}({{.PluginData.GoValue}}, func() {
             {{- if $Scenario.PluginData.GoHasBackground }}
@@ -74,7 +86,11 @@ import (
 
 {{ define "Rule" }}
     {{ $Rule := . }}
-    f.{{ $Rule.PluginData.GoName }}({{ $Rule.PluginData.GoValue }}, func(_ *testing.T, f *bdd.Feature) {
+    f.{{ $Rule.PluginData.GoName }}({{ $Rule.PluginData.GoValue }}, func({{- if $Rule.PluginData.GoParallel -}}t{{- else -}}_{{- end -}} *testing.T, f *bdd.Feature) {
+        {{- if $Rule.PluginData.GoParallel }}
+            t.Parallel()
+
+        {{ end -}}
         {{- range $Rule.Children -}}
 
         {{- if .Background }}
@@ -90,6 +106,10 @@ import (
 {{ end }}
 
 func Test{{ .Feature.PluginData.GoName }}(t *testing.T) {
+    {{- if .Feature.PluginData.GoParallel }}
+    t.Parallel()
+
+    {{ end -}}
     f := bdd.NewFeature(t, {{ .Feature.PluginData.GoValue }})
     {{ if .Feature.PluginData.GoComment }}
     /* {{ .Feature.PluginData.GoComment }} */

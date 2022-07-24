@@ -42,6 +42,11 @@ func Run(arguments []string, out io.Writer, version string) (err error) {
 		false,
 		"print usage",
 	)
+	goParallel := flag.Bool(
+		"go-parallel",
+		false,
+		"add parallel mark",
+	)
 	listCmd := flag.Bool(
 		"list",
 		false,
@@ -82,12 +87,13 @@ func Run(arguments []string, out io.Writer, version string) (err error) {
 	case *helpCmd, inputFile == "":
 		return runHelp()
 	default:
-		return runGenerator(
-			out,
-			model.Format(*outputFormat),
-			*templateFile,
-			inputFile,
-			*packageName,
-		)
+		return runGenerator(appArgs{
+			Output:       out,
+			OutputFormat: model.Format(*outputFormat),
+			TemplateFile: *templateFile,
+			InputFile:    inputFile,
+			PackageName:  *packageName,
+			GoParallel:   *goParallel,
+		})
 	}
 }

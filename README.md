@@ -182,7 +182,9 @@ gherkingen --help
 
 Usage of gherkingen [FEATURE_FILE]:
   -format string
-        output format: json, go, raw (default "go")
+        output format: autodetect, json, go, raw (default "autodetect")
+  -go-parallel
+        add parallel mark
   -help
         print usage
   -list
@@ -193,6 +195,8 @@ Usage of gherkingen [FEATURE_FILE]:
         The same calls to the generator always produces the same output
   -template string
         template file (default "@/std.struct.v1.go.tmpl")
+  -version
+        print version
 ```
 
 ## Running in docker

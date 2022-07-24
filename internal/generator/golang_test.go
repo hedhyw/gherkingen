@@ -83,5 +83,5 @@ func TestGenerateAssetTemplatesShouldNotFail(t *testing.T) {
 }
 
 func requireNewPlugin(_ testing.TB) multiplugin.MultiPlugin {
-	return multiplugin.New(goplugin.New())
+	return multiplugin.New(goplugin.New(goplugin.Args{}))
 }

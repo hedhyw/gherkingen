@@ -52,7 +52,7 @@ func TestGenerateRaw(t *testing.T) {
 	}
 }
 
-func TestGenerateRaw_failed(t *testing.T) {
+func TestGenerateRawFailed(t *testing.T) {
 	t.Parallel()
 
 	_, err := generator.Generate(generator.Args{

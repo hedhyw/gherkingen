@@ -13,7 +13,7 @@ import (
 //go:embed generator_test.feature
 var exampleFeature []byte
 
-func TestGenerate_Failed(t *testing.T) {
+func TestGenerateFailed(t *testing.T) {
 	t.Parallel()
 
 	testCases := []struct {

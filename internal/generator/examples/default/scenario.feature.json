@@ -1,0 +1,155 @@
+{
+    "Feature": {
+        "Location": {
+            "Line": 1,
+            "Column": 1,
+            "PluginData": {}
+        },
+        "Tags": [],
+        "Language": "en",
+        "Keyword": "Feature",
+        "Name": "Some terse yet descriptive text of what is desired",
+        "Description": "  In order to realize a named business value\n  As an explicit system actor\n  I want to gain some beneficial outcome which furthers the goal",
+        "Children": [
+            {
+                "Scenario": {
+                    "Location": {
+                        "Line": 6,
+                        "Column": 3,
+                        "PluginData": {}
+                    },
+                    "Tags": [],
+                    "Keyword": "Scenario",
+                    "Name": "Some determinable business situation",
+                    "Description": "",
+                    "Steps": [
+                        {
+                            "Location": {
+                                "Line": 7,
+                                "Column": 5,
+                                "PluginData": {}
+                            },
+                            "Keyword": "Given ",
+                            "Text": "some precondition",
+                            "ID": "0194fdc2-fa2f-4cc0-81d3-ff12045b73c8",
+                            "PluginData": {
+                                "GoName": "Given",
+                                "GoType": "string",
+                                "GoValue": "\"some precondition\""
+                            }
+                        },
+                        {
+                            "Location": {
+                                "Line": 8,
+                                "Column": 7,
+                                "PluginData": {}
+                            },
+                            "Keyword": "And ",
+                            "Text": "some other precondition",
+                            "ID": "6e4ff95f-f662-45ee-a82a-bdf44a2d0b75",
+                            "PluginData": {
+                                "GoName": "And",
+                                "GoType": "string",
+                                "GoValue": "\"some other precondition\""
+                            }
+                        },
+                        {
+                            "Location": {
+                                "Line": 9,
+                                "Column": 6,
+                                "PluginData": {}
+                            },
+                            "Keyword": "When ",
+                            "Text": "some action by the actor",
+                            "ID": "fb180daf-48a7-4ee0-b10d-394651850fd4",
+                            "PluginData": {
+                                "GoName": "When",
+                                "GoType": "string",
+                                "GoValue": "\"some action by the actor\""
+                            }
+                        },
+                        {
+                            "Location": {
+                                "Line": 10,
+                                "Column": 7,
+                                "PluginData": {}
+                            },
+                            "Keyword": "And ",
+                            "Text": "some other action",
+                            "ID": "a178892e-e285-4ce1-9114-55780875d64e",
+                            "PluginData": {
+                                "GoName": "And",
+                                "GoType": "string",
+                                "GoValue": "\"some other action\""
+                            }
+                        },
+                        {
+                            "Location": {
+                                "Line": 11,
+                                "Column": 7,
+                                "PluginData": {}
+                            },
+                            "Keyword": "And ",
+                            "Text": "yet another action",
+                            "ID": "e2d3d0d0-de6b-48f9-b44c-e85ff044c6b1",
+                            "PluginData": {
+                                "GoName": "And",
+                                "GoType": "string",
+                                "GoValue": "\"yet another action\""
+                            }
+                        },
+                        {
+                            "Location": {
+                                "Line": 12,
+                                "Column": 6,
+                                "PluginData": {}
+                            },
+                            "Keyword": "Then ",
+                            "Text": "some testable outcome is achieved",
+                            "ID": "f83b8e88-3bbf-457a-ab99-c5b252c7429c",
+                            "PluginData": {
+                                "GoName": "Then",
+                                "GoType": "string",
+                                "GoValue": "\"some testable outcome is achieved\""
+                            }
+                        },
+                        {
+                            "Location": {
+                                "Line": 13,
+                                "Column": 7,
+                                "PluginData": {}
+                            },
+                            "Keyword": "And ",
+                            "Text": "something else we can check happens too",
+                            "ID": "32f3a8ae-b79e-4856-b659-c18f0dcecc77",
+                            "PluginData": {
+                                "GoName": "And",
+                                "GoType": "string",
+                                "GoValue": "\"something else we can check happens too\""
+                            }
+                        }
+                    ],
+                    "Examples": [],
+                    "ID": "c75e7a81-bfde-475f-a7cf-e242cf3cc354",
+                    "PluginData": {
+                        "GoName": "Scenario",
+                        "GoParallel": false,
+                        "GoType": "string",
+                        "GoValue": "\"Some determinable business situation\""
+                    }
+                },
+                "PluginData": {}
+            }
+        ],
+        "PluginData": {
+            "GoComment": "\n\tIn order to realize a named business value\n\tAs an explicit system actor\n\tI want to gain some beneficial outcome which furthers the goal\n",
+            "GoName": "SomeTerseYetDescriptiveTextOfWhatIsDesired",
+            "GoParallel": false,
+            "GoType": "string",
+            "GoValue": "\"Some terse yet descriptive text of what is desired\""
+        }
+    },
+    "Comments": [],
+    "PluginData": {},
+    "PackageName": "examples_test"
+}

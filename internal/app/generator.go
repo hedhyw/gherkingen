@@ -12,39 +12,49 @@ import (
 	"github.com/hedhyw/gherkingen/v2/internal/model"
 )
 
+// appArgs contains required arguments for runGenerator.
+type appArgs struct {
+	Output       io.Writer
+	OutputFormat model.Format
+	TemplateFile string
+	InputFile    string
+	PackageName  string
+	GoParallel   bool
+}
+
 func runGenerator(
-	out io.Writer,
-	outputFormat model.Format,
-	templateFile string,
-	inputFile string,
-	packageName string,
+	args appArgs,
 ) (err error) {
-	templateSource, err := readTemplate(templateFile)
+	templateSource, err := readTemplate(args.TemplateFile)
 	if err != nil {
 		return err
 	}
 
-	if outputFormat == model.FormatAutoDetect {
-		outputFormat = detectFormat(templateFile)
+	if args.OutputFormat == model.FormatAutoDetect {
+		args.OutputFormat = detectFormat(args.TemplateFile)
 	}
 
-	inputSource, err := readInput(inputFile)
+	inputSource, err := readInput(args.InputFile)
 	if err != nil {
 		return err
 	}
+
+	goPlugin := goplugin.New(goplugin.Args{
+		Parallel: args.GoParallel,
+	})
 
 	data, err := generator.Generate(generator.Args{
-		Format:         outputFormat,
+		Format:         args.OutputFormat,
 		InputSource:    inputSource,
 		TemplateSource: templateSource,
-		PackageName:    packageName,
-		Plugin:         multiplugin.New(goplugin.New()),
+		PackageName:    args.PackageName,
+		Plugin:         multiplugin.New(goPlugin),
 	})
 	if err != nil {
 		return err
 	}
 
-	fmt.Fprint(out, string(data))
+	fmt.Fprint(args.Output, string(data))
 
 	return nil
 }

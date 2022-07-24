@@ -2,6 +2,7 @@ package goplugin_test
 
 import (
 	"context"
+	"strconv"
 	"testing"
 
 	"github.com/hedhyw/gherkingen/v2/internal/docplugin/goplugin"
@@ -18,7 +19,7 @@ func TestGoPluginProcess(t *testing.T) {
 	t.Run("TableCell", func(t *testing.T) {
 		t.Parallel()
 
-		p := goplugin.New()
+		p := goplugin.New(goplugin.Args{})
 
 		doc := getExampleDocument()
 		if assert.NoError(t, p.Process(ctx, doc)) {
@@ -34,7 +35,7 @@ func TestGoPluginProcess(t *testing.T) {
 	t.Run("Feature", func(t *testing.T) {
 		t.Parallel()
 
-		p := goplugin.New()
+		p := goplugin.New(goplugin.Args{})
 
 		doc := getExampleDocument()
 		if assert.NoError(t, p.Process(ctx, doc)) {
@@ -47,7 +48,7 @@ func TestGoPluginProcess(t *testing.T) {
 	t.Run("Rule", func(t *testing.T) {
 		t.Parallel()
 
-		p := goplugin.New()
+		p := goplugin.New(goplugin.Args{})
 
 		doc := getExampleDocument()
 		if assert.NoError(t, p.Process(ctx, doc)) {
@@ -60,7 +61,7 @@ func TestGoPluginProcess(t *testing.T) {
 	t.Run("Scenario", func(t *testing.T) {
 		t.Parallel()
 
-		p := goplugin.New()
+		p := goplugin.New(goplugin.Args{})
 
 		doc := getExampleDocument()
 		if assert.NoError(t, p.Process(ctx, doc)) {
@@ -73,7 +74,7 @@ func TestGoPluginProcess(t *testing.T) {
 	t.Run("Step", func(t *testing.T) {
 		t.Parallel()
 
-		p := goplugin.New()
+		p := goplugin.New(goplugin.Args{})
 
 		doc := getExampleDocument()
 		if assert.NoError(t, p.Process(ctx, doc)) {
@@ -92,7 +93,7 @@ func TestExample(t *testing.T) {
 	t.Run("Examples", func(t *testing.T) {
 		t.Parallel()
 
-		p := goplugin.New()
+		p := goplugin.New(goplugin.Args{})
 
 		doc := getExampleDocument()
 		if assert.NoError(t, p.Process(ctx, doc)) {
@@ -105,7 +106,7 @@ func TestExample(t *testing.T) {
 	t.Run("Examples_EmptyTableBody_NoError", func(t *testing.T) {
 		t.Parallel()
 
-		p := goplugin.New()
+		p := goplugin.New(goplugin.Args{})
 
 		doc := getExampleDocument()
 		doc.Feature.Children[0].Scenario.Examples[0].TableBody = nil
@@ -115,7 +116,7 @@ func TestExample(t *testing.T) {
 	t.Run("Examples_TableBody_TableHeader_mismatch", func(t *testing.T) {
 		t.Parallel()
 
-		p := goplugin.New()
+		p := goplugin.New(goplugin.Args{})
 
 		doc := getExampleDocument()
 		doc.Feature.Children[0].Scenario.Examples[0].TableHeader.Cells = nil
@@ -125,7 +126,7 @@ func TestExample(t *testing.T) {
 	t.Run("Examples_underscore", func(t *testing.T) {
 		t.Parallel()
 
-		p := goplugin.New()
+		p := goplugin.New(goplugin.Args{})
 
 		// It tests https://github.com/hedhyw/gherkingen/v2/issues/26.
 
@@ -139,7 +140,7 @@ func TestExample(t *testing.T) {
 	t.Run("Example_Duplicate", func(t *testing.T) {
 		t.Parallel()
 
-		p := goplugin.New()
+		p := goplugin.New(goplugin.Args{})
 
 		doc := getExampleDocument()
 
@@ -172,7 +173,7 @@ func TestExample(t *testing.T) {
 	t.Run("Examples_duplicateLimit", func(t *testing.T) {
 		t.Parallel()
 
-		p := goplugin.New()
+		p := goplugin.New(goplugin.Args{})
 
 		doc := getExampleDocument()
 
@@ -224,7 +225,7 @@ func TestExample(t *testing.T) {
 	t.Run("Examples_invalidCells", func(t *testing.T) {
 		t.Parallel()
 
-		p := goplugin.New()
+		p := goplugin.New(goplugin.Args{})
 
 		doc := getExampleDocument()
 
@@ -244,7 +245,7 @@ func TestExample(t *testing.T) {
 	})
 }
 
-func TestDescription_singleLine(t *testing.T) {
+func TestDescriptionSingleLine(t *testing.T) {
 	t.Parallel()
 
 	ctx := context.Background()
@@ -252,7 +253,7 @@ func TestDescription_singleLine(t *testing.T) {
 	t.Run("Description_one_line", func(t *testing.T) {
 		t.Parallel()
 
-		p := goplugin.New()
+		p := goplugin.New(goplugin.Args{})
 		doc := getExampleDocument()
 		doc.Feature.Description = "Hello world"
 
@@ -265,7 +266,7 @@ func TestDescription_singleLine(t *testing.T) {
 	t.Run("Description_one_line_trim", func(t *testing.T) {
 		t.Parallel()
 
-		p := goplugin.New()
+		p := goplugin.New(goplugin.Args{})
 		doc := getExampleDocument()
 		doc.Feature.Description = "   Hello world     "
 
@@ -276,7 +277,7 @@ func TestDescription_singleLine(t *testing.T) {
 	})
 }
 
-func TestDescription_multiLine(t *testing.T) {
+func TestDescriptionMultiLine(t *testing.T) {
 	t.Parallel()
 
 	ctx := context.Background()
@@ -284,7 +285,7 @@ func TestDescription_multiLine(t *testing.T) {
 	t.Run("Description_multline", func(t *testing.T) {
 		t.Parallel()
 
-		p := goplugin.New()
+		p := goplugin.New(goplugin.Args{})
 		doc := getExampleDocument()
 
 		const expecetd = "\n\tHello1\n\tHello2\n\tHello3\n\n"
@@ -302,7 +303,7 @@ func TestDescription_multiLine(t *testing.T) {
 	t.Run("Description_multline_trim", func(t *testing.T) {
 		t.Parallel()
 
-		p := goplugin.New()
+		p := goplugin.New(goplugin.Args{})
 		doc := getExampleDocument()
 
 		const expected = "\n\tNo spaces\n\t    Two spaces\n\t One space\n\n"
@@ -320,7 +321,7 @@ func TestDescription_multiLine(t *testing.T) {
 	t.Run("Description_multline_empty_lines", func(t *testing.T) {
 		t.Parallel()
 
-		p := goplugin.New()
+		p := goplugin.New(goplugin.Args{})
 		doc := getExampleDocument()
 
 		const expected = "\n\tHello\n\n\n\t     Worldr\n\n"
@@ -345,7 +346,7 @@ func TestBackground(t *testing.T) {
 	t.Run("Background", func(t *testing.T) {
 		t.Parallel()
 
-		p := goplugin.New()
+		p := goplugin.New(goplugin.Args{})
 
 		doc := getExampleDocument()
 		if assert.NoError(t, p.Process(ctx, doc)) {
@@ -359,7 +360,7 @@ func TestBackground(t *testing.T) {
 	t.Run("Background_Scenario", func(t *testing.T) {
 		t.Parallel()
 
-		p := goplugin.New()
+		p := goplugin.New(goplugin.Args{})
 		doc := getExampleDocument()
 
 		doc.Feature.Children = []*model.FeatureChild{{
@@ -380,7 +381,7 @@ func TestBackground(t *testing.T) {
 	t.Run("No_Background_Scenario", func(t *testing.T) {
 		t.Parallel()
 
-		p := goplugin.New()
+		p := goplugin.New(goplugin.Args{})
 		doc := getExampleDocument()
 
 		doc.Feature.Children = []*model.FeatureChild{{
@@ -399,7 +400,7 @@ func TestBackground(t *testing.T) {
 	t.Run("Background_Rule", func(t *testing.T) {
 		t.Parallel()
 
-		p := goplugin.New()
+		p := goplugin.New(goplugin.Args{})
 		doc := getExampleDocument()
 
 		doc.Feature.Children[0].Rule.Children = []*model.RuleChild{{
@@ -420,7 +421,7 @@ func TestBackground(t *testing.T) {
 	t.Run("No_Background_Rule", func(t *testing.T) {
 		t.Parallel()
 
-		p := goplugin.New()
+		p := goplugin.New(goplugin.Args{})
 		doc := getExampleDocument()
 
 		doc.Feature.Children[0].Rule.Children = []*model.RuleChild{{
@@ -439,8 +440,33 @@ func TestBackground(t *testing.T) {
 func TestGoPluginName(t *testing.T) {
 	t.Parallel()
 
-	p := goplugin.New()
+	p := goplugin.New(goplugin.Args{})
 	assert.Equal(t, "GoPlugin", p.Name())
+}
+
+func TestParallel(t *testing.T) {
+	t.Parallel()
+
+	ctx := context.Background()
+
+	for _, tc := range [2]bool{true, false} {
+		tc := tc
+
+		t.Run(strconv.FormatBool(tc), func(t *testing.T) {
+			t.Parallel()
+
+			p := goplugin.New(goplugin.Args{
+				Parallel: tc,
+			})
+			doc := getExampleDocument()
+
+			if assert.NoError(t, p.Process(ctx, doc)) {
+				assert.Equal(t, tc, doc.Feature.PluginData["GoParallel"])
+				assert.Equal(t, tc, doc.Feature.Children[0].Scenario.PluginData["GoParallel"])
+				assert.Equal(t, tc, doc.Feature.Children[0].Rule.PluginData["GoParallel"])
+			}
+		})
+	}
 }
 
 func getExampleDocument() *model.GherkinDocument {

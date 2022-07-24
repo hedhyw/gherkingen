@@ -224,6 +224,32 @@ func TestApplicationCommandLineTool(t *testing.T) {
 			})
 		})
 	})
+
+	f.Scenario("User wants to run tests in parallel", func(t *testing.T, f *bdd.Feature) {
+		arguments := []string{}
+		f.When("`-go-parallel` is provided", func() {
+			arguments = append(arguments, "-go-parallel")
+		})
+		f.And("`app.feature` is given", func() {
+			arguments = append(arguments, "../generator/examples/scenario.feature")
+		})
+		f.Then("generated code contains `t.Parallel()`", func() {
+			assert.Contains(t, runApp(t, arguments, true), "t.Parallel()")
+		})
+	})
+
+	f.Scenario("User wants to run tests sequentially", func(t *testing.T, f *bdd.Feature) {
+		arguments := []string{}
+		f.When("`-go-parallel` is provided", func() {
+			// Go on.
+		})
+		f.And("`app.feature` is given", func() {
+			arguments = append(arguments, "../generator/examples/scenario.feature")
+		})
+		f.Then("generated code doesn't contain `t.Parallel()`", func() {
+			assert.NotContains(t, runApp(t, arguments, true), "t.Parallel()")
+		})
+	})
 }
 
 func runApp(tb testing.TB, arguments []string, ok bool) string {

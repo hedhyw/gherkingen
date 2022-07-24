@@ -1,0 +1,292 @@
+{
+    "Feature": {
+        "Location": {
+            "Line": 1,
+            "Column": 1,
+            "PluginData": {}
+        },
+        "Tags": [],
+        "Language": "en",
+        "Keyword": "Feature",
+        "Name": "Nested background",
+        "Description": "",
+        "Children": [
+            {
+                "Background": {
+                    "Location": {
+                        "Line": 2,
+                        "Column": 3,
+                        "PluginData": {}
+                    },
+                    "Keyword": "Background",
+                    "Name": "",
+                    "Description": "",
+                    "Steps": [
+                        {
+                            "Location": {
+                                "Line": 3,
+                                "Column": 5,
+                                "PluginData": {}
+                            },
+                            "Keyword": "Given ",
+                            "Text": "a global administrator named \"Greg\"",
+                            "ID": "0194fdc2-fa2f-4cc0-81d3-ff12045b73c8",
+                            "PluginData": {
+                                "GoName": "Given",
+                                "GoType": "string",
+                                "GoValue": "\"a global administrator named \\\"Greg\\\"\""
+                            }
+                        },
+                        {
+                            "Location": {
+                                "Line": 4,
+                                "Column": 5,
+                                "PluginData": {}
+                            },
+                            "Keyword": "And ",
+                            "Text": "a blog named \"Greg's anti-tax rants\"",
+                            "ID": "6e4ff95f-f662-45ee-a82a-bdf44a2d0b75",
+                            "PluginData": {
+                                "GoName": "And",
+                                "GoType": "string",
+                                "GoValue": "\"a blog named \\\"Greg's anti-tax rants\\\"\""
+                            }
+                        },
+                        {
+                            "Location": {
+                                "Line": 5,
+                                "Column": 5,
+                                "PluginData": {}
+                            },
+                            "Keyword": "And ",
+                            "Text": "a customer named \"Dr. Bill\"",
+                            "ID": "fb180daf-48a7-4ee0-b10d-394651850fd4",
+                            "PluginData": {
+                                "GoName": "And",
+                                "GoType": "string",
+                                "GoValue": "\"a customer named \\\"Dr. Bill\\\"\""
+                            }
+                        },
+                        {
+                            "Location": {
+                                "Line": 6,
+                                "Column": 5,
+                                "PluginData": {}
+                            },
+                            "Keyword": "And ",
+                            "Text": "a blog named \"Expensive Therapy\" owned by \"Dr. Bill\"",
+                            "ID": "a178892e-e285-4ce1-9114-55780875d64e",
+                            "PluginData": {
+                                "GoName": "And",
+                                "GoType": "string",
+                                "GoValue": "\"a blog named \\\"Expensive Therapy\\\" owned by \\\"Dr. Bill\\\"\""
+                            }
+                        }
+                    ],
+                    "ID": "e2d3d0d0-de6b-48f9-b44c-e85ff044c6b1",
+                    "PluginData": {
+                        "GoName": "Background",
+                        "GoType": "string",
+                        "GoValue": "\"\""
+                    }
+                },
+                "PluginData": {}
+            },
+            {
+                "Scenario": {
+                    "Location": {
+                        "Line": 8,
+                        "Column": 3,
+                        "PluginData": {}
+                    },
+                    "Tags": [],
+                    "Keyword": "Scenario",
+                    "Name": "Dr. Bill posts to his own blog",
+                    "Description": "",
+                    "Steps": [
+                        {
+                            "Location": {
+                                "Line": 9,
+                                "Column": 5,
+                                "PluginData": {}
+                            },
+                            "Keyword": "Given ",
+                            "Text": "I am logged in as Dr. Bill",
+                            "ID": "f83b8e88-3bbf-457a-ab99-c5b252c7429c",
+                            "PluginData": {
+                                "GoName": "Given",
+                                "GoType": "string",
+                                "GoValue": "\"I am logged in as Dr. Bill\""
+                            }
+                        },
+                        {
+                            "Location": {
+                                "Line": 10,
+                                "Column": 5,
+                                "PluginData": {}
+                            },
+                            "Keyword": "When ",
+                            "Text": "I try to post to \"Expensive Therapy\"",
+                            "ID": "32f3a8ae-b79e-4856-b659-c18f0dcecc77",
+                            "PluginData": {
+                                "GoName": "When",
+                                "GoType": "string",
+                                "GoValue": "\"I try to post to \\\"Expensive Therapy\\\"\""
+                            }
+                        },
+                        {
+                            "Location": {
+                                "Line": 11,
+                                "Column": 5,
+                                "PluginData": {}
+                            },
+                            "Keyword": "Then ",
+                            "Text": "I should see \"Your article was published.\"",
+                            "ID": "c75e7a81-bfde-475f-a7cf-e242cf3cc354",
+                            "PluginData": {
+                                "GoName": "Then",
+                                "GoType": "string",
+                                "GoValue": "\"I should see \\\"Your article was published.\\\"\""
+                            }
+                        }
+                    ],
+                    "Examples": [],
+                    "ID": "f3ede2d6-becc-4ea3-ae5e-88526a9f4a57",
+                    "PluginData": {
+                        "GoHasBackground": true,
+                        "GoName": "Scenario",
+                        "GoParallel": true,
+                        "GoType": "string",
+                        "GoValue": "\"Dr. Bill posts to his own blog\""
+                    }
+                },
+                "PluginData": {}
+            },
+            {
+                "Rule": {
+                    "Location": {
+                        "Line": 13,
+                        "Column": 3,
+                        "PluginData": {}
+                    },
+                    "Tags": [],
+                    "Keyword": "Rule",
+                    "Name": "There can be only One",
+                    "Description": "",
+                    "Children": [
+                        {
+                            "Background": {
+                                "Location": {
+                                    "Line": 14,
+                                    "Column": 5,
+                                    "PluginData": {}
+                                },
+                                "Keyword": "Background",
+                                "Name": "",
+                                "Description": "",
+                                "Steps": [
+                                    {
+                                        "Location": {
+                                            "Line": 15,
+                                            "Column": 7,
+                                            "PluginData": {}
+                                        },
+                                        "Keyword": "Given ",
+                                        "Text": "I have overdue tasks",
+                                        "ID": "8bcb9ef2-d4a6-4314-b68d-6d299761ea9e",
+                                        "PluginData": {
+                                            "GoName": "Given",
+                                            "GoType": "string",
+                                            "GoValue": "\"I have overdue tasks\""
+                                        }
+                                    }
+                                ],
+                                "ID": "4f5aa6ae-c3fc-48c6-aae0-81ac8120c720",
+                                "PluginData": {
+                                    "GoName": "Background",
+                                    "GoType": "string",
+                                    "GoValue": "\"\""
+                                }
+                            },
+                            "PluginData": {}
+                        },
+                        {
+                            "Scenario": {
+                                "Location": {
+                                    "Line": 17,
+                                    "Column": 5,
+                                    "PluginData": {}
+                                },
+                                "Tags": [],
+                                "Keyword": "Example",
+                                "Name": "Only One -- One alive",
+                                "Description": "",
+                                "Steps": [
+                                    {
+                                        "Location": {
+                                            "Line": 18,
+                                            "Column": 7,
+                                            "PluginData": {}
+                                        },
+                                        "Keyword": "Given ",
+                                        "Text": "there is only 1 ninja alive",
+                                        "ID": "efcd6cea-84b6-425e-a07b-e063716f96dd",
+                                        "PluginData": {
+                                            "GoName": "Given",
+                                            "GoType": "string",
+                                            "GoValue": "\"there is only 1 ninja alive\""
+                                        }
+                                    },
+                                    {
+                                        "Location": {
+                                            "Line": 19,
+                                            "Column": 7,
+                                            "PluginData": {}
+                                        },
+                                        "Keyword": "Then ",
+                                        "Text": "he (or she) will live forever ;-)",
+                                        "ID": "cdd01d75-045c-4f00-8f8a-796bce6c512c",
+                                        "PluginData": {
+                                            "GoName": "Then",
+                                            "GoType": "string",
+                                            "GoValue": "\"he (or she) will live forever ;-)\""
+                                        }
+                                    }
+                                ],
+                                "Examples": [],
+                                "ID": "3801aaca-eedf-4d5b-9066-64e8c0e4a771",
+                                "PluginData": {
+                                    "GoHasBackground": true,
+                                    "GoName": "Example",
+                                    "GoParallel": true,
+                                    "GoType": "string",
+                                    "GoValue": "\"Only One -- One alive\""
+                                }
+                            },
+                            "PluginData": {}
+                        }
+                    ],
+                    "ID": "ece0b8b7-c196-4d91-8125-1b7c9c9ca520",
+                    "PluginData": {
+                        "GoHasBackground": true,
+                        "GoName": "Rule",
+                        "GoParallel": true,
+                        "GoType": "string",
+                        "GoValue": "\"There can be only One\""
+                    }
+                },
+                "PluginData": {}
+            }
+        ],
+        "PluginData": {
+            "GoComment": "",
+            "GoName": "NestedBackground",
+            "GoParallel": true,
+            "GoType": "string",
+            "GoValue": "\"Nested background\""
+        }
+    },
+    "Comments": [],
+    "PluginData": {},
+    "PackageName": "examples_test"
+}
