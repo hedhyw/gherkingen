@@ -1,0 +1,49 @@
+{
+    "Feature": {
+        "Location": {
+            "Line": 1,
+            "Column": 1,
+            "PluginData": {}
+        },
+        "Tags": [],
+        "Language": "en",
+        "Keyword": "Feature",
+        "Name": "Example Issue 27 Multi",
+        "Description": "    Details:\n      - example 1\n      - example 2\n\n      - example 3\n        - example 3.1\n        - example 3.2",
+        "Children": [
+            {
+                "Scenario": {
+                    "Location": {
+                        "Line": 10,
+                        "Column": 5,
+                        "PluginData": {}
+                    },
+                    "Tags": [],
+                    "Keyword": "Example",
+                    "Name": "Multi-line comment with indents",
+                    "Description": "",
+                    "Steps": [],
+                    "Examples": [],
+                    "ID": "0194fdc2-fa2f-4cc0-81d3-ff12045b73c8",
+                    "PluginData": {
+                        "GoName": "Example",
+                        "GoParallel": false,
+                        "GoType": "string",
+                        "GoValue": "\"Multi-line comment with indents\""
+                    }
+                },
+                "PluginData": {}
+            }
+        ],
+        "PluginData": {
+            "GoComment": "\n\tDetails:\n\t  - example 1\n\t  - example 2\n\n\t  - example 3\n\t    - example 3.1\n\t    - example 3.2\n",
+            "GoName": "ExampleIssue27Multi",
+            "GoParallel": false,
+            "GoType": "string",
+            "GoValue": "\"Example Issue 27 Multi\""
+        }
+    },
+    "Comments": [],
+    "PluginData": {},
+    "PackageName": "examples_test"
+}

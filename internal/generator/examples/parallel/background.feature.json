@@ -155,6 +155,7 @@
                     "PluginData": {
                         "GoHasBackground": true,
                         "GoName": "Scenario",
+                        "GoParallel": true,
                         "GoType": "string",
                         "GoValue": "\"Dr. Bill posts to his own blog\""
                     }
@@ -224,6 +225,7 @@
                     "PluginData": {
                         "GoHasBackground": true,
                         "GoName": "Scenario",
+                        "GoParallel": true,
                         "GoType": "string",
                         "GoValue": "\"Dr. Bill tries to post to somebody else's blog, and fails\""
                     }
@@ -293,6 +295,7 @@
                     "PluginData": {
                         "GoHasBackground": true,
                         "GoName": "Scenario",
+                        "GoParallel": true,
                         "GoType": "string",
                         "GoValue": "\"Greg posts to a client's blog\""
                     }
@@ -303,6 +306,7 @@
         "PluginData": {
             "GoComment": "\n\tOnly blog owners can post to a blog, except administrators,\n\twho can post to all blogs.\n",
             "GoName": "MultipleSiteSupport",
+            "GoParallel": true,
             "GoType": "string",
             "GoValue": "\"Multiple site support\""
         }

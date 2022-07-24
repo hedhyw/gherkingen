@@ -70,3 +70,13 @@ Feature: Application command line tool
     Examples:
     | <feature>   | <template> |
     | app.feature | not_found  |
+
+  Scenario: User wants to run tests in parallel
+    When `-go-parallel` is provided
+    And `scenario.feature` is given
+    Then generated code contains `t.Parallel()`
+
+  Scenario: User wants to run tests sequentially
+    When `-go-parallel` is not provided
+    And `scenario.feature` is given
+    Then generated code doesn't contain `t.Parallel()`

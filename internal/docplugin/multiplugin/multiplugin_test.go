@@ -35,7 +35,7 @@ func TestMultiPlugin(t *testing.T) {
 	t.Run("goplugin", func(t *testing.T) {
 		t.Parallel()
 
-		goPlugin := goplugin.New()
+		goPlugin := goplugin.New(goplugin.Args{})
 
 		mp := multiplugin.New(goPlugin, goPlugin)
 		if assert.NotNil(t, mp) {

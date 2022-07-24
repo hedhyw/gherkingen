@@ -8,37 +8,39 @@
         "Tags": [],
         "Language": "en",
         "Keyword": "Feature",
-        "Name": "Example Issue 27 Single",
-        "Description": "    Hello world",
+        "Name": "Guess the word",
+        "Description": "  The word guess game is a turn-based game for two players.\n  The Maker makes a word for the Breaker to guess. The game\n  is over when the Breaker guesses the Maker's word.",
         "Children": [
             {
                 "Scenario": {
                     "Location": {
-                        "Line": 4,
-                        "Column": 5,
+                        "Line": 7,
+                        "Column": 3,
                         "PluginData": {}
                     },
                     "Tags": [],
                     "Keyword": "Example",
-                    "Name": "Single comment",
+                    "Name": "Maker starts a game",
                     "Description": "",
                     "Steps": [],
                     "Examples": [],
                     "ID": "0194fdc2-fa2f-4cc0-81d3-ff12045b73c8",
                     "PluginData": {
                         "GoName": "Example",
+                        "GoParallel": false,
                         "GoType": "string",
-                        "GoValue": "\"Single comment\""
+                        "GoValue": "\"Maker starts a game\""
                     }
                 },
                 "PluginData": {}
             }
         ],
         "PluginData": {
-            "GoComment": "Hello world",
-            "GoName": "ExampleIssue27Single",
+            "GoComment": "\n\tThe word guess game is a turn-based game for two players.\n\tThe Maker makes a word for the Breaker to guess. The game\n\tis over when the Breaker guesses the Maker's word.\n",
+            "GoName": "GuessTheWord",
+            "GoParallel": false,
             "GoType": "string",
-            "GoValue": "\"Example Issue 27 Single\""
+            "GoValue": "\"Guess the word\""
         }
     },
     "Comments": [],

@@ -1,0 +1,120 @@
+{
+    "Feature": {
+        "Location": {
+            "Line": 1,
+            "Column": 1,
+            "PluginData": {}
+        },
+        "Tags": [],
+        "Language": "en",
+        "Keyword": "Feature",
+        "Name": "Issue example",
+        "Description": "",
+        "Children": [
+            {
+                "Scenario": {
+                    "Location": {
+                        "Line": 2,
+                        "Column": 5,
+                        "PluginData": {}
+                    },
+                    "Tags": [],
+                    "Keyword": "Scenario",
+                    "Name": "Just a hello world",
+                    "Description": "",
+                    "Steps": [],
+                    "Examples": [
+                        {
+                            "Location": {
+                                "Line": 3,
+                                "Column": 9,
+                                "PluginData": {}
+                            },
+                            "Tags": [],
+                            "Keyword": "Examples",
+                            "Name": "",
+                            "Description": "",
+                            "ID": "fb180daf-48a7-4ee0-b10d-394651850fd4",
+                            "TableHeader": {
+                                "Location": {
+                                    "Line": 4,
+                                    "Column": 9,
+                                    "PluginData": {}
+                                },
+                                "Cells": [
+                                    {
+                                        "Location": {
+                                            "Line": 4,
+                                            "Column": 11,
+                                            "PluginData": {}
+                                        },
+                                        "Value": "\u003cname\u003e",
+                                        "PluginData": {
+                                            "GoName": "Name",
+                                            "GoType": "string",
+                                            "GoValue": "\"\u003cname\u003e\""
+                                        }
+                                    }
+                                ],
+                                "ID": "0194fdc2-fa2f-4cc0-81d3-ff12045b73c8",
+                                "PluginData": {
+                                    "GoValue": "\"\u003cname\u003e\""
+                                }
+                            },
+                            "TableBody": [
+                                {
+                                    "Location": {
+                                        "Line": 5,
+                                        "Column": 9,
+                                        "PluginData": {}
+                                    },
+                                    "Cells": [
+                                        {
+                                            "Location": {
+                                                "Line": 5,
+                                                "Column": 11,
+                                                "PluginData": {}
+                                            },
+                                            "Value": "hello world",
+                                            "PluginData": {
+                                                "GoType": "string",
+                                                "GoValue": "\"hello world\""
+                                            }
+                                        }
+                                    ],
+                                    "ID": "6e4ff95f-f662-45ee-a82a-bdf44a2d0b75",
+                                    "PluginData": {
+                                        "GoValue": "\"hello_world\""
+                                    }
+                                }
+                            ],
+                            "PluginData": {
+                                "GoName": "Undefined",
+                                "GoType": "string",
+                                "GoValue": "\"Examples\""
+                            }
+                        }
+                    ],
+                    "ID": "a178892e-e285-4ce1-9114-55780875d64e",
+                    "PluginData": {
+                        "GoName": "Scenario",
+                        "GoParallel": false,
+                        "GoType": "string",
+                        "GoValue": "\"Just a hello world\""
+                    }
+                },
+                "PluginData": {}
+            }
+        ],
+        "PluginData": {
+            "GoComment": "",
+            "GoName": "IssueExample",
+            "GoParallel": false,
+            "GoType": "string",
+            "GoValue": "\"Issue example\""
+        }
+    },
+    "Comments": [],
+    "PluginData": {},
+    "PackageName": "examples_test"
+}

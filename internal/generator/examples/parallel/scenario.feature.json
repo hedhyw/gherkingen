@@ -133,6 +133,7 @@
                     "ID": "c75e7a81-bfde-475f-a7cf-e242cf3cc354",
                     "PluginData": {
                         "GoName": "Scenario",
+                        "GoParallel": true,
                         "GoType": "string",
                         "GoValue": "\"Some determinable business situation\""
                     }
@@ -143,6 +144,7 @@
         "PluginData": {
             "GoComment": "\n\tIn order to realize a named business value\n\tAs an explicit system actor\n\tI want to gain some beneficial outcome which furthers the goal\n",
             "GoName": "SomeTerseYetDescriptiveTextOfWhatIsDesired",
+            "GoParallel": true,
             "GoType": "string",
             "GoValue": "\"Some terse yet descriptive text of what is desired\""
         }

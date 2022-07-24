@@ -21,6 +21,7 @@ const (
 	dataFieldGoName       = "GoName"
 	dataFieldGoComment    = "GoComment"
 	dataFieldGoBackground = "GoHasBackground"
+	dataFieldGoparallel   = "GoParallel"
 )
 
 // GoPlugin injects golang specific information: go types, aliases.
@@ -28,14 +29,23 @@ type GoPlugin struct {
 	aliaser             *goaliaser.Aliaser
 	exampleNameReplacer *strings.Replacer
 	usedExampleNames    map[string]struct{}
+
+	args Args
+}
+
+// Args contains optional arguments for GoPlugin.
+type Args struct {
+	Parallel bool
 }
 
 // New initializes a new go plugin.
-func New() *GoPlugin {
+func New(args Args) *GoPlugin {
 	return &GoPlugin{
 		aliaser:             goaliaser.New(),
 		exampleNameReplacer: strings.NewReplacer(" ", "_", "\t", "_"),
 		usedExampleNames:    make(map[string]struct{}),
+
+		args: args,
 	}
 }
 
@@ -150,16 +160,19 @@ func (p GoPlugin) handleStruct(
 		val.PluginData[dataFieldGoValue] = p.aliaser.StringValue(val.Name)
 		val.PluginData[dataFieldGoType] = string(goTypeString)
 		val.PluginData[dataFieldGoComment] = p.prepareFeatureDescription(val.Description)
+		val.PluginData[dataFieldGoparallel] = p.args.Parallel
 		p.processFeatureBackground(val)
 	case model.Rule:
 		val.PluginData[dataFieldGoName] = p.aliaser.NameAlias(val.Keyword)
 		val.PluginData[dataFieldGoValue] = p.aliaser.StringValue(val.Name)
 		val.PluginData[dataFieldGoType] = string(goTypeString)
+		val.PluginData[dataFieldGoparallel] = p.args.Parallel
 		p.processRuleBackground(val)
 	case model.Scenario:
 		val.PluginData[dataFieldGoName] = p.aliaser.NameAlias(val.Keyword)
 		val.PluginData[dataFieldGoValue] = p.aliaser.StringValue(val.Name)
 		val.PluginData[dataFieldGoType] = string(goTypeString)
+		val.PluginData[dataFieldGoparallel] = p.args.Parallel
 	case model.Step:
 		val.PluginData[dataFieldGoName] = p.aliaser.NameAlias(val.Keyword)
 		val.PluginData[dataFieldGoValue] = p.aliaser.StringValue(val.Text)
