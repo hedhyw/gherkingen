@@ -33,46 +33,43 @@ func TestMultipleSiteSupport(t *testing.T) {
 	}
 
 	f.Scenario("Dr. Bill posts to his own blog", func(t *testing.T, f *bdd.Feature) {
+		_ = background(t, f)
+
 		f.Given("I am logged in as Dr. Bill", func() {
-			_ = background(t, f)
 
 		})
 		f.When("I try to post to \"Expensive Therapy\"", func() {
-			_ = background(t, f)
 
 		})
 		f.Then("I should see \"Your article was published.\"", func() {
-			_ = background(t, f)
 
 		})
 	})
 
 	f.Scenario("Dr. Bill tries to post to somebody else's blog, and fails", func(t *testing.T, f *bdd.Feature) {
+		_ = background(t, f)
+
 		f.Given("I am logged in as Dr. Bill", func() {
-			_ = background(t, f)
 
 		})
 		f.When("I try to post to \"Greg's anti-tax rants\"", func() {
-			_ = background(t, f)
 
 		})
 		f.Then("I should see \"Hey! That's not your blog!\"", func() {
-			_ = background(t, f)
 
 		})
 	})
 
 	f.Scenario("Greg posts to a client's blog", func(t *testing.T, f *bdd.Feature) {
+		_ = background(t, f)
+
 		f.Given("I am logged in as Greg", func() {
-			_ = background(t, f)
 
 		})
 		f.When("I try to post to \"Expensive Therapy\"", func() {
-			_ = background(t, f)
 
 		})
 		f.Then("I should see \"Your article was published.\"", func() {
-			_ = background(t, f)
 
 		})
 	})

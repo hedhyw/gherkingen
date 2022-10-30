@@ -32,16 +32,15 @@ func TestNestedBackground(t *testing.T) {
 	f.Scenario("Dr. Bill posts to his own blog", func(t *testing.T, f *bdd.Feature) {
 		t.Parallel()
 
+		_ = background(t, f)
+
 		f.Given("I am logged in as Dr. Bill", func() {
-			_ = background(t, f)
 
 		})
 		f.When("I try to post to \"Expensive Therapy\"", func() {
-			_ = background(t, f)
 
 		})
 		f.Then("I should see \"Your article was published.\"", func() {
-			_ = background(t, f)
 
 		})
 	})
@@ -61,12 +60,12 @@ func TestNestedBackground(t *testing.T) {
 		f.Example("Only One -- One alive", func(t *testing.T, f *bdd.Feature) {
 			t.Parallel()
 
+			_ = background(t, f)
+
 			f.Given("there is only 1 ninja alive", func() {
-				_ = background(t, f)
 
 			})
 			f.Then("he (or she) will live forever ;-)", func() {
-				_ = background(t, f)
 
 			})
 		})

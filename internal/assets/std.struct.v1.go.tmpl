@@ -59,7 +59,8 @@ import (
             {{ end -}}
             {{- if $Scenario.PluginData.GoHasBackground }}
             _ = background(t, f)
-            {{- end -}}
+
+            {{ end -}}
 
             {{- range $Scenario.Steps }}
             f.{{ .PluginData.GoName }}({{ .PluginData.GoValue }}, func() {
@@ -72,11 +73,12 @@ import (
         t.Parallel()
 
         {{ end -}}
+        {{- if $Scenario.PluginData.GoHasBackground }}
+        _ = background(t, f)
+
+        {{ end }}
         {{- range $Scenario.Steps }}
         f.{{ .PluginData.GoName }}({{.PluginData.GoValue}}, func() {
-            {{- if $Scenario.PluginData.GoHasBackground }}
-            _ = background(t, f)
-            {{- end }}
 
         })
         {{- end -}}
