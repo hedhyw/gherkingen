@@ -1,7 +1,7 @@
 package assets_test
 
 import (
-	"io/ioutil"
+	"io"
 	"testing"
 
 	"github.com/hedhyw/gherkingen/v2/internal/assets"
@@ -37,7 +37,7 @@ func TestOpenTemplate(t *testing.T) {
 
 			defer func() { assert.NoError(t, f.Close()) }()
 
-			data, err := ioutil.ReadAll(f)
+			data, err := io.ReadAll(f)
 			if assert.NoError(t, err) {
 				assert.NotEmpty(t, data)
 			}

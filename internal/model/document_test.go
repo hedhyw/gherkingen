@@ -10,7 +10,7 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-// nolint: gocognit,cyclop,maintidx // Unit test.
+// nolint:  gocognit,cyclop,maintidx // Unit test.
 func TestGherkinDocumentFrom(t *testing.T) {
 	t.Parallel()
 

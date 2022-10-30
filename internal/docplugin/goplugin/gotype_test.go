@@ -96,6 +96,7 @@ func TestGoValue(t *testing.T) {
 		Exp:       `100`,
 		ExpGoType: goTypeInt,
 	}, {
+		// nolint: dupword // False alarm.
 		In:        `1 000 000`,
 		InGoType:  goTypeInt,
 		Exp:       `1000000`,

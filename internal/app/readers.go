@@ -3,7 +3,6 @@ package app
 import (
 	"fmt"
 	"io"
-	"io/ioutil"
 	"os"
 	"strings"
 
@@ -26,7 +25,7 @@ func readInput(inputFile string) (data []byte, err error) {
 
 	defer func() { err = semerr.NewMultiError(err, f.Close()) }()
 
-	return ioutil.ReadAll(f)
+	return io.ReadAll(f)
 }
 
 func readTemplate(template string) (data []byte, err error) {
@@ -45,5 +44,5 @@ func readTemplate(template string) (data []byte, err error) {
 
 	defer func() { err = semerr.NewMultiError(err, f.Close()) }()
 
-	return ioutil.ReadAll(f)
+	return io.ReadAll(f)
 }
