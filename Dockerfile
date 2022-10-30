@@ -3,7 +3,7 @@ ARG ALPINE_DOCKER_TAG=3.15
 
 FROM golang:$GOLANG_DOCKER_TAG as builder
 
-RUN apk update && apk upgrade && apk add --no-cache make
+RUN apk update && apk upgrade && apk add --no-cache make build-base
 
 WORKDIR /build
 COPY . .
