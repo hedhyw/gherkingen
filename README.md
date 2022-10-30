@@ -253,9 +253,9 @@ There is a way to return a json representation of the root object `TemplateData`
 
 Any field of the root object can be used directly, example: `{{ .PackageName }}`.
 
-# golangci-lint `thelper` warning
+## golangci-lint `thelper` warning
 
-Exclude the rule for scenarios in the configuration **.golangci.yaml**:
+Exclude the rule `thelper` for scenarios in the configuration **.golangci.yaml**:
 
 ```yaml
 issues:

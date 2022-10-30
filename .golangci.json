@@ -22,7 +22,8 @@
       "golint",
       "interfacer",
       "nonamedreturns",
-      "exhaustruct"
+      "exhaustruct",
+      "nolintlint"
     ]
   },
   "linters-settings": {

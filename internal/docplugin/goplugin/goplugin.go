@@ -137,7 +137,7 @@ func (p GoPlugin) walkSlice(
 	return nil
 }
 
-// nolint: cyclop // Many options in switch case.
+// nolint:  cyclop // Many options in switch case.
 func (p GoPlugin) handleStruct(
 	_ context.Context,
 	val any,
