@@ -23,7 +23,14 @@
       "interfacer",
       "nonamedreturns",
       "exhaustruct",
-      "nolintlint"
+      "nolintlint",
+      "deadcode",
+      "wastedassign",
+      "structcheck",
+      "varcheck",
+      "ifshort",
+      "nosnakecase",
+      "rowserrcheck"
     ]
   },
   "linters-settings": {

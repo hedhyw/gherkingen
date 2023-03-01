@@ -1,14 +1,13 @@
 package app
 
 import (
+	"errors"
 	"fmt"
 	"io"
 	"os"
 	"strings"
 
 	"github.com/hedhyw/gherkingen/v2/internal/assets"
-
-	"github.com/hedhyw/semerr/pkg/v1/semerr"
 )
 
 func readInput(inputFile string) (data []byte, err error) {
@@ -23,7 +22,7 @@ func readInput(inputFile string) (data []byte, err error) {
 		return nil, fmt.Errorf("opening gherkin: %w", err)
 	}
 
-	defer func() { err = semerr.NewMultiError(err, f.Close()) }()
+	defer func() { err = errors.Join(err, f.Close()) }()
 
 	return io.ReadAll(f)
 }
@@ -42,7 +41,7 @@ func readTemplate(template string) (data []byte, err error) {
 		return nil, fmt.Errorf("opening template: %w", err)
 	}
 
-	defer func() { err = semerr.NewMultiError(err, f.Close()) }()
+	defer func() { err = errors.Join(err, f.Close()) }()
 
 	return io.ReadAll(f)
 }
