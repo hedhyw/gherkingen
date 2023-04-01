@@ -25,6 +25,8 @@ func (m MultiErr) Error() string {
 // NewMultiError creates a error that can hold multiple errors.
 // It skips or nil values. If count of errors is 1, it returns the
 // original value. The main error is the first.
+//
+// Deprecated: use errors.Join.
 func NewMultiError(errs ...error) error {
 	if len(errs) == 0 {
 		return nil
