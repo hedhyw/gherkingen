@@ -95,6 +95,44 @@ f.TestCases(testCases, func(t *testing.T, f *bdd.Feature, tc testCase) {
 })
 ```
 
+## Simplified template
+
+A simplified template is also available. It uses only the std [testing](https://pkg.go.dev/testing) package without any other dependency. Steps are defined by comments.
+Provide `-template std.simple.v1.go.tmpl` to to use [this](internal/assets/std.simple.v1.go.tmpl) template.
+
+```go
+func TestApplicationCommandLineTool(t *testing.T) {
+	t.Parallel()
+
+	t.Run("User wants to see usage information", func(t *testing.T) {
+		t.Parallel()
+
+		type testCase struct {
+			Flag       string `field:"<flag>"`
+			ExitStatus int    `field:"<exit_status>"`
+			Printed    bool   `field:"<printed>"`
+		}
+
+		testCases := map[string]testCase{
+			"--help_0_true":    {"--help", 0, true},
+			"-help_0_true":     {"-help", 0, true},
+			"-invalid_1_false": {"-invalid", 1, false},
+		}
+
+		for name, tc := range testCases {
+			t.Run(name, func(t *testing.T) {
+				// When flag <flag> is provided
+
+				// Then usage should be printed <printed>
+
+				// And exit status should be <exit_status>
+
+			})
+		}
+	})
+}
+```
+
 ## More advanced example
 
 See [internal/app/app.feature](internal/app/app.feature) and [internal/app/app_test.go](internal/app/app_test.go).

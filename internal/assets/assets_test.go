@@ -24,6 +24,7 @@ func TestOpenTemplate(t *testing.T) {
 
 	files := [...]string{
 		"std.struct.v1.go.tmpl",
+		"std.simple.v1.go.tmpl",
 	}
 
 	for _, f := range files {
