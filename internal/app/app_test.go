@@ -95,6 +95,7 @@ func TestApplicationCommandLineTool(t *testing.T) {
 		testCases := map[string]testCase{
 			"app.feature_../assets/std.struct.v1.go.tmpl": {"app.feature", "../assets/std.struct.v1.go.tmpl"},
 			"app.feature_@/std.struct.v1.go.tmpl":         {"app.feature", "@/std.struct.v1.go.tmpl"},
+			"app.feature_@/std.simple.v1.go.tmpl":         {"app.feature", "@/std.simple.v1.go.tmpl"},
 		}
 
 		f.TestCases(testCases, func(t *testing.T, f *bdd.Feature, tc testCase) {

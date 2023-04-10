@@ -1,0 +1,135 @@
+package {{ .PackageName }}
+
+import (
+    "testing"
+)
+
+{{ define "Background" }}
+    {{- $Background := . -}}
+    background := func(t *testing.T) interface{} {
+        {{- range $Background.Steps }}
+        // {{ .Keyword }}{{ .Text }}
+
+        {{ end }}
+
+        return nil // TODO: Feel free to modify return value(s).
+    }
+
+{{ end }}
+
+{{ define "Scenario" }}
+    {{- $Scenario := . -}}
+    t.Run({{ $Scenario.PluginData.GoValue }}, func({{- /*
+        t is usualy unused if there are no examples 
+    */ -}}{{- if and $Scenario.Examples (not $Scenario.PluginData.GoParallel) -}}_{{- else -}}t{{- end -}} *testing.T) {
+        {{- range $Scenario.Examples }}
+        {{- if $Scenario.PluginData.GoParallel }}
+            t.Parallel()
+
+        {{ end -}}
+
+        {{- /* Define test case struct. */ -}}
+
+        type testCase struct {
+            {{- range .TableHeader.Cells }}
+			{{ .PluginData.GoName }} {{ .PluginData.GoType }} `field:"{{.Value}}"`
+            {{- end -}}
+		}
+
+        testCases := map[string]testCase{
+            {{- range .TableBody }}
+			{{ .PluginData.GoValue }}: {
+            {{- /* Struct fields start. */ -}}
+                {{- range $index, $cell := .Cells -}}
+                {{- if $index -}},{{ end }} {{- $cell.PluginData.GoValue -}}
+                {{- end -}}
+            {{- /* Struct fields end. */ -}}
+            },
+            {{- end }}
+		}
+
+        for name, tc := range testCases {
+            {{- if $Scenario.PluginData.GoParallel }}
+            tc := tc
+            {{ end -}}
+
+            t.Run(name, func(t *testing.T) {
+                {{- if $Scenario.PluginData.GoParallel }}
+                t.Parallel()
+
+                {{ end -}}
+                _ = tc // TODO: Use and remove.
+                {{- if $Scenario.PluginData.GoHasBackground }}
+                _ = background(t)
+
+                {{ end -}}
+
+                {{- range $Scenario.Steps }}
+                // {{ .Keyword }}{{ .Text }}
+
+                {{ end }}
+            })
+        }
+        {{- else }}
+        {{- if $Scenario.PluginData.GoParallel }}
+        t.Parallel()
+
+        {{ end -}}
+        {{- if $Scenario.PluginData.GoHasBackground }}
+        _ = background(t)
+
+        {{ end }}
+        {{- range $Scenario.Steps }}
+        // {{ .Keyword }}{{ .Text }}
+
+        {{ end -}}
+        {{ end }}
+    })
+{{ end }}
+
+{{ define "Rule" }}
+    {{ $Rule := . }}
+    t.Run({{ $Rule.PluginData.GoValue }}, func({{- if $Rule.PluginData.GoParallel -}}t{{- else -}}_{{- end -}} *testing.T) {
+        {{- if $Rule.PluginData.GoParallel }}
+            t.Parallel()
+
+        {{ end -}}
+        {{- range $Rule.Children -}}
+
+        {{- if .Background }}
+        {{ template "Background" .Background }}
+        {{- end }}
+
+        {{- if .Scenario }}
+        {{- template "Scenario" .Scenario -}}
+        {{- end }}
+
+        {{- end -}}
+    })
+{{ end }}
+
+func Test{{ .Feature.PluginData.GoName }}(t *testing.T) {
+    {{- if .Feature.PluginData.GoParallel }}
+    t.Parallel()
+
+    {{ end -}}
+    {{ if .Feature.PluginData.GoComment }}
+    /* {{ .Feature.PluginData.GoComment }} */
+    {{ end }}
+
+    {{- range .Feature.Children }}
+
+    {{ if .Background }}
+    {{ template "Background" .Background }}
+    {{- end -}}
+
+    {{ if .Scenario }}
+    {{ template "Scenario" .Scenario }}
+    {{- end -}}
+
+    {{ if .Rule }}
+    {{ template "Rule" .Rule }}
+    {{- end -}}
+
+    {{- end -}}
+}
