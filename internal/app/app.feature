@@ -33,7 +33,7 @@ Feature: Application command line tool
     | <feature>   | <template>                      |
     | app.feature | ../assets/std.struct.v1.go.tmpl |
     | app.feature | @/std.struct.v1.go.tmpl         |
-    | app.feature | @/std.simple.v1.go.tmpl            |
+    | app.feature | @/std.simple.v1.go.tmpl         |
   
   Scenario: User wants to set custom package
     When <package> is provided
