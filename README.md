@@ -98,7 +98,7 @@ f.TestCases(testCases, func(t *testing.T, f *bdd.Feature, tc testCase) {
 ## Simplified template
 
 A simplified template is also available. It uses only the std [testing](https://pkg.go.dev/testing) package without any other dependency. Steps are defined by comments.
-Provide `-template std.simple.v1.go.tmpl` to to use [this](internal/assets/std.simple.v1.go.tmpl) template.
+Provide `-template @/std.simple.v1.go.tmpl` to to use [this](internal/assets/std.simple.v1.go.tmpl) template.
 
 ```go
 func TestApplicationCommandLineTool(t *testing.T) {
