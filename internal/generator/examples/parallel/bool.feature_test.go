@@ -30,7 +30,7 @@ func TestTypeDeterminatiopn(t *testing.T) {
 		f.TestCases(testCases, func(t *testing.T, f *bdd.Feature, tc testCase) {
 			t.Parallel()
 
-			f.When("generator comleted", func() {
+			f.When("generator completed", func() {
 
 			})
 			f.Then("correct types are shown", func() {

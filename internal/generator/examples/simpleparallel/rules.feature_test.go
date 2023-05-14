@@ -11,7 +11,7 @@ func TestHighlander(t *testing.T) {
 		t.Parallel()
 
 		background := func(t *testing.T) interface{} {
-			// Given I have overdue tasks
+			// Given I have overdue tasks.
 
 			return nil // TODO: Feel free to modify return value(s).
 		}
@@ -21,15 +21,15 @@ func TestHighlander(t *testing.T) {
 
 			_ = background(t)
 
-			// Given there are 3 ninjas
+			// Given there are 3 ninjas.
 
-			// And there are more than one ninja alive
+			// And there are more than one ninja alive.
 
-			// When 2 ninjas meet, they will fight
+			// When 2 ninjas meet, they will fight.
 
-			// Then one ninja dies (but not me)
+			// Then one ninja dies (but not me).
 
-			// And there is one ninja less alive
+			// And there is one ninja less alive.
 
 		})
 		t.Run("Only One -- One alive", func(t *testing.T) {
@@ -37,9 +37,9 @@ func TestHighlander(t *testing.T) {
 
 			_ = background(t)
 
-			// Given there is only 1 ninja alive
+			// Given there is only 1 ninja alive.
 
-			// Then he (or she) will live forever ;-)
+			// Then he (or she) will live forever ;-).
 
 		})
 	})

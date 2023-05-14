@@ -26,6 +26,7 @@ func generateRaw(
 			"lowerAlias":   aliasPreparer(strcase.ToLowerCamel),
 			"trimSpace":    strings.TrimSpace,
 			"prepareGoStr": prepareGoStr,
+			"withFinalDot": withFinalDot,
 		}).
 		Parse(string(tmplSource))
 	if err != nil {
@@ -37,6 +38,54 @@ func generateRaw(
 	}
 
 	return buf.Bytes(), nil
+}
+
+func withFinalDot(text string) string {
+	if text == "" {
+		return ""
+	}
+
+	if strings.HasSuffix(text, ".") {
+		return text
+	}
+
+	textRunes := []rune(text)
+	var lastRune rune
+	var lastRuneIndex int
+
+	for i := len(textRunes) - 1; i >= 0; i-- {
+		if !unicode.IsSpace(textRunes[i]) {
+			lastRune = textRunes[i]
+			lastRuneIndex = i
+
+			break
+		}
+	}
+
+	if lastRune == 0 {
+		return text
+	}
+
+	switch {
+	case
+		lastRune == '.',
+		lastRune == ',',
+		lastRune == '!',
+		lastRune == '?':
+
+		return text
+	case
+		unicode.IsLetter(lastRune),
+		unicode.IsDigit(lastRune),
+		unicode.IsPunct(lastRune),
+		unicode.IsSymbol(lastRune):
+
+		return string(textRunes[:lastRuneIndex+1]) +
+			"." +
+			string(textRunes[lastRuneIndex+1:])
+	default:
+		return text
+	}
 }
 
 func aliasPreparer(postFormatter func(string) string) func(string) string {

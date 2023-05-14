@@ -14,7 +14,7 @@ func TestSomeTerseYetDescriptiveTextOfWhatIsDesired(t *testing.T) {
 	/*
 		In order to realize a named business value
 		As an explicit system actor
-		I want to gain some beneficial outcome which furthers the goal
+		I want to gain some beneficial outcome which furthers the goal.
 	*/
 
 	f.Scenario("Some determinable business situation", func(t *testing.T, f *bdd.Feature) {

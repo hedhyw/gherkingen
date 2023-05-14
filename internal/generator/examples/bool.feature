@@ -1,6 +1,6 @@
 Feature: Type determinatiopn
   Scenario: All type are determinated
-    When generator comleted
+    When generator completed
     Then correct types are shown
     Examples:
     | <bool> | <int> | <string> | <flag> | <float64> |

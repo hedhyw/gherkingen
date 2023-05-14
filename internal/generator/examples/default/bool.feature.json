@@ -30,12 +30,12 @@
                                 "PluginData": {}
                             },
                             "Keyword": "When ",
-                            "Text": "generator comleted",
+                            "Text": "generator completed",
                             "ID": "0194fdc2-fa2f-4cc0-81d3-ff12045b73c8",
                             "PluginData": {
                                 "GoName": "When",
                                 "GoType": "string",
-                                "GoValue": "\"generator comleted\""
+                                "GoValue": "\"generator completed\""
                             }
                         },
                         {

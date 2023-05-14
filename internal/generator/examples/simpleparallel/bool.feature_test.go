@@ -29,9 +29,9 @@ func TestTypeDeterminatiopn(t *testing.T) {
 				t.Parallel()
 
 				_ = tc // TODO: Use and remove.
-				// When generator comleted
+				// When generator completed.
 
-				// Then correct types are shown
+				// Then correct types are shown.
 
 			})
 		}
