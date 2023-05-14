@@ -86,6 +86,10 @@ func TestGenerateRaw(t *testing.T) {
 			Exp:      "'single-quotes'.",
 		},
 		{
+			Template: `{{withFinalDot "` + string([]byte{1}) + `"}}`,
+			Exp:      string([]byte{1}),
+		},
+		{
 			Template: `{{withFinalDot "` + "`" + `code-quotes` + "`" + `"}}`,
 			Exp:      "`code-quotes`.",
 		},
