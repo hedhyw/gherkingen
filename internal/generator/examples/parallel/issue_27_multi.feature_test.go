@@ -18,7 +18,7 @@ func TestExampleIssue27Multi(t *testing.T) {
 
 		  - example 3
 		    - example 3.1
-		    - example 3.2
+		    - example 3.2.
 	*/
 
 	f.Example("Multi-line comment with indents", func(t *testing.T, f *bdd.Feature) {

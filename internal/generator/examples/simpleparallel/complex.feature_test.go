@@ -8,13 +8,13 @@ func TestNestedBackground(t *testing.T) {
 	t.Parallel()
 
 	background := func(t *testing.T) interface{} {
-		// Given a global administrator named "Greg"
+		// Given a global administrator named "Greg".
 
-		// And a blog named "Greg's anti-tax rants"
+		// And a blog named "Greg's anti-tax rants".
 
-		// And a customer named "Dr. Bill"
+		// And a customer named "Dr. Bill".
 
-		// And a blog named "Expensive Therapy" owned by "Dr. Bill"
+		// And a blog named "Expensive Therapy" owned by "Dr. Bill".
 
 		return nil // TODO: Feel free to modify return value(s).
 	}
@@ -24,11 +24,11 @@ func TestNestedBackground(t *testing.T) {
 
 		_ = background(t)
 
-		// Given I am logged in as Dr. Bill
+		// Given I am logged in as Dr. Bill.
 
-		// When I try to post to "Expensive Therapy"
+		// When I try to post to "Expensive Therapy".
 
-		// Then I should see "Your article was published."
+		// Then I should see "Your article was published.".
 
 	})
 
@@ -36,7 +36,7 @@ func TestNestedBackground(t *testing.T) {
 		t.Parallel()
 
 		background := func(t *testing.T) interface{} {
-			// Given I have overdue tasks
+			// Given I have overdue tasks.
 
 			return nil // TODO: Feel free to modify return value(s).
 		}
@@ -46,9 +46,9 @@ func TestNestedBackground(t *testing.T) {
 
 			_ = background(t)
 
-			// Given there is only 1 ninja alive
+			// Given there is only 1 ninja alive.
 
-			// Then he (or she) will live forever ;-)
+			// Then he (or she) will live forever ;-).
 
 		})
 	})

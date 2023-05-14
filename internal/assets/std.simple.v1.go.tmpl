@@ -8,7 +8,7 @@ import (
     {{- $Background := . -}}
     background := func(t *testing.T) interface{} {
         {{- range $Background.Steps }}
-        // {{ .Keyword }}{{ .Text }}
+        // {{ .Keyword }}{{ .Text | trimSpace | withFinalDot }}
 
         {{ end }}
 
@@ -65,7 +65,7 @@ import (
                 {{ end -}}
 
                 {{- range $Scenario.Steps }}
-                // {{ .Keyword }}{{ .Text }}
+                // {{ .Keyword }}{{ .Text | trimSpace | withFinalDot }}
 
                 {{ end }}
             })
@@ -80,7 +80,7 @@ import (
 
         {{ end }}
         {{- range $Scenario.Steps }}
-        // {{ .Keyword }}{{ .Text }}
+        // {{ .Keyword }}{{ .Text | trimSpace | withFinalDot }}
 
         {{ end -}}
         {{ end }}
@@ -114,7 +114,7 @@ func Test{{ .Feature.PluginData.GoName }}(t *testing.T) {
 
     {{ end -}}
     {{ if .Feature.PluginData.GoComment }}
-    /* {{ .Feature.PluginData.GoComment }} */
+    /* {{ .Feature.PluginData.GoComment | withFinalDot }} */
     {{ end }}
 
     {{- range .Feature.Children }}

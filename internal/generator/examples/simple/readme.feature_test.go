@@ -22,11 +22,11 @@ func TestApplicationCommandLineTool(t *testing.T) {
 		for name, tc := range testCases {
 			t.Run(name, func(t *testing.T) {
 				_ = tc // TODO: Use and remove.
-				// When flag <flag> is provided
+				// When flag <flag> is provided.
 
-				// Then usage should be printed <printed>
+				// Then usage should be printed <printed>.
 
-				// And exit status should be <exit_status>
+				// And exit status should be <exit_status>.
 
 			})
 		}

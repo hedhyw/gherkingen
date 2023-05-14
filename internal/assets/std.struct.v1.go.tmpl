@@ -114,7 +114,7 @@ func Test{{ .Feature.PluginData.GoName }}(t *testing.T) {
     {{ end -}}
     f := bdd.NewFeature(t, {{ .Feature.PluginData.GoValue }})
     {{ if .Feature.PluginData.GoComment }}
-    /* {{ .Feature.PluginData.GoComment }} */
+    /* {{ .Feature.PluginData.GoComment | withFinalDot }} */
     {{ end }}
 
     {{- range .Feature.Children }}
