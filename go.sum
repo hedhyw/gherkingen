@@ -11,8 +11,8 @@ github.com/gofrs/uuid v4.4.0+incompatible h1:3qXRTX8/NbyulANqlc0lchS1gqAVxRgsuW1
 github.com/gofrs/uuid v4.4.0+incompatible/go.mod h1:b2aQJv3Z4Fp6yNu3cdSllBxTCLRxnplIgP/c0N/04lM=
 github.com/google/uuid v1.3.0 h1:t6JiXgmwXMjEs8VusXIJk2BXHsn+wx8BZdTaoZ5fu7I=
 github.com/google/uuid v1.3.0/go.mod h1:TIyPZe4MgqvfeYDBFedMoGGpEw/LqOeaOT+nhxU+yHo=
-github.com/hedhyw/semerr v0.6.2 h1:d6tSXgqjfURN4dMPZ3tx/gVtx1rigscJrIddfbsj90s=
-github.com/hedhyw/semerr v0.6.2/go.mod h1:dXovLag2ITxB761iC9SHwcX/NXlKjn3epmrMXoqQfRA=
+github.com/hedhyw/semerr v0.6.3 h1:qgQySoH8D8xS3/HBpTBpBWPoCuX/hpZ8E/6JyJ8qo+8=
+github.com/hedhyw/semerr v0.6.3/go.mod h1:vSwfDeEH3qmiFI5ybiEcyvIKzNq498vXNO3ayE3K5Uc=
 github.com/iancoleman/strcase v0.2.0 h1:05I4QRnGpI0m37iZQRuskXh+w77mr6Z41lwQzuHLwW0=
 github.com/iancoleman/strcase v0.2.0/go.mod h1:iwCmte+B7n89clKwxIoIXy/HfoL7AsD47ZCWhYzw7ho=
 github.com/kr/pretty v0.3.0 h1:WgNl7dwNpEZ6jJ9k1snq4pZsg7DOEN8hP9Xw0Tsjwk0=
