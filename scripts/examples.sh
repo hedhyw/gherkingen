@@ -6,12 +6,14 @@ for f in internal/generator/examples/*.feature; do
   go run cmd/gherkingen/main.go \
     -package examples_test \
     -permanent-ids \
+    -template "@/std.struct.v1.go.tmpl" \
     -format go \
     $f \
     > ${dir}/default/${base}_test.go
   go run cmd/gherkingen/main.go \
     -package examples_test \
     -permanent-ids \
+    -template "@/std.struct.v1.go.tmpl" \
     -format go \
     -go-parallel \
     $f \
@@ -19,12 +21,14 @@ for f in internal/generator/examples/*.feature; do
   go run cmd/gherkingen/main.go \
     -package examples_test \
     -permanent-ids \
+    -template "@/std.struct.v1.go.tmpl" \
     -format json \
     $f \
     > ${dir}/default/${base}.json
   go run cmd/gherkingen/main.go \
     -package examples_test \
     -permanent-ids \
+    -template "@/std.struct.v1.go.tmpl" \
     -format json \
     -go-parallel \
     $f \

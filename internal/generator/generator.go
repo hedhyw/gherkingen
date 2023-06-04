@@ -5,11 +5,10 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/hedhyw/gherkingen/v2/internal/docplugin"
-	"github.com/hedhyw/gherkingen/v2/internal/model"
+	"github.com/hedhyw/gherkingen/v3/internal/docplugin"
+	"github.com/hedhyw/gherkingen/v3/internal/model"
 
 	gherkin "github.com/cucumber/common/gherkin/go/v24"
-	"github.com/google/uuid"
 	"github.com/hedhyw/semerr/pkg/v1/semerr"
 )
 
@@ -20,13 +19,14 @@ type Args struct {
 	TemplateSource []byte
 	PackageName    string
 	Plugin         docplugin.Plugin
+	GenerateUUID   func() string
 }
 
 // Generate generates output consider template from gherkin source.
 func Generate(args Args) (out []byte, err error) {
 	gherkinDocument, err := gherkin.ParseGherkinDocument(
 		bytes.NewReader(args.InputSource),
-		uuid.NewString,
+		args.GenerateUUID,
 	)
 	if err != nil {
 		return nil, fmt.Errorf("parse document: %w", err)

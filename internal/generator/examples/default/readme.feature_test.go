@@ -3,13 +3,17 @@ package examples_test
 import (
 	"testing"
 
-	"github.com/hedhyw/gherkingen/v2/pkg/bdd"
+	"github.com/hedhyw/gherkingen/v3/pkg/bdd"
 )
 
 func TestApplicationCommandLineTool(t *testing.T) {
+	t.Parallel()
+
 	f := bdd.NewFeature(t, "Application command line tool")
 
-	f.Scenario("User wants to see usage information", func(_ *testing.T, f *bdd.Feature) {
+	f.Scenario("User wants to see usage information", func(t *testing.T, f *bdd.Feature) {
+		t.Parallel()
+
 		type testCase struct {
 			Flag       string `field:"<flag>"`
 			ExitStatus int    `field:"<exit_status>"`
@@ -23,7 +27,9 @@ func TestApplicationCommandLineTool(t *testing.T) {
 		}
 
 		f.TestCases(testCases, func(t *testing.T, f *bdd.Feature, tc testCase) {
-			f.When("flag <flag> is provided", func() {
+			t.Parallel()
+
+			f.When("the application is started with <flag>", func() {
 
 			})
 			f.Then("usage should be printed <printed>", func() {

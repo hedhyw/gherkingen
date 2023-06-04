@@ -30,7 +30,7 @@
                             },
                             "Keyword": "Given ",
                             "Text": "a global administrator named \"Greg\"",
-                            "ID": "0194fdc2-fa2f-4cc0-81d3-ff12045b73c8",
+                            "ID": "52fdfc07-2182-454f-963f-5f0f9a621d72",
                             "PluginData": {
                                 "GoName": "Given",
                                 "GoType": "string",
@@ -45,7 +45,7 @@
                             },
                             "Keyword": "And ",
                             "Text": "a blog named \"Greg's anti-tax rants\"",
-                            "ID": "6e4ff95f-f662-45ee-a82a-bdf44a2d0b75",
+                            "ID": "9566c74d-1003-4c4d-bbbb-0407d1e2c649",
                             "PluginData": {
                                 "GoName": "And",
                                 "GoType": "string",
@@ -60,7 +60,7 @@
                             },
                             "Keyword": "And ",
                             "Text": "a customer named \"Dr. Bill\"",
-                            "ID": "fb180daf-48a7-4ee0-b10d-394651850fd4",
+                            "ID": "81855ad8-681d-4d86-91e9-1e00167939cb",
                             "PluginData": {
                                 "GoName": "And",
                                 "GoType": "string",
@@ -75,7 +75,7 @@
                             },
                             "Keyword": "And ",
                             "Text": "a blog named \"Expensive Therapy\" owned by \"Dr. Bill\"",
-                            "ID": "a178892e-e285-4ce1-9114-55780875d64e",
+                            "ID": "6694d2c4-22ac-4208-a007-2939487f6999",
                             "PluginData": {
                                 "GoName": "And",
                                 "GoType": "string",
@@ -83,7 +83,7 @@
                             }
                         }
                     ],
-                    "ID": "e2d3d0d0-de6b-48f9-b44c-e85ff044c6b1",
+                    "ID": "eb9d18a4-4784-445d-87f3-c67cf22746e9",
                     "PluginData": {
                         "GoName": "Background",
                         "GoType": "string",
@@ -112,7 +112,7 @@
                             },
                             "Keyword": "Given ",
                             "Text": "I am logged in as Dr. Bill",
-                            "ID": "f83b8e88-3bbf-457a-ab99-c5b252c7429c",
+                            "ID": "95af5a25-3679-41ba-a2ff-6cd471c483f1",
                             "PluginData": {
                                 "GoName": "Given",
                                 "GoType": "string",
@@ -127,7 +127,7 @@
                             },
                             "Keyword": "When ",
                             "Text": "I try to post to \"Expensive Therapy\"",
-                            "ID": "32f3a8ae-b79e-4856-b659-c18f0dcecc77",
+                            "ID": "5fb90bad-b37c-4821-b6d9-5526a41a9504",
                             "PluginData": {
                                 "GoName": "When",
                                 "GoType": "string",
@@ -142,7 +142,7 @@
                             },
                             "Keyword": "Then ",
                             "Text": "I should see \"Your article was published.\"",
-                            "ID": "c75e7a81-bfde-475f-a7cf-e242cf3cc354",
+                            "ID": "680b4e7c-8b76-4a1b-9d49-d4955c848621",
                             "PluginData": {
                                 "GoName": "Then",
                                 "GoType": "string",
@@ -151,11 +151,11 @@
                         }
                     ],
                     "Examples": [],
-                    "ID": "f3ede2d6-becc-4ea3-ae5e-88526a9f4a57",
+                    "ID": "6325253f-ec73-4dd7-a9e2-8bf921119c16",
                     "PluginData": {
                         "GoHasBackground": true,
                         "GoName": "Scenario",
-                        "GoParallel": false,
+                        "GoParallel": true,
                         "GoType": "string",
                         "GoValue": "\"Dr. Bill posts to his own blog\""
                     }
@@ -193,7 +193,7 @@
                                         },
                                         "Keyword": "Given ",
                                         "Text": "I have overdue tasks",
-                                        "ID": "8bcb9ef2-d4a6-4314-b68d-6d299761ea9e",
+                                        "ID": "0f070244-8615-4bda-8831-3f6a8eb668d2",
                                         "PluginData": {
                                             "GoName": "Given",
                                             "GoType": "string",
@@ -201,7 +201,7 @@
                                         }
                                     }
                                 ],
-                                "ID": "4f5aa6ae-c3fc-48c6-aae0-81ac8120c720",
+                                "ID": "0bf50598-7592-4e66-8a5b-df2c7fc48445",
                                 "PluginData": {
                                     "GoName": "Background",
                                     "GoType": "string",
@@ -230,7 +230,7 @@
                                         },
                                         "Keyword": "Given ",
                                         "Text": "there is only 1 ninja alive",
-                                        "ID": "efcd6cea-84b6-425e-a07b-e063716f96dd",
+                                        "ID": "92d2572b-cd06-48d2-96c5-2f5054e2d083",
                                         "PluginData": {
                                             "GoName": "Given",
                                             "GoType": "string",
@@ -245,7 +245,7 @@
                                         },
                                         "Keyword": "Then ",
                                         "Text": "he (or she) will live forever ;-)",
-                                        "ID": "cdd01d75-045c-4f00-8f8a-796bce6c512c",
+                                        "ID": "6bf84c71-74cb-4476-b64c-c3dbd968b0f7",
                                         "PluginData": {
                                             "GoName": "Then",
                                             "GoType": "string",
@@ -254,11 +254,11 @@
                                     }
                                 ],
                                 "Examples": [],
-                                "ID": "3801aaca-eedf-4d5b-9066-64e8c0e4a771",
+                                "ID": "172ed857-94bb-458b-8c3b-525da1786f9f",
                                 "PluginData": {
                                     "GoHasBackground": true,
                                     "GoName": "Example",
-                                    "GoParallel": false,
+                                    "GoParallel": true,
                                     "GoType": "string",
                                     "GoValue": "\"Only One -- One alive\""
                                 }
@@ -266,11 +266,11 @@
                             "PluginData": {}
                         }
                     ],
-                    "ID": "ece0b8b7-c196-4d91-8125-1b7c9c9ca520",
+                    "ID": "ff094279-db19-44eb-97a1-9d0f7bbacbe0",
                     "PluginData": {
                         "GoHasBackground": true,
                         "GoName": "Rule",
-                        "GoParallel": false,
+                        "GoParallel": true,
                         "GoType": "string",
                         "GoValue": "\"There can be only One\""
                     }
@@ -281,7 +281,7 @@
         "PluginData": {
             "GoComment": "",
             "GoName": "NestedBackground",
-            "GoParallel": false,
+            "GoParallel": true,
             "GoType": "string",
             "GoValue": "\"Nested background\""
         }

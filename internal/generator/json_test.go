@@ -4,9 +4,10 @@ import (
 	"encoding/json"
 	"testing"
 
-	"github.com/hedhyw/gherkingen/v2/internal/generator"
-	"github.com/hedhyw/gherkingen/v2/internal/model"
+	"github.com/hedhyw/gherkingen/v3/internal/generator"
+	"github.com/hedhyw/gherkingen/v3/internal/model"
 
+	"github.com/google/uuid"
 	"github.com/stretchr/testify/assert"
 )
 
@@ -19,6 +20,7 @@ func TestGenerateJSON(t *testing.T) {
 		TemplateSource: nil,
 		PackageName:    "example_json",
 		Plugin:         requireNewPlugin(t),
+		GenerateUUID:   uuid.NewString,
 	})
 	if assert.NoError(t, err) {
 		assert.NotEmpty(t, gotDataJSON)

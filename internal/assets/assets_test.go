@@ -4,7 +4,7 @@ import (
 	"io"
 	"testing"
 
-	"github.com/hedhyw/gherkingen/v2/internal/assets"
+	"github.com/hedhyw/gherkingen/v3/internal/assets"
 
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"

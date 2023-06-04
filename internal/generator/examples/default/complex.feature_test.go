@@ -3,10 +3,12 @@ package examples_test
 import (
 	"testing"
 
-	"github.com/hedhyw/gherkingen/v2/pkg/bdd"
+	"github.com/hedhyw/gherkingen/v3/pkg/bdd"
 )
 
 func TestNestedBackground(t *testing.T) {
+	t.Parallel()
+
 	f := bdd.NewFeature(t, "Nested background")
 
 	background := func(t *testing.T, f *bdd.Feature) interface{} {
@@ -28,6 +30,8 @@ func TestNestedBackground(t *testing.T) {
 	}
 
 	f.Scenario("Dr. Bill posts to his own blog", func(t *testing.T, f *bdd.Feature) {
+		t.Parallel()
+
 		_ = background(t, f)
 
 		f.Given("I am logged in as Dr. Bill", func() {
@@ -41,7 +45,9 @@ func TestNestedBackground(t *testing.T) {
 		})
 	})
 
-	f.Rule("There can be only One", func(_ *testing.T, f *bdd.Feature) {
+	f.Rule("There can be only One", func(t *testing.T, f *bdd.Feature) {
+		t.Parallel()
+
 		background := func(t *testing.T, f *bdd.Feature) interface{} {
 			/* TODO: Feel free to modify return value(s). */
 			f.Given("I have overdue tasks", func() {
@@ -52,6 +58,8 @@ func TestNestedBackground(t *testing.T) {
 		}
 
 		f.Example("Only One -- One alive", func(t *testing.T, f *bdd.Feature) {
+			t.Parallel()
+
 			_ = background(t, f)
 
 			f.Given("there is only 1 ninja alive", func() {

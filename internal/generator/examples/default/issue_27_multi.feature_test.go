@@ -3,10 +3,12 @@ package examples_test
 import (
 	"testing"
 
-	"github.com/hedhyw/gherkingen/v2/pkg/bdd"
+	"github.com/hedhyw/gherkingen/v3/pkg/bdd"
 )
 
 func TestExampleIssue27Multi(t *testing.T) {
+	t.Parallel()
+
 	f := bdd.NewFeature(t, "Example Issue 27 Multi")
 
 	/*
@@ -20,5 +22,7 @@ func TestExampleIssue27Multi(t *testing.T) {
 	*/
 
 	f.Example("Multi-line comment with indents", func(t *testing.T, f *bdd.Feature) {
+		t.Parallel()
+
 	})
 }

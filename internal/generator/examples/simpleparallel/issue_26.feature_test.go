@@ -18,12 +18,13 @@ func TestIssueExample(t *testing.T) {
 			"hello_world": {"hello world"},
 		}
 
-		for name, tc := range testCases {
-			tc := tc
+		for name, testCase := range testCases {
+			testCase := testCase
+
 			t.Run(name, func(t *testing.T) {
 				t.Parallel()
 
-				_ = tc // TODO: Use and remove.
+				_ = testCase // TODO: Use and remove.
 			})
 		}
 	})

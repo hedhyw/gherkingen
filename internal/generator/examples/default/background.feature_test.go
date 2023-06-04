@@ -3,10 +3,12 @@ package examples_test
 import (
 	"testing"
 
-	"github.com/hedhyw/gherkingen/v2/pkg/bdd"
+	"github.com/hedhyw/gherkingen/v3/pkg/bdd"
 )
 
 func TestMultipleSiteSupport(t *testing.T) {
+	t.Parallel()
+
 	f := bdd.NewFeature(t, "Multiple site support")
 
 	/*
@@ -33,6 +35,8 @@ func TestMultipleSiteSupport(t *testing.T) {
 	}
 
 	f.Scenario("Dr. Bill posts to his own blog", func(t *testing.T, f *bdd.Feature) {
+		t.Parallel()
+
 		_ = background(t, f)
 
 		f.Given("I am logged in as Dr. Bill", func() {
@@ -47,6 +51,8 @@ func TestMultipleSiteSupport(t *testing.T) {
 	})
 
 	f.Scenario("Dr. Bill tries to post to somebody else's blog, and fails", func(t *testing.T, f *bdd.Feature) {
+		t.Parallel()
+
 		_ = background(t, f)
 
 		f.Given("I am logged in as Dr. Bill", func() {
@@ -61,6 +67,8 @@ func TestMultipleSiteSupport(t *testing.T) {
 	})
 
 	f.Scenario("Greg posts to a client's blog", func(t *testing.T, f *bdd.Feature) {
+		t.Parallel()
+
 		_ = background(t, f)
 
 		f.Given("I am logged in as Greg", func() {

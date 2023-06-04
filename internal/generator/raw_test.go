@@ -3,9 +3,10 @@ package generator_test
 import (
 	"testing"
 
-	"github.com/hedhyw/gherkingen/v2/internal/generator"
-	"github.com/hedhyw/gherkingen/v2/internal/model"
+	"github.com/hedhyw/gherkingen/v3/internal/generator"
+	"github.com/hedhyw/gherkingen/v3/internal/model"
 
+	"github.com/google/uuid"
 	"github.com/stretchr/testify/assert"
 )
 
@@ -119,6 +120,7 @@ func TestGenerateRaw(t *testing.T) {
 				TemplateSource: []byte(tc.Template),
 				PackageName:    "generated_test.go",
 				Plugin:         requireNewPlugin(t),
+				GenerateUUID:   uuid.NewString,
 			})
 			if assert.NoError(t, err) {
 				assert.Equal(t, tc.Exp, string(gotDataRaw))
@@ -136,6 +138,7 @@ func TestGenerateRawFailed(t *testing.T) {
 		TemplateSource: []byte("{{"),
 		PackageName:    "generated_test.go",
 		Plugin:         requireNewPlugin(t),
+		GenerateUUID:   uuid.NewString,
 	})
 	assert.Error(t, err)
 }

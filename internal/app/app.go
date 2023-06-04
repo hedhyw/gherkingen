@@ -7,76 +7,83 @@ import (
 	"strings"
 	"time"
 
-	"github.com/hedhyw/gherkingen/v2/internal/model"
+	"github.com/hedhyw/gherkingen/v3/internal/model"
 
 	"github.com/google/uuid"
 )
 
 const (
-	internalPathPrefix = "@/"
-	defaultTemplate    = "std.struct.v1.go.tmpl"
+	internalPathPrefix       = "@/"
+	defaultTemplate          = "std.simple.v1.go.tmpl"
+	defaultDisableGoParallel = false
+	defaultOutputFormat      = model.FormatAutoDetect
 )
 
 // Run the application.
 func Run(arguments []string, out io.Writer, version string) (err error) {
-	flag.CommandLine.Init(flag.CommandLine.Name(), flag.ContinueOnError)
-	flag.CommandLine.SetOutput(out)
+	flagSet := flag.NewFlagSet(flag.CommandLine.Name(), flag.ContinueOnError)
+	flagSet.SetOutput(out)
 
-	outputFormat := flag.String(
+	outputFormat := flagSet.String(
 		"format",
-		string(model.FormatAutoDetect),
+		string(defaultOutputFormat),
 		"output format: "+strings.Join(model.Formats(), ", "),
 	)
-	templateFile := flag.String(
+	templateFile := flagSet.String(
 		"template",
 		internalPathPrefix+defaultTemplate,
 		"template file",
 	)
-	permanentIDs := flag.Bool(
+	permanentIDs := flagSet.Bool(
 		"permanent-ids",
 		false,
 		"The same calls to the generator always produces the same output",
 	)
-	helpCmd := flag.Bool(
+	helpCmd := flagSet.Bool(
 		"help",
 		false,
 		"print usage",
 	)
-	goParallel := flag.Bool(
+	_ = flagSet.Bool(
 		"go-parallel",
-		false,
-		"add parallel mark",
+		!defaultDisableGoParallel,
+		"add parallel mark (deprecated, enabled by default)",
 	)
-	listCmd := flag.Bool(
+	disableGoParallel := flagSet.Bool(
+		"disable-go-parallel",
+		defaultDisableGoParallel,
+		"disable execution of tests in parallel",
+	)
+	listCmd := flagSet.Bool(
 		"list",
 		false,
 		"list internal templates",
 	)
-	packageName := flag.String(
+	packageName := flagSet.String(
 		"package",
 		"generated_test",
 		"name of the generated package",
 	)
-	versionCmd := flag.Bool(
+	versionCmd := flagSet.Bool(
 		"version",
 		false,
 		"print version",
 	)
-	if err = flag.CommandLine.Parse(arguments); err != nil {
+	if err = flagSet.Parse(arguments); err != nil {
 		return err
 	}
 
+	var seed int64
+
 	if *permanentIDs {
-		// nolint:gosec // Usage for uniq ids.
-		uuid.SetRand(rand.New(rand.NewSource(0)))
+		seed = 1
 	} else {
-		// nolint:gosec // Usage for uniq ids.
-		uuid.SetRand(rand.New(rand.NewSource(time.Now().UnixNano())))
+		seed = time.Now().UnixNano()
 	}
 
 	var inputFile string
-	if flag.NArg() == 1 {
-		inputFile = flag.Args()[0]
+	if flagSet.NArg() == 1 {
+		inputFile = flagSet.Args()[0]
 	}
 
 	switch {
@@ -85,7 +92,7 @@ func Run(arguments []string, out io.Writer, version string) (err error) {
 	case *listCmd:
 		return runListTemplates(out)
 	case *helpCmd, inputFile == "":
-		return runHelp()
+		return runHelp(flagSet)
 	default:
 		return runGenerator(appArgs{
 			Output:       out,
@@ -93,7 +100,19 @@ func Run(arguments []string, out io.Writer, version string) (err error) {
 			TemplateFile: *templateFile,
 			InputFile:    inputFile,
 			PackageName:  *packageName,
-			GoParallel:   *goParallel,
+			GoParallel:   !(*disableGoParallel),
+			GenerateUUID: newUUIDRandomGenerator(seed),
 		})
+	}
+}
+
+func newUUIDRandomGenerator(seed int64) func() string {
+	// nolint:gosec // Usage for uniq ids.
+	randomGenerator := rand.New(rand.NewSource(seed))
+
+	return func() string {
+		uuidValue, err := uuid.NewRandomFromReader(randomGenerator)
+
+		return uuid.Must(uuidValue, err).String()
 	}
 }
