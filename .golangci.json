@@ -30,7 +30,8 @@
       "varcheck",
       "ifshort",
       "nosnakecase",
-      "rowserrcheck"
+      "rowserrcheck",
+      "depguard"
     ]
   },
   "linters-settings": {

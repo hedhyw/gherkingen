@@ -20,9 +20,9 @@ func TestTypeDeterminatiopn(t *testing.T) {
 			"false_2_world_+_0.0": {false, 2, "world", true, 0.0},
 		}
 
-		for name, tc := range testCases {
+		for name, testCase := range testCases {
 			t.Run(name, func(t *testing.T) {
-				_ = tc // TODO: Use and remove.
+				_ = testCase // TODO: Use and remove.
 				// When generator completed.
 
 				// Then correct types are shown.

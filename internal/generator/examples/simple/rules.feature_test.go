@@ -7,10 +7,12 @@ import (
 func TestHighlander(t *testing.T) {
 
 	t.Run("There can be only One", func(_ *testing.T) {
-		background := func(t *testing.T) interface{} {
+		type backgroundData struct{}
+
+		background := func(t *testing.T) backgroundData {
 			// Given I have overdue tasks.
 
-			return nil // TODO: Feel free to modify return value(s).
+			return backgroundData{}
 		}
 
 		t.Run("Only One -- More than one alive", func(t *testing.T) {

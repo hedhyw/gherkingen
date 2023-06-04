@@ -52,11 +52,11 @@ Feature: Application command line tool
     | true         |
     | false        |
 
-  Scenario: User gives an invalid flag
+  Scenario: User provides an invalid flag
     When flag -invalid is provided
-    Then a generation failed
+    Then an error is returned
 
-  Scenario: User wants to know version
+  Scenario: User asks for a version
     When <flag> is provided
     Then version is printed
     Examples:
@@ -73,11 +73,10 @@ Feature: Application command line tool
     | app.feature | not_found  |
 
   Scenario: User wants to run tests in parallel
-    When `-go-parallel` is provided
-    And `scenario.feature` is given
+    When `scenario.feature` is given
     Then generated code contains `t.Parallel()`
 
   Scenario: User wants to run tests sequentially
-    When `-go-parallel` is not provided
+    When `-disable-go-parallel` is provided
     And `scenario.feature` is given
     Then generated code doesn't contain `t.Parallel()`

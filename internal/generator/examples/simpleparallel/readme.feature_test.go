@@ -22,13 +22,13 @@ func TestApplicationCommandLineTool(t *testing.T) {
 			"-invalid_1_false": {"-invalid", 1, false},
 		}
 
-		for name, tc := range testCases {
-			tc := tc
+		for name, testCase := range testCases {
+			testCase := testCase
 			t.Run(name, func(t *testing.T) {
 				t.Parallel()
 
-				_ = tc // TODO: Use and remove.
-				// When flag <flag> is provided.
+				_ = testCase // TODO: Use and remove.
+				// When the application is started with <flag>.
 
 				// Then usage should be printed <printed>.
 

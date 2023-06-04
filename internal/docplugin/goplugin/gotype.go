@@ -4,7 +4,7 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/hedhyw/gherkingen/v2/internal/docplugin/goplugin/goaliaser"
+	"github.com/hedhyw/gherkingen/v3/internal/docplugin/goplugin/goaliaser"
 )
 
 // goType definition.

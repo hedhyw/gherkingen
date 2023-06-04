@@ -4,9 +4,10 @@ import (
 	_ "embed"
 	"testing"
 
-	"github.com/hedhyw/gherkingen/v2/internal/generator"
-	"github.com/hedhyw/gherkingen/v2/internal/model"
+	"github.com/hedhyw/gherkingen/v3/internal/generator"
+	"github.com/hedhyw/gherkingen/v3/internal/model"
 
+	"github.com/google/uuid"
 	"github.com/stretchr/testify/assert"
 )
 
@@ -61,6 +62,7 @@ func TestGenerateFailed(t *testing.T) {
 				TemplateSource: []byte(``),
 				PackageName:    "generated_test",
 				Plugin:         requireNewPlugin(t),
+				GenerateUUID:   uuid.NewString,
 			}
 
 			tc.Prepare(&args)

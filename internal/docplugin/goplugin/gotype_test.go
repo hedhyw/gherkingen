@@ -4,7 +4,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/hedhyw/gherkingen/v2/internal/docplugin/goplugin/goaliaser"
+	"github.com/hedhyw/gherkingen/v3/internal/docplugin/goplugin/goaliaser"
 
 	"github.com/stretchr/testify/assert"
 )

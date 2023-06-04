@@ -6,13 +6,15 @@ import (
 
 {{ define "Background" }}
     {{- $Background := . -}}
-    background := func(t *testing.T) interface{} {
+    type backgroundData struct {}
+
+    background := func(t *testing.T) backgroundData {
         {{- range $Background.Steps }}
         // {{ .Keyword }}{{ .Text | trimSpace | withFinalDot }}
 
         {{ end }}
 
-        return nil // TODO: Feel free to modify return value(s).
+        return backgroundData{}
     }
 
 {{ end }}
@@ -48,9 +50,10 @@ import (
             {{- end }}
 		}
 
-        for name, tc := range testCases {
+        for name, testCase := range testCases {
             {{- if $Scenario.PluginData.GoParallel }}
-            tc := tc
+            testCase := testCase
+
             {{ end -}}
 
             t.Run(name, func(t *testing.T) {
@@ -58,7 +61,7 @@ import (
                 t.Parallel()
 
                 {{ end -}}
-                _ = tc // TODO: Use and remove.
+                _ = testCase // TODO: Use and remove.
                 {{- if $Scenario.PluginData.GoHasBackground }}
                 _ = background(t)
 

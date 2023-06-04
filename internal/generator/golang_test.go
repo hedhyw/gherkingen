@@ -5,12 +5,13 @@ import (
 	"io"
 	"testing"
 
-	"github.com/hedhyw/gherkingen/v2/internal/assets"
-	"github.com/hedhyw/gherkingen/v2/internal/docplugin/goplugin"
-	"github.com/hedhyw/gherkingen/v2/internal/docplugin/multiplugin"
-	"github.com/hedhyw/gherkingen/v2/internal/generator"
-	"github.com/hedhyw/gherkingen/v2/internal/model"
+	"github.com/hedhyw/gherkingen/v3/internal/assets"
+	"github.com/hedhyw/gherkingen/v3/internal/docplugin/goplugin"
+	"github.com/hedhyw/gherkingen/v3/internal/docplugin/multiplugin"
+	"github.com/hedhyw/gherkingen/v3/internal/generator"
+	"github.com/hedhyw/gherkingen/v3/internal/model"
 
+	"github.com/google/uuid"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 )
@@ -26,6 +27,7 @@ func TestGenerateGo(t *testing.T) {
 		TemplateSource: []byte(exampleTemplate),
 		PackageName:    "generated_test",
 		Plugin:         requireNewPlugin(t),
+		GenerateUUID:   uuid.NewString,
 	})
 	require.NoError(t, err)
 
@@ -46,6 +48,7 @@ func TestGenerateGoFormattingFailed(t *testing.T) {
 		TemplateSource: []byte("-"),
 		PackageName:    "generated_test",
 		Plugin:         requireNewPlugin(t),
+		GenerateUUID:   uuid.NewString,
 	})
 	assert.Error(t, err)
 }
@@ -76,6 +79,7 @@ func TestGenerateAssetTemplatesShouldNotFail(t *testing.T) {
 				TemplateSource: tmplData,
 				PackageName:    "generated_test",
 				Plugin:         requireNewPlugin(t),
+				GenerateUUID:   uuid.NewString,
 			})
 			require.NoError(t, err)
 		})

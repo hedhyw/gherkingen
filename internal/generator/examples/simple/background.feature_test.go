@@ -10,7 +10,9 @@ func TestMultipleSiteSupport(t *testing.T) {
 		who can post to all blogs.
 	*/
 
-	background := func(t *testing.T) interface{} {
+	type backgroundData struct{}
+
+	background := func(t *testing.T) backgroundData {
 		// Given a global administrator named "Greg".
 
 		// And a blog named "Greg's anti-tax rants".
@@ -19,7 +21,7 @@ func TestMultipleSiteSupport(t *testing.T) {
 
 		// And a blog named "Expensive Therapy" owned by "Dr. Bill".
 
-		return nil // TODO: Feel free to modify return value(s).
+		return backgroundData{}
 	}
 
 	t.Run("Dr. Bill posts to his own blog", func(t *testing.T) {

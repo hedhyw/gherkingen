@@ -15,9 +15,9 @@ func TestIssueExample(t *testing.T) {
 			"hello_world": {"hello world"},
 		}
 
-		for name, tc := range testCases {
+		for name, testCase := range testCases {
 			t.Run(name, func(t *testing.T) {
-				_ = tc // TODO: Use and remove.
+				_ = testCase // TODO: Use and remove.
 			})
 		}
 	})

@@ -2,11 +2,9 @@ package app_test
 
 import (
 	"bytes"
-	"flag"
 	"testing"
 
-	"github.com/hedhyw/gherkingen/v2/internal/app"
-	"github.com/hedhyw/gherkingen/v2/pkg/bdd"
+	"github.com/hedhyw/gherkingen/v3/internal/app"
 
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
@@ -15,9 +13,11 @@ import (
 const testVersion = "0.0.1"
 
 func TestApplicationCommandLineTool(t *testing.T) {
-	f := bdd.NewFeature(t, "Application command line tool")
+	t.Parallel()
 
-	f.Scenario("User wants to generate the output in given format", func(_ *testing.T, f *bdd.Feature) {
+	t.Run("User wants to generate the output in given format", func(t *testing.T) {
+		t.Parallel()
+
 		type testCase struct {
 			Feature   string `field:"<feature>"`
 			Format    string `field:"<format>"`
@@ -28,25 +28,31 @@ func TestApplicationCommandLineTool(t *testing.T) {
 			"app.feature_go_does":           {"app.feature", "go", "does"},
 			"app.feature_json_does":         {"app.feature", "json", "does"},
 			"app.feature_raw_does":          {"app.feature", "raw", "does"},
-			"app.feature_invalid_does not":  {"app.feature", "invalid", "does not"},
-			"notfound.feature_raw_does not": {"notfound.feature", "raw", "does not"},
+			"app.feature_invalid_does_not":  {"app.feature", "invalid", "does not"},
+			"notfound.feature_raw_does_not": {"notfound.feature", "raw", "does not"},
 		}
 
-		f.TestCases(testCases, func(t *testing.T, f *bdd.Feature, tc testCase) {
-			arguments := []string{}
-			f.When("<format> is given", func() {
-				arguments = append(arguments, "-format", tc.Format)
+		for name, testCase := range testCases {
+			testCase := testCase
+
+			t.Run(name, func(t *testing.T) {
+				t.Parallel()
+
+				// When <format> is given.
+				arguments := []string{"-format", testCase.Format}
+
+				// And <feature> is provided.
+				arguments = append(arguments, testCase.Feature)
+
+				// Then the output should be generated.
+				runApp(t, arguments, testCase.Assertion == "does")
 			})
-			f.And("<feature> is provided", func() {
-				arguments = append(arguments, tc.Feature)
-			})
-			f.Then("the output should be generated", func() {
-				runApp(t, arguments, tc.Assertion == "does")
-			})
-		})
+		}
 	})
 
-	f.Scenario("User wants to see usage information", func(_ *testing.T, f *bdd.Feature) {
+	t.Run("User wants to see usage information", func(t *testing.T) {
+		t.Parallel()
+
 		type testCase struct {
 			Flag string `field:"<flag>"`
 		}
@@ -55,18 +61,23 @@ func TestApplicationCommandLineTool(t *testing.T) {
 			"--help": {"--help"},
 		}
 
-		f.TestCases(testCases, func(t *testing.T, f *bdd.Feature, tc testCase) {
-			arguments := []string{}
-			f.When("<flag> is provided", func() {
-				arguments = append(arguments, tc.Flag)
-			})
-			f.Then("usage should be printed", func() {
+		for name, testCase := range testCases {
+			testCase := testCase
+			t.Run(name, func(t *testing.T) {
+				t.Parallel()
+
+				// When <flag> is provided.
+				arguments := []string{testCase.Flag}
+
+				// Then usage should be printed.
 				runApp(t, arguments, true)
 			})
-		})
+		}
 	})
 
-	f.Scenario("User wants to list built-in templates", func(_ *testing.T, f *bdd.Feature) {
+	t.Run("User wants to list built-in templates", func(t *testing.T) {
+		t.Parallel()
+
 		type testCase struct {
 			Flag string `field:"<flag>"`
 		}
@@ -75,18 +86,55 @@ func TestApplicationCommandLineTool(t *testing.T) {
 			"--list": {"--list"},
 		}
 
-		f.TestCases(testCases, func(t *testing.T, f *bdd.Feature, tc testCase) {
-			arguments := []string{}
-			f.When("<flag> is provided", func() {
-				arguments = append(arguments, tc.Flag)
-			})
-			f.Then("templates should be printed", func() {
+		for name, testCase := range testCases {
+			testCase := testCase
+
+			t.Run(name, func(t *testing.T) {
+				t.Parallel()
+
+				// When <flag> is provided.
+				arguments := []string{testCase.Flag}
+
+				// Then templates should be printed.
 				runApp(t, arguments, true)
 			})
-		})
+		}
 	})
 
-	f.Scenario("User wants to use custom template", func(_ *testing.T, f *bdd.Feature) {
+	t.Run("User asks for a version", func(t *testing.T) {
+		t.Parallel()
+
+		type testCase struct {
+			Flag string `field:"<flag>"`
+		}
+
+		testCases := map[string]testCase{
+			"--version": {"--version"},
+			"-version":  {"-version"},
+		}
+
+		for name, testCase := range testCases {
+			testCase := testCase
+			t.Run(name, func(t *testing.T) {
+				t.Parallel()
+
+				// When <flag> is provided.
+				arguments := []string{testCase.Flag}
+
+				// Then version is printed.
+				out := runApp(t, arguments, true)
+				assert.Contains(t, out, testVersion)
+			})
+		}
+	})
+}
+
+func TestApplicationCommandLineToolCustom(t *testing.T) {
+	t.Parallel()
+
+	t.Run("User wants to use custom template", func(t *testing.T) {
+		t.Parallel()
+
 		type testCase struct {
 			Feature  string `field:"<feature>"`
 			Template string `field:"<template>"`
@@ -98,21 +146,27 @@ func TestApplicationCommandLineTool(t *testing.T) {
 			"app.feature_@/std.simple.v1.go.tmpl":         {"app.feature", "@/std.simple.v1.go.tmpl"},
 		}
 
-		f.TestCases(testCases, func(t *testing.T, f *bdd.Feature, tc testCase) {
-			arguments := []string{}
-			f.And("<template> is provided", func() {
-				arguments = append(arguments, "-template", tc.Template)
-			})
-			f.When("<feature> is provided", func() {
-				arguments = append(arguments, tc.Feature)
-			})
-			f.Then("the output should be generated", func() {
+		for name, testCase := range testCases {
+			testCase := testCase
+
+			t.Run(name, func(t *testing.T) {
+				t.Parallel()
+
+				// When <template> is provided.
+				arguments := []string{"-template", testCase.Template}
+
+				// And <feature> is provided.
+				arguments = append(arguments, testCase.Feature)
+
+				// Then the output should be generated.
 				runApp(t, arguments, true)
 			})
-		})
+		}
 	})
 
-	f.Scenario("User wants to set custom package", func(_ *testing.T, f *bdd.Feature) {
+	t.Run("User wants to set custom package", func(t *testing.T) {
+		t.Parallel()
+
 		type testCase struct {
 			Package string `field:"<package>"`
 		}
@@ -122,19 +176,25 @@ func TestApplicationCommandLineTool(t *testing.T) {
 			"example_test": {"example_test"},
 		}
 
-		f.TestCases(testCases, func(t *testing.T, f *bdd.Feature, tc testCase) {
-			arguments := []string{}
-			f.When("<package> is provided", func() {
-				arguments = append(arguments, "-package", tc.Package, "app.feature")
-			})
-			f.Then("the output should contain <package>", func() {
+		for name, testCase := range testCases {
+			testCase := testCase
+
+			t.Run(name, func(t *testing.T) {
+				t.Parallel()
+
+				// When <package> is provided.
+				arguments := []string{"-package", testCase.Package, "app.feature"}
+
+				// Then the output should contain <package>.
 				out := runApp(t, arguments, true)
-				assert.Contains(t, out, tc.Package)
+				assert.Contains(t, out, testCase.Package)
 			})
-		})
+		}
 	})
 
-	f.Scenario("User wants to generate a permanent json output", func(_ *testing.T, f *bdd.Feature) {
+	t.Run("User wants to generate a permanent json output", func(t *testing.T) {
+		t.Parallel()
+
 		type testCase struct {
 			TheSameIDs bool `field:"<TheSameIDs>"`
 		}
@@ -144,65 +204,55 @@ func TestApplicationCommandLineTool(t *testing.T) {
 			"false": {false},
 		}
 
-		f.TestCases(testCases, func(t *testing.T, f *bdd.Feature, tc testCase) {
-			arguments := []string{}
-			f.When("format is json", func() {
-				arguments = append(arguments, "-format", "json")
-			})
-			f.And("-permanent-ids is <TheSameIDs>", func() {
-				if tc.TheSameIDs {
+		for name, testCase := range testCases {
+			testCase := testCase
+
+			t.Run(name, func(t *testing.T) {
+				t.Parallel()
+
+				// When -format is json.
+				arguments := []string{"-format", "json"}
+
+				// And -permanent-ids is <TheSameIDs>.
+				if testCase.TheSameIDs {
 					arguments = append(arguments, "-permanent-ids")
 				}
-			})
-			f.Then("calling generation twice will produce the same output <TheSameIDs>", func() {
+
+				// Then calling generation twice will produce the same output <TheSameIDs>.
 				arguments = append(arguments, "app.feature")
 
 				firstOut := runApp(t, arguments, true)
 				secondOut := runApp(t, arguments, true)
-				if tc.TheSameIDs {
+
+				if testCase.TheSameIDs {
 					assert.Equal(t, firstOut, secondOut)
 				} else {
 					assert.NotEqual(t, firstOut, secondOut)
 				}
 			})
-		})
+		}
 	})
+}
 
-	f.Scenario("User gives an invalid flag", func(t *testing.T, f *bdd.Feature) {
-		arguments := []string{}
-		f.When("flag -invalid is provided", func() {
-			arguments = append(arguments, "-invalid")
-		})
-		f.Then("a generation failed", func() {
-			arguments = append(arguments, "app.feature")
-			runApp(t, arguments, false)
-		})
-	})
+func TestApplicationCommandLineToolFailures(t *testing.T) {
+	t.Parallel()
 
-	f.Scenario("User wants to know version", func(_ *testing.T, f *bdd.Feature) {
-		type testCase struct {
-			Flag string `field:"<flag>"`
+	t.Run("User provides an invalid flag", func(t *testing.T) {
+		t.Parallel()
+
+		// When flag -invalid is provided.
+		arguments := []string{
+			"-invalid",
+			"app.feature",
 		}
 
-		testCases := map[string]testCase{
-			"--version": {"--version"},
-			"-version":  {"-version"},
-		}
-
-		f.TestCases(testCases, func(t *testing.T, f *bdd.Feature, tc testCase) {
-			arguments := []string{}
-
-			f.When("<flag> is provided", func() {
-				arguments = append(arguments, tc.Flag)
-			})
-			f.Then("version is printed", func() {
-				out := runApp(t, arguments, true)
-				assert.Contains(t, out, testVersion)
-			})
-		})
+		// Then an error is returned.
+		runApp(t, arguments, false)
 	})
 
-	f.Scenario("User specifies a file, but the file is not found", func(_ *testing.T, f *bdd.Feature) {
+	t.Run("User specifies a file, but the file is not found", func(t *testing.T) {
+		t.Parallel()
+
 		type testCase struct {
 			Feature  string `field:"<feature>"`
 			Template string `field:"<template>"`
@@ -212,51 +262,56 @@ func TestApplicationCommandLineTool(t *testing.T) {
 			"app.feature_not_found": {"app.feature", "not_found"},
 		}
 
-		f.TestCases(testCases, func(t *testing.T, f *bdd.Feature, tc testCase) {
-			arguments := []string{}
-			f.When("inexistent <template> is provided", func() {
-				arguments = append(arguments, "-template", tc.Template)
-			})
-			f.And("<feature> is provided", func() {
-				arguments = append(arguments, tc.Feature)
-			})
-			f.Then("the user receives an error", func() {
+		for name, testCase := range testCases {
+			testCase := testCase
+
+			t.Run(name, func(t *testing.T) {
+				t.Parallel()
+
+				// When inexistent <template> is provided.
+				arguments := []string{"-template", testCase.Template}
+
+				// And <feature> is provided.
+				arguments = append(arguments, testCase.Feature)
+
+				// Then the user receives an error.
 				runApp(t, arguments, false)
 			})
-		})
+		}
+	})
+}
+
+func TestApplicationCommandLineToolParallel(t *testing.T) {
+	t.Parallel()
+
+	t.Run("User wants to run tests in parallel", func(t *testing.T) {
+		t.Parallel()
+
+		// When `scenario.feature` is given.
+		arguments := []string{"../generator/examples/scenario.feature"}
+
+		// Then generated code contains `t.Parallel()`.
+		assert.Contains(t, runApp(t, arguments, true), "t.Parallel()")
 	})
 
-	f.Scenario("User wants to run tests in parallel", func(t *testing.T, f *bdd.Feature) {
-		arguments := []string{}
-		f.When("`-go-parallel` is provided", func() {
-			arguments = append(arguments, "-go-parallel")
-		})
-		f.And("`app.feature` is given", func() {
-			arguments = append(arguments, "../generator/examples/scenario.feature")
-		})
-		f.Then("generated code contains `t.Parallel()`", func() {
-			assert.Contains(t, runApp(t, arguments, true), "t.Parallel()")
-		})
-	})
+	t.Run("User wants to run tests sequentially", func(t *testing.T) {
+		t.Parallel()
 
-	f.Scenario("User wants to run tests sequentially", func(t *testing.T, f *bdd.Feature) {
-		arguments := []string{}
-		f.When("`-go-parallel` is provided", func() {
-			// Go on.
-		})
-		f.And("`app.feature` is given", func() {
-			arguments = append(arguments, "../generator/examples/scenario.feature")
-		})
-		f.Then("generated code doesn't contain `t.Parallel()`", func() {
-			assert.NotContains(t, runApp(t, arguments, true), "t.Parallel()")
-		})
+		// When `-disable-go-parallel` is provided.
+		arguments := []string{"-disable-go-parallel"}
+
+		// And `scenario.feature` is given.
+		arguments = append(arguments, "../generator/examples/scenario.feature")
+
+		// Then generated code doesn't contain `t.Parallel()`.
+		assert.NotContains(t, runApp(t, arguments, true), "t.Parallel()")
 	})
 }
 
 func runApp(tb testing.TB, arguments []string, ok bool) string {
 	tb.Helper()
 
-	flag.CommandLine = flag.NewFlagSet("", flag.PanicOnError)
+	tb.Log("running application with arguments", arguments)
 
 	var buf bytes.Buffer
 	err := app.Run(arguments, &buf, testVersion)
@@ -266,7 +321,7 @@ func runApp(tb testing.TB, arguments []string, ok bool) string {
 		gotLen := buf.Len()
 		assert.NotZero(tb, gotLen)
 	} else {
-		require.Error(tb, err)
+		require.Error(tb, err, buf.String())
 	}
 
 	return buf.String()

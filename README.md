@@ -16,11 +16,12 @@ The generator is very customizable, it is possible to customize an output for an
 
 # What is for?
 ## Simple example
+
 **Given** [feature](internal/generator/examples/readme.feature) [[reference](https://cucumber.io/docs/gherkin/reference/)]:
 ```feature
 Feature: Application command line tool
   Scenario: User wants to see usage information
-    When flag <flag> is provided
+    When the application is started with <flag>
     Then usage should be printed <printed>
     And exit status should be <exit_status>
     Examples:
@@ -31,74 +32,6 @@ Feature: Application command line tool
 ```
 
 **Then** this generator writes a [golang](internal/generator/examples/readme.feature_test.go) output (`gerkingen readme.feature > readme.feature_test.go`):
-
-```go
-func TestApplicationCommandLineTool(t *testing.T) {
-	f := bdd.NewFeature(t, "Application command line tool")
-
-	f.Scenario("User wants to see usage information", func(t *testing.T, f *bdd.Feature) {
-		type testCase struct {
-			Flag       string `field:"<flag>"`
-			ExitStatus int    `field:"<exit_status>"`
-			Printed    bool   `field:"<printed>"`
-		}
-
-		testCases := map[string]testCase{
-			"--help_0_true":    {"--help", 0, true},
-			"-help_0_true":     {"-help", 0, true},
-			"-invalid_1_false": {"-invalid", 1, false},
-		}
-
-		f.TestCases(testCases, func(t *testing.T, f *bdd.Feature, tc testCase) {
-			f.When("flag <flag> is provided", func() {
-
-			})
-			f.Then("usage should be printed <printed>", func() {
-
-			})
-			f.And("exit status should be <exit_status>", func() {
-
-			})
-		})
-	})
-}
-```
-
-**Then** on failure next logs will be printed:
-
-```feature
-Feature: Application command line tool
-	Scenario: User wants to see usage information
-		# TestCase: {Flag:-invalid ExitStatus:1 Printed:false}
-		When flag -invalid is provided
-		Then usage should be printed false
-		And exit status should be 1
-```
-
-**Example** implementation:
-```go
-f.TestCases(testCases, func(t *testing.T, f *bdd.Feature, tc testCase) {
-	var exitStatus int
-	arguments := []string{}
-
-	f.When("flag <flag> is provided", func() {
-		arguments = append(arguments, tc.Flag)
-	})
-	f.Then("usage should be printed <printed>", func() {
-		var output string
-		output, exitStatus = runApp(t, arguments)
-		assert.Equal(t, tc.Printed, strings.Contains(output, "usage"))
-	})
-	f.And("exit status should be <exit_status>", func() {
-		assert.Equal(t, tc.ExitStatus, exitStatus)
-	})
-})
-```
-
-## Simplified template
-
-A simplified template is also available. It uses only the std [testing](https://pkg.go.dev/testing) package without any other dependency. Steps are defined by comments.
-Provide `-template @/std.simple.v1.go.tmpl` to to use [this](internal/assets/std.simple.v1.go.tmpl) template.
 
 ```go
 func TestApplicationCommandLineTool(t *testing.T) {
@@ -119,9 +52,13 @@ func TestApplicationCommandLineTool(t *testing.T) {
 			"-invalid_1_false": {"-invalid", 1, false},
 		}
 
-		for name, tc := range testCases {
+		for name, testCase := range testCases {
+			testCase := testCase
+
 			t.Run(name, func(t *testing.T) {
-				// When flag <flag> is provided.
+				t.Parallel()
+
+				// When the application is started with <flag>.
 
 				// Then usage should be printed <printed>.
 
@@ -133,9 +70,33 @@ func TestApplicationCommandLineTool(t *testing.T) {
 }
 ```
 
+**Example** implementation:
+
+```go
+t.Run(name, func(t *testing.T) {
+	t.Parallel()
+
+	// When flag <flag> is provided.
+	arguments := []string{testCase.Flag}
+
+	// Then usage should be printed <printed>.
+	var output string
+	output, exitStatus = runApp(t, arguments)
+	assert.Equal(t, testCase.Printed, strings.Contains(output, "usage"))
+
+	// And exit status should be <exit_status>.
+	assert.Equal(t, testCase.ExitStatus, exitStatus)
+})
+```
+
 ## More advanced example
 
 See [internal/app/app.feature](internal/app/app.feature) and [internal/app/app_test.go](internal/app/app_test.go).
+
+## Version 3 changes
+
+1. Simplified template is set by default. In order to use the default template from the previous versions, provide the following flag `-template @/std.struct.v1.go.tmpl`.
+2. All tests will have `t.Parallel` by default. This behaviour can be disabled by providing the flag `-disable-go-parallel`.
 
 # Install
 
@@ -177,7 +138,7 @@ gherkingen -help
 ## Go
 
 ```bash
-go install github.com/hedhyw/gherkingen/v2/cmd/gherkingen@latest
+go install github.com/hedhyw/gherkingen/v3/cmd/gherkingen@latest
 # Notice: gherkingen -version will return "unknown" version.
 ```
 
@@ -219,10 +180,12 @@ gherkingen -list
 gherkingen --help
 
 Usage of gherkingen [FEATURE_FILE]:
+  -disable-go-parallel
+        disable execution of tests in parallel
   -format string
         output format: autodetect, json, go, raw (default "autodetect")
   -go-parallel
-        add parallel mark
+        add parallel mark (deprecated, enabled by default) (default true)
   -help
         print usage
   -list
@@ -232,7 +195,7 @@ Usage of gherkingen [FEATURE_FILE]:
   -permanent-ids
         The same calls to the generator always produces the same output
   -template string
-        template file (default "@/std.struct.v1.go.tmpl")
+        template file (default "@/std.simple.v1.go.tmpl")
   -version
         print version
 ```

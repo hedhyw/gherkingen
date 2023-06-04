@@ -6,10 +6,10 @@ import (
 	"path"
 	"strings"
 
-	"github.com/hedhyw/gherkingen/v2/internal/docplugin/goplugin"
-	"github.com/hedhyw/gherkingen/v2/internal/docplugin/multiplugin"
-	"github.com/hedhyw/gherkingen/v2/internal/generator"
-	"github.com/hedhyw/gherkingen/v2/internal/model"
+	"github.com/hedhyw/gherkingen/v3/internal/docplugin/goplugin"
+	"github.com/hedhyw/gherkingen/v3/internal/docplugin/multiplugin"
+	"github.com/hedhyw/gherkingen/v3/internal/generator"
+	"github.com/hedhyw/gherkingen/v3/internal/model"
 )
 
 // appArgs contains required arguments for runGenerator.
@@ -20,6 +20,7 @@ type appArgs struct {
 	InputFile    string
 	PackageName  string
 	GoParallel   bool
+	GenerateUUID func() string
 }
 
 func runGenerator(
@@ -49,6 +50,7 @@ func runGenerator(
 		TemplateSource: templateSource,
 		PackageName:    args.PackageName,
 		Plugin:         multiplugin.New(goPlugin),
+		GenerateUUID:   args.GenerateUUID,
 	})
 	if err != nil {
 		return err

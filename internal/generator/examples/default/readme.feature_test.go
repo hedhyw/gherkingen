@@ -3,7 +3,7 @@ package examples_test
 import (
 	"testing"
 
-	"github.com/hedhyw/gherkingen/v2/pkg/bdd"
+	"github.com/hedhyw/gherkingen/v3/pkg/bdd"
 )
 
 func TestApplicationCommandLineTool(t *testing.T) {
@@ -23,7 +23,7 @@ func TestApplicationCommandLineTool(t *testing.T) {
 		}
 
 		f.TestCases(testCases, func(t *testing.T, f *bdd.Feature, tc testCase) {
-			f.When("flag <flag> is provided", func() {
+			f.When("the application is started with <flag>", func() {
 
 			})
 			f.Then("usage should be printed <printed>", func() {

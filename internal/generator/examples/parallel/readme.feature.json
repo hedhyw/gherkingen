@@ -30,12 +30,12 @@
                                 "PluginData": {}
                             },
                             "Keyword": "When ",
-                            "Text": "flag \u003cflag\u003e is provided",
+                            "Text": "the application is started with \u003cflag\u003e",
                             "ID": "0194fdc2-fa2f-4cc0-81d3-ff12045b73c8",
                             "PluginData": {
                                 "GoName": "When",
                                 "GoType": "string",
-                                "GoValue": "\"flag \u003cflag\u003e is provided\""
+                                "GoValue": "\"the application is started with \u003cflag\u003e\""
                             }
                         },
                         {

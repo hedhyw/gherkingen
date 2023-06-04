@@ -1,6 +1,6 @@
 Feature: Application command line tool
   Scenario: User wants to see usage information
-    When flag <flag> is provided
+    When the application is started with <flag>
     Then usage should be printed <printed>
     And exit status should be <exit_status>
     Examples:

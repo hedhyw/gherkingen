@@ -5,8 +5,8 @@ import (
 	"strconv"
 	"testing"
 
-	"github.com/hedhyw/gherkingen/v2/internal/docplugin/goplugin"
-	"github.com/hedhyw/gherkingen/v2/internal/model"
+	"github.com/hedhyw/gherkingen/v3/internal/docplugin/goplugin"
+	"github.com/hedhyw/gherkingen/v3/internal/model"
 
 	"github.com/stretchr/testify/assert"
 )
@@ -128,7 +128,7 @@ func TestExample(t *testing.T) {
 
 		p := goplugin.New(goplugin.Args{})
 
-		// It tests https://github.com/hedhyw/gherkingen/v2/issues/26.
+		// It tests https://github.com/hedhyw/gherkingen/v3/issues/26.
 
 		doc := getExampleDocument()
 		if assert.NoError(t, p.Process(ctx, doc)) {
