@@ -24,10 +24,10 @@
                     "Description": "",
                     "Steps": [],
                     "Examples": [],
-                    "ID": "0194fdc2-fa2f-4cc0-81d3-ff12045b73c8",
+                    "ID": "52fdfc07-2182-454f-963f-5f0f9a621d72",
                     "PluginData": {
                         "GoName": "Example",
-                        "GoParallel": false,
+                        "GoParallel": true,
                         "GoType": "string",
                         "GoValue": "\"Maker starts a game\""
                     }
@@ -38,7 +38,7 @@
         "PluginData": {
             "GoComment": "\n\tThe word guess game is a turn-based game for two players.\n\tThe Maker makes a word for the Breaker to guess. The game\n\tis over when the Breaker guesses the Maker's word.\n",
             "GoName": "GuessTheWord",
-            "GoParallel": false,
+            "GoParallel": true,
             "GoType": "string",
             "GoValue": "\"Guess the word\""
         }

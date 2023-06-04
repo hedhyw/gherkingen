@@ -5,6 +5,8 @@ import (
 )
 
 func TestExampleIssue27Multi(t *testing.T) {
+	t.Parallel()
+
 	/*
 		Details:
 		  - example 1
@@ -16,5 +18,7 @@ func TestExampleIssue27Multi(t *testing.T) {
 	*/
 
 	t.Run("Multi-line comment with indents", func(t *testing.T) {
+		t.Parallel()
+
 	})
 }

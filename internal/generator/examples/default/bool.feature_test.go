@@ -7,9 +7,13 @@ import (
 )
 
 func TestTypeDeterminatiopn(t *testing.T) {
+	t.Parallel()
+
 	f := bdd.NewFeature(t, "Type determinatiopn")
 
-	f.Scenario("All type are determinated", func(_ *testing.T, f *bdd.Feature) {
+	f.Scenario("All type are determinated", func(t *testing.T, f *bdd.Feature) {
+		t.Parallel()
+
 		type testCase struct {
 			Bool    bool    `field:"<bool>"`
 			Int     int     `field:"<int>"`
@@ -24,6 +28,8 @@ func TestTypeDeterminatiopn(t *testing.T) {
 		}
 
 		f.TestCases(testCases, func(t *testing.T, f *bdd.Feature, tc testCase) {
+			t.Parallel()
+
 			f.When("generator completed", func() {
 
 			})

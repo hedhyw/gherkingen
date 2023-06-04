@@ -5,8 +5,11 @@ import (
 )
 
 func TestIssueExample(t *testing.T) {
+	t.Parallel()
 
-	t.Run("Just a hello world", func(_ *testing.T) {
+	t.Run("Just a hello world", func(t *testing.T) {
+		t.Parallel()
+
 		type testCase struct {
 			Name string `field:"<name>"`
 		}
@@ -16,7 +19,11 @@ func TestIssueExample(t *testing.T) {
 		}
 
 		for name, testCase := range testCases {
+			testCase := testCase
+
 			t.Run(name, func(t *testing.T) {
+				t.Parallel()
+
 				_ = testCase // TODO: Use and remove.
 			})
 		}

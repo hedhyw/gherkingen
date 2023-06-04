@@ -7,6 +7,8 @@ import (
 )
 
 func TestGuessTheWord(t *testing.T) {
+	t.Parallel()
+
 	f := bdd.NewFeature(t, "Guess the word")
 
 	/*
@@ -16,5 +18,7 @@ func TestGuessTheWord(t *testing.T) {
 	*/
 
 	f.Example("Maker starts a game", func(t *testing.T, f *bdd.Feature) {
+		t.Parallel()
+
 	})
 }

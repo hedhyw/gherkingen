@@ -31,7 +31,7 @@
                             },
                             "Keyword": "Given ",
                             "Text": "some precondition",
-                            "ID": "0194fdc2-fa2f-4cc0-81d3-ff12045b73c8",
+                            "ID": "52fdfc07-2182-454f-963f-5f0f9a621d72",
                             "PluginData": {
                                 "GoName": "Given",
                                 "GoType": "string",
@@ -46,7 +46,7 @@
                             },
                             "Keyword": "And ",
                             "Text": "some other precondition",
-                            "ID": "6e4ff95f-f662-45ee-a82a-bdf44a2d0b75",
+                            "ID": "9566c74d-1003-4c4d-bbbb-0407d1e2c649",
                             "PluginData": {
                                 "GoName": "And",
                                 "GoType": "string",
@@ -61,7 +61,7 @@
                             },
                             "Keyword": "When ",
                             "Text": "some action by the actor",
-                            "ID": "fb180daf-48a7-4ee0-b10d-394651850fd4",
+                            "ID": "81855ad8-681d-4d86-91e9-1e00167939cb",
                             "PluginData": {
                                 "GoName": "When",
                                 "GoType": "string",
@@ -76,7 +76,7 @@
                             },
                             "Keyword": "And ",
                             "Text": "some other action",
-                            "ID": "a178892e-e285-4ce1-9114-55780875d64e",
+                            "ID": "6694d2c4-22ac-4208-a007-2939487f6999",
                             "PluginData": {
                                 "GoName": "And",
                                 "GoType": "string",
@@ -91,7 +91,7 @@
                             },
                             "Keyword": "And ",
                             "Text": "yet another action",
-                            "ID": "e2d3d0d0-de6b-48f9-b44c-e85ff044c6b1",
+                            "ID": "eb9d18a4-4784-445d-87f3-c67cf22746e9",
                             "PluginData": {
                                 "GoName": "And",
                                 "GoType": "string",
@@ -106,7 +106,7 @@
                             },
                             "Keyword": "Then ",
                             "Text": "some testable outcome is achieved",
-                            "ID": "f83b8e88-3bbf-457a-ab99-c5b252c7429c",
+                            "ID": "95af5a25-3679-41ba-a2ff-6cd471c483f1",
                             "PluginData": {
                                 "GoName": "Then",
                                 "GoType": "string",
@@ -121,7 +121,7 @@
                             },
                             "Keyword": "And ",
                             "Text": "something else we can check happens too",
-                            "ID": "32f3a8ae-b79e-4856-b659-c18f0dcecc77",
+                            "ID": "5fb90bad-b37c-4821-b6d9-5526a41a9504",
                             "PluginData": {
                                 "GoName": "And",
                                 "GoType": "string",
@@ -130,7 +130,7 @@
                         }
                     ],
                     "Examples": [],
-                    "ID": "c75e7a81-bfde-475f-a7cf-e242cf3cc354",
+                    "ID": "680b4e7c-8b76-4a1b-9d49-d4955c848621",
                     "PluginData": {
                         "GoName": "Scenario",
                         "GoParallel": true,

@@ -7,6 +7,8 @@ import (
 )
 
 func TestExampleIssue27Multi(t *testing.T) {
+	t.Parallel()
+
 	f := bdd.NewFeature(t, "Example Issue 27 Multi")
 
 	/*
@@ -20,5 +22,7 @@ func TestExampleIssue27Multi(t *testing.T) {
 	*/
 
 	f.Example("Multi-line comment with indents", func(t *testing.T, f *bdd.Feature) {
+		t.Parallel()
+
 	})
 }

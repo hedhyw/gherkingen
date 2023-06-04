@@ -7,9 +7,13 @@ import (
 )
 
 func TestIssueExample(t *testing.T) {
+	t.Parallel()
+
 	f := bdd.NewFeature(t, "Issue example")
 
-	f.Scenario("Just a hello world", func(_ *testing.T, f *bdd.Feature) {
+	f.Scenario("Just a hello world", func(t *testing.T, f *bdd.Feature) {
+		t.Parallel()
+
 		type testCase struct {
 			Name string `field:"<name>"`
 		}
@@ -19,6 +23,8 @@ func TestIssueExample(t *testing.T) {
 		}
 
 		f.TestCases(testCases, func(t *testing.T, f *bdd.Feature, tc testCase) {
+			t.Parallel()
+
 		})
 	})
 }

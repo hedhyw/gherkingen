@@ -7,6 +7,8 @@ import (
 )
 
 func TestSomeTerseYetDescriptiveTextOfWhatIsDesired(t *testing.T) {
+	t.Parallel()
+
 	f := bdd.NewFeature(t, "Some terse yet descriptive text of what is desired")
 
 	/*
@@ -16,6 +18,8 @@ func TestSomeTerseYetDescriptiveTextOfWhatIsDesired(t *testing.T) {
 	*/
 
 	f.Scenario("Some determinable business situation", func(t *testing.T, f *bdd.Feature) {
+		t.Parallel()
+
 		f.Given("some precondition", func() {
 
 		})
