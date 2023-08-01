@@ -16,7 +16,7 @@ github.com/google/uuid
 # github.com/hedhyw/semerr v0.6.5
 ## explicit; go 1.17
 github.com/hedhyw/semerr/pkg/v1/semerr
-# github.com/iancoleman/strcase v0.2.0
+# github.com/iancoleman/strcase v0.3.0
 ## explicit; go 1.16
 github.com/iancoleman/strcase
 # github.com/kr/text v0.2.0
