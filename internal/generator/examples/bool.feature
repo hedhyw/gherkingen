@@ -1,5 +1,5 @@
 Feature: Type determinatiopn
-  Scenario: All type are determinated
+  Scenario Outline: All type are determinated
     When generator completed
     Then correct types are shown
     Examples:
