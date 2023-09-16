@@ -169,7 +169,7 @@ func (p GoPlugin) handleStruct(
 		val.PluginData[dataFieldGoparallel] = p.args.Parallel
 		p.processRuleBackground(val)
 	case model.Scenario:
-		val.PluginData[dataFieldGoName] = p.aliaser.NameAlias(val.Keyword)
+		val.PluginData[dataFieldGoName] = p.aliaser.NameAlias(formatScenarioKeyword(val.Keyword))
 		val.PluginData[dataFieldGoValue] = p.aliaser.StringValue(val.Name)
 		val.PluginData[dataFieldGoType] = string(goTypeString)
 		val.PluginData[dataFieldGoparallel] = p.args.Parallel
@@ -189,6 +189,14 @@ func (p GoPlugin) handleStruct(
 	}
 
 	return nil
+}
+
+func formatScenarioKeyword(keyword string) string {
+	if strings.ToLower(keyword) == "scenario outline" {
+		keyword = "Scenario"
+	}
+
+	return keyword
 }
 
 func (p GoPlugin) processFeatureBackground(f model.Feature) {

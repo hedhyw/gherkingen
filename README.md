@@ -20,7 +20,7 @@ The generator is very customizable, it is possible to customize an output for an
 **Given** [feature](internal/generator/examples/readme.feature) [[reference](https://cucumber.io/docs/gherkin/reference/)]:
 ```feature
 Feature: Application command line tool
-  Scenario: User wants to see usage information
+  Scenario Outline: User wants to see usage information
     When the application is started with <flag>
     Then usage should be printed <printed>
     And exit status should be <exit_status>

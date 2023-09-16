@@ -1,5 +1,5 @@
 Feature: Application command line tool
-  Scenario: User wants to generate the output in given format
+  Scenario Outline: User wants to generate the output in given format
     When <format> is given
     And  <feature> is provided
     Then the output should be generated
@@ -11,21 +11,21 @@ Feature: Application command line tool
     | app.feature      | invalid  | does not    |
     | notfound.feature | raw      | does not    |
 
-  Scenario: User wants to see usage information
+  Scenario Outline: User wants to see usage information
     When <flag> is provided
     Then usage should be printed
     Examples:
     | <flag> |
     | --help |
 
-  Scenario: User wants to list built-in templates
+  Scenario Outline: User wants to list built-in templates
     When <flag> is provided
     Then templates should be printed
     Examples:
     | <flag> |
     | --list |
 
-  Scenario: User wants to use custom template
+  Scenario Outline: User wants to use custom template
     When <template> is provided
     And  <feature> is provided
     Then the output should be generated
@@ -35,7 +35,7 @@ Feature: Application command line tool
     | app.feature | @/std.struct.v1.go.tmpl         |
     | app.feature | @/std.simple.v1.go.tmpl         |
   
-  Scenario: User wants to set custom package
+  Scenario Outline: User wants to set custom package
     When <package> is provided
     Then the output should contain <package>
     Examples:
@@ -43,7 +43,7 @@ Feature: Application command line tool
     | app_test      |
     | example_test  |
   
-  Scenario: User wants to generate a permanent json output
+  Scenario Outline: User wants to generate a permanent json output
     When -format is json
     And -permanent-ids is <TheSameIDs>
     Then calling generation twice will produce the same output <TheSameIDs>
@@ -56,7 +56,7 @@ Feature: Application command line tool
     When flag -invalid is provided
     Then an error is returned
 
-  Scenario: User asks for a version
+  Scenario Outline: User asks for a version
     When <flag> is provided
     Then version is printed
     Examples:
@@ -64,7 +64,7 @@ Feature: Application command line tool
     | --version |
     | -version  |
 
-  Scenario: User specifies a file, but the file is not found
+  Scenario Outline: User specifies a file, but the file is not found
     When inexistent <template> is provided
     And  <feature> is provided
     Then the user receives an error

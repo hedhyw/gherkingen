@@ -19,7 +19,7 @@
                         "PluginData": {}
                     },
                     "Tags": [],
-                    "Keyword": "Scenario",
+                    "Keyword": "Scenario Outline",
                     "Name": "User wants to see usage information",
                     "Description": "",
                     "Steps": [
