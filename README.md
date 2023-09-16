@@ -152,6 +152,18 @@ cp ./bin/gherkingen /usr/local/bin
 chmod +x /usr/local/bin
 ```
 
+## Visual Studio Code extension
+
+The extension for VS-Code that helps to generate Behaviour Driven Development (BDD) boilerplate Golang tests. It uses docker to run `gherkingen`.
+
+https://marketplace.visualstudio.com/items?itemName=hedhyw.golang-gherkingen&ssr=false#overview
+
+Launch VS Code Quick Open (Ctrl+P or Cmd+P), paste the following command, and press enter: `ext install hedhyw.golang-gherkingen`.
+
+Usage of the extension (in any .feature file):
+- Open the command palette (Ctrl+Shift+P or Cmd+Shift+P) and search for "Go: Generate BDD Golang test".
+- Or, click the button "Generate BDD Golang test" in the editor's menu.
+
 # Usage
 ## Simple usage
 
