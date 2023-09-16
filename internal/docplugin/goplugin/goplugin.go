@@ -192,7 +192,9 @@ func (p GoPlugin) handleStruct(
 }
 
 func formatScenarioKeyword(keyword string) string {
-	if strings.ToLower(keyword) == "scenario outline" {
+	keywordLower := strings.ToLower(keyword)
+
+	if keywordLower == "scenario outline" || keywordLower == "scenario template" {
 		keyword = "Scenario"
 	}
 
