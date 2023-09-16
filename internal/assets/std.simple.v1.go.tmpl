@@ -9,7 +9,9 @@ import (
     type backgroundData struct {}
 
     background := func(t *testing.T) backgroundData {
-        {{- range $Background.Steps }}
+        t.Helper()
+
+        {{ range $Background.Steps }}
         // {{ .Keyword }}{{ .Text | trimSpace | withFinalDot }}
 
         {{ end }}

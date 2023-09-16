@@ -15,6 +15,8 @@ func TestMultipleSiteSupport(t *testing.T) {
 	type backgroundData struct{}
 
 	background := func(t *testing.T) backgroundData {
+		t.Helper()
+
 		// Given a global administrator named "Greg".
 
 		// And a blog named "Greg's anti-tax rants".
