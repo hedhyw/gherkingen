@@ -13,6 +13,8 @@ func TestHighlander(t *testing.T) {
 		type backgroundData struct{}
 
 		background := func(t *testing.T) backgroundData {
+			t.Helper()
+
 			// Given I have overdue tasks.
 
 			return backgroundData{}
