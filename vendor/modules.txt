@@ -10,7 +10,7 @@ github.com/davecgh/go-spew/spew
 # github.com/gofrs/uuid v4.4.0+incompatible
 ## explicit
 github.com/gofrs/uuid
-# github.com/google/uuid v1.4.0
+# github.com/google/uuid v1.5.0
 ## explicit
 github.com/google/uuid
 # github.com/hedhyw/semerr v0.6.6
