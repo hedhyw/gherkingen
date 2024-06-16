@@ -11,52 +11,86 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-//go:embed generator_test.feature
-var exampleFeature []byte
+var (
+	//go:embed generator_test.en.feature
+	exampleFeatureEnglish []byte
+
+	//go:embed generator_test.en-lol.feature
+	exampleFeatureLOLCAT []byte
+)
+
+func TestGenerate(t *testing.T) {
+	t.Parallel()
+
+	testCases := []struct {
+		Language string
+	}{{
+		Language: "English",
+	}, {
+		Language: "LOLCAT",
+	}}
+
+	for _, tc := range testCases {
+		t.Run(tc.Language, func(t *testing.T) {
+			t.Parallel()
+
+			args := generator.Args{
+				Format:         model.FormatGo,
+				InputSource:    scenarioIn(t, tc.Language),
+				TemplateSource: []byte(``),
+				PackageName:    "generated_test",
+				Plugin:         requireNewPlugin(t),
+				GenerateUUID:   uuid.NewString,
+				Language:       language(t, tc.Language),
+			}
+
+			_, err := generator.Generate(args)
+
+			assert.NoError(t, err)
+		})
+	}
+}
 
 func TestGenerateFailed(t *testing.T) {
 	t.Parallel()
 
 	testCases := []struct {
-		Name    string
+		Reason  string
 		Prepare func(args *generator.Args)
-		OK      bool
 	}{{
-		OK:      true,
-		Name:    "ok",
-		Prepare: func(*generator.Args) {},
-	}, {
-		OK:   false,
-		Name: "invalid_format",
+		Reason: "invalid_format",
 		Prepare: func(args *generator.Args) {
 			args.Format = "invalid"
 		},
 	}, {
-		Name: "invalid_source",
+		Reason: "invalid_source",
 		Prepare: func(args *generator.Args) {
 			args.InputSource = []byte("INVALID")
 		},
 	}, {
-		OK:   false,
-		Name: "invalid_template",
+		Reason: "invalid_template",
 		Prepare: func(args *generator.Args) {
 			args.TemplateSource = []byte(`{{ .Unknown }}`)
 		},
 	}, {
-		OK:   false,
-		Name: "no_package",
+		Reason: "no_package",
 		Prepare: func(args *generator.Args) {
 			args.PackageName = ""
+		},
+	}, {
+		Reason: "unsupported_language",
+		Prepare: func(args *generator.Args) {
+			args.Language = "unsupported"
 		},
 	}}
 
 	for _, testCase := range testCases {
-		t.Run(testCase.Name, func(t *testing.T) {
+		t.Run(testCase.Reason, func(t *testing.T) {
 			t.Parallel()
 
 			args := generator.Args{
 				Format:         model.FormatGo,
-				InputSource:    exampleFeature,
+				InputSource:    scenarioIn(t, defaultLanguage),
 				TemplateSource: []byte(``),
 				PackageName:    "generated_test",
 				Plugin:         requireNewPlugin(t),
@@ -66,11 +100,40 @@ func TestGenerateFailed(t *testing.T) {
 			testCase.Prepare(&args)
 
 			_, err := generator.Generate(args)
-			if testCase.OK {
-				assert.NoError(t, err)
-			} else {
-				assert.Error(t, err)
-			}
+
+			assert.Error(t, err)
 		})
+	}
+}
+
+const defaultLanguage = "English"
+
+func scenarioIn(tb testing.TB, language string) []byte {
+	tb.Helper()
+
+	switch language {
+	case "English":
+		return exampleFeatureEnglish
+	case "LOLCAT":
+		return exampleFeatureLOLCAT
+	default:
+		tb.Fatalf("unexpected language: %s", language)
+
+		return nil
+	}
+}
+
+func language(tb testing.TB, name string) string {
+	tb.Helper()
+
+	switch name {
+	case "English":
+		return "en"
+	case "LOLCAT":
+		return "en-lol"
+	default:
+		tb.Fatalf("unexpected language name: %s", name)
+
+		return ""
 	}
 }

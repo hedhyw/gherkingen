@@ -21,6 +21,7 @@ type appArgs struct {
 	PackageName  string
 	GoParallel   bool
 	GenerateUUID func() string
+	Language     string
 }
 
 func runGenerator(
@@ -51,6 +52,7 @@ func runGenerator(
 		PackageName:    args.PackageName,
 		Plugin:         multiplugin.New(goPlugin),
 		GenerateUUID:   args.GenerateUUID,
+		Language:       args.Language,
 	})
 	if err != nil {
 		return err

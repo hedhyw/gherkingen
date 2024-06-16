@@ -7,9 +7,10 @@ import (
 	"strings"
 	"time"
 
-	"github.com/hedhyw/gherkingen/v4/internal/model"
-
+	gherkin "github.com/cucumber/gherkin/go/v28"
 	"github.com/google/uuid"
+
+	"github.com/hedhyw/gherkingen/v4/internal/model"
 )
 
 const (
@@ -17,6 +18,7 @@ const (
 	defaultTemplate          = "std.simple.v1.go.tmpl"
 	defaultDisableGoParallel = false
 	defaultOutputFormat      = model.FormatAutoDetect
+	defaultLanguage          = gherkin.DefaultDialect
 )
 
 // Run the application.
@@ -69,6 +71,11 @@ func Run(arguments []string, out io.Writer, version string) (err error) {
 		false,
 		"print version",
 	)
+	language := flagSet.String(
+		"language",
+		defaultLanguage,
+		"natural language of the feature",
+	)
 	if err = flagSet.Parse(arguments); err != nil {
 		return err
 	}
@@ -102,6 +109,7 @@ func Run(arguments []string, out io.Writer, version string) (err error) {
 			PackageName:  *packageName,
 			GoParallel:   !(*disableGoParallel),
 			GenerateUUID: newUUIDRandomGenerator(seed),
+			Language:     *language,
 		})
 	}
 }

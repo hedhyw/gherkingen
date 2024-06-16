@@ -16,7 +16,7 @@ func TestGenerateJSON(t *testing.T) {
 
 	gotDataJSON, err := generator.Generate(generator.Args{
 		Format:         model.FormatJSON,
-		InputSource:    exampleFeature,
+		InputSource:    exampleFeatureEnglish,
 		TemplateSource: nil,
 		PackageName:    "example_json",
 		Plugin:         requireNewPlugin(t),

@@ -4,10 +4,10 @@ import (
 	"bytes"
 	"testing"
 
-	"github.com/hedhyw/gherkingen/v4/internal/app"
-
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
+
+	"github.com/hedhyw/gherkingen/v4/internal/app"
 )
 
 const testVersion = "0.0.1"
@@ -118,6 +118,40 @@ func TestApplicationCommandLineTool(t *testing.T) {
 				// Then version is printed.
 				out := runApp(t, arguments, true)
 				assert.Contains(t, out, testVersion)
+			})
+		}
+	})
+
+	t.Run("User wants to generate the output in a specific language", func(t *testing.T) {
+		t.Parallel()
+
+		type testCase struct {
+			Language  string `field:"<language>"`
+			Feature   string `field:"<feature>"`
+			Assertion string `field:"assertion"`
+		}
+
+		testCases := map[string]testCase{
+			"en_../generator/examples/simple.feature_does":                  {"en", "../generator/examples/simple.feature", "does"},
+			"en-pirate_../generator/examples/simple.en-pirate.feature_does": {"en-pirate", "../generator/examples/simple.en-pirate.feature", "does"},
+			"unsupported_app.feature_does_not":                              {"unsupported", "app.feature", "does not"},
+		}
+
+		for name, testCase := range testCases {
+			t.Run(name, func(t *testing.T) {
+				t.Parallel()
+
+				// When the <language> is given.
+				arguments := []string{
+					"-language",
+					testCase.Language,
+				}
+
+				// And the <feature> is provided.
+				arguments = append(arguments, testCase.Feature)
+
+				// Then the output should be generated.
+				runApp(t, arguments, testCase.Assertion == "does")
 			})
 		}
 	})

@@ -79,3 +79,13 @@ Feature: Application command line tool
     When `-disable-go-parallel` is provided
     And `scenario.feature` is given
     Then generated code doesn't contain `t.Parallel()`
+
+  Scenario Outline: User wants to generate the output in a specific language
+    When the <language> is given
+    And the <feature> is provided
+    Then the output should be generated
+    Examples:
+    | <language>  | <feature>                                      | assertion |
+    | en          | ../generator/examples/simple.feature           | does      |
+    | en-pirate   | ../generator/examples/simple.en-pirate.feature | does      |
+    | unsupported | app.feature                                    | does not  |
