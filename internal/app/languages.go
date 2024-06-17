@@ -4,6 +4,8 @@ import (
 	"fmt"
 	"io"
 	"reflect"
+	"slices"
+	"strings"
 
 	gherkin "github.com/cucumber/gherkin/go/v28"
 	"github.com/hedhyw/semerr/pkg/v1/semerr"
@@ -14,6 +16,10 @@ func runListFeatureLanguages(out io.Writer) error {
 	if err != nil {
 		return fmt.Errorf("getting feature languages: %w", err)
 	}
+
+	slices.SortFunc(languages, func(a, b *gherkin.Dialect) int {
+		return strings.Compare(a.Language, b.Language)
+	})
 
 	for _, lang := range languages {
 		fmt.Fprintf(out, "%s\t%s\t%s\n", lang.Language, lang.Name, lang.Native)
