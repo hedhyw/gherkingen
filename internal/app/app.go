@@ -74,7 +74,12 @@ func Run(arguments []string, out io.Writer, version string) (err error) {
 	language := flagSet.String(
 		"language",
 		defaultLanguage,
-		"natural language of the feature",
+		"natural language for the feature",
+	)
+	listLanguages := flagSet.Bool(
+		"languages",
+		false,
+		"list supported natural feature languages",
 	)
 	if err = flagSet.Parse(arguments); err != nil {
 		return err
@@ -98,6 +103,8 @@ func Run(arguments []string, out io.Writer, version string) (err error) {
 		return runVersion(out, version)
 	case *listCmd:
 		return runListTemplates(out)
+	case *listLanguages:
+		return runListFeatureLanguages(out)
 	case *helpCmd, inputFile == "":
 		return runHelp(flagSet)
 	default:

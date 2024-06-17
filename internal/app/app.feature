@@ -89,3 +89,11 @@ Feature: Application command line tool
     | en          | ../generator/examples/simple.feature           | does      |
     | en-pirate   | ../generator/examples/simple.en-pirate.feature | does      |
     | unsupported | app.feature                                    | does not  |
+
+  Scenario Outline: User wants to see all supported natural languages
+    When the <flag> is provided
+    Then the list of supported natural languages should be printed
+    Examples:
+    | <flag>      |
+    | -languages  |
+    | --languages |

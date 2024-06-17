@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"testing"
 
+	gherkin "github.com/cucumber/gherkin/go/v28"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 
@@ -152,6 +153,38 @@ func TestApplicationCommandLineTool(t *testing.T) {
 
 				// Then the output should be generated.
 				runApp(t, arguments, testCase.Assertion == "does")
+			})
+		}
+	})
+
+	t.Run("User wants to see all supported natural languages", func(t *testing.T) {
+		t.Parallel()
+
+		type testCase struct {
+			Flag string `field:"<flag>"`
+		}
+
+		testCases := map[string]testCase{
+			"-languages":  {"-languages"},
+			"--languages": {"--languages"},
+		}
+
+		for name, testCase := range testCases {
+			t.Run(name, func(t *testing.T) {
+				t.Parallel()
+
+				// When the <flag> is provided.
+				arguments := []string{testCase.Flag}
+
+				// Then the list of supported natural languages should be printed.
+				out := runApp(t, arguments, true)
+
+				dialectProvider := gherkin.DialectsBuiltin()
+				dialect := dialectProvider.GetDialect(gherkin.DefaultDialect)
+
+				assert.Contains(t, out, dialect.Name)
+				assert.Contains(t, out, dialect.Language)
+				assert.Contains(t, out, dialect.Native)
 			})
 		}
 	})
