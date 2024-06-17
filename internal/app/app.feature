@@ -80,7 +80,7 @@ Feature: Application command line tool
     And `scenario.feature` is given
     Then generated code doesn't contain `t.Parallel()`
 
-  Scenario Outline: User wants to generate the output in a specific natural language
+  Scenario Outline: User wants to generate the output for a feature written in a specific natural language
     When the <language> is given
     And the <feature> is provided
     Then the output should be generated

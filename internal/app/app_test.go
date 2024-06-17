@@ -122,7 +122,7 @@ func TestApplicationCommandLineTool(t *testing.T) {
 		}
 	})
 
-	t.Run("User wants to generate the output in a specific natural language", func(t *testing.T) {
+	t.Run("User wants to generate the output for a feature written in a specific natural language", func(t *testing.T) {
 		t.Parallel()
 
 		type testCase struct {
