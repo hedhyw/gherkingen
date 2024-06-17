@@ -97,3 +97,7 @@ Feature: Application command line tool
     | <flag>      |
     | -languages  |
     | --languages |
+
+  Scenario: User wants to see consistent supported natural languages output
+    When the user lists supported natural languages several times
+    Then the output is the same

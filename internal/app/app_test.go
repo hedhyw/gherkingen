@@ -188,6 +188,19 @@ func TestApplicationCommandLineTool(t *testing.T) {
 			})
 		}
 	})
+
+	t.Run("User wants to see consistent supported natural languages output", func(t *testing.T) {
+		t.Parallel()
+
+		// When the user lists supported natural languages several times.
+		arguments := []string{"-languages"}
+
+		out1 := runApp(t, arguments, true)
+		out2 := runApp(t, arguments, true)
+
+		// Then the output is the same.
+		assert.Equal(t, out1, out2)
+	})
 }
 
 func TestApplicationCommandLineToolCustom(t *testing.T) {
