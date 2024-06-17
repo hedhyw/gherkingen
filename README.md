@@ -205,7 +205,9 @@ Usage of gherkingen [FEATURE_FILE]:
   -help
         print usage
   -language string
-        natural language of the feature (default "en")
+        natural language for the feature (default "en")
+  -languages
+        list supported natural feature languages
   -list
         list internal templates
   -package string
