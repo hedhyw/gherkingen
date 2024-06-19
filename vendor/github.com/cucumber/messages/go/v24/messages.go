@@ -36,6 +36,12 @@ type Envelope struct {
 	UndefinedParameterType *UndefinedParameterType `json:"undefinedParameterType,omitempty"`
 }
 
+type Exception struct {
+	Type       string `json:"type"`
+	Message    string `json:"message,omitempty"`
+	StackTrace string `json:"stackTrace,omitempty"`
+}
+
 type GherkinDocument struct {
 	Uri      string     `json:"uri,omitempty"`
 	Feature  *Feature   `json:"feature,omitempty"`
@@ -189,11 +195,12 @@ type Product struct {
 }
 
 type ParameterType struct {
-	Name                            string   `json:"name"`
-	RegularExpressions              []string `json:"regularExpressions"`
-	PreferForRegularExpressionMatch bool     `json:"preferForRegularExpressionMatch"`
-	UseForSnippets                  bool     `json:"useForSnippets"`
-	Id                              string   `json:"id"`
+	Name                            string           `json:"name"`
+	RegularExpressions              []string         `json:"regularExpressions"`
+	PreferForRegularExpressionMatch bool             `json:"preferForRegularExpressionMatch"`
+	UseForSnippets                  bool             `json:"useForSnippets"`
+	Id                              string           `json:"id"`
+	SourceReference                 *SourceReference `json:"sourceReference,omitempty"`
 }
 
 type ParseError struct {
@@ -321,6 +328,7 @@ type TestCaseStarted struct {
 	Attempt    int64      `json:"attempt"`
 	Id         string     `json:"id"`
 	TestCaseId string     `json:"testCaseId"`
+	WorkerId   string     `json:"workerId,omitempty"`
 	Timestamp  *Timestamp `json:"timestamp"`
 }
 
@@ -328,6 +336,7 @@ type TestRunFinished struct {
 	Message   string     `json:"message,omitempty"`
 	Success   bool       `json:"success"`
 	Timestamp *Timestamp `json:"timestamp"`
+	Exception *Exception `json:"exception,omitempty"`
 }
 
 type TestRunStarted struct {
@@ -342,9 +351,10 @@ type TestStepFinished struct {
 }
 
 type TestStepResult struct {
-	Duration *Duration            `json:"duration"`
-	Message  string               `json:"message,omitempty"`
-	Status   TestStepResultStatus `json:"status"`
+	Duration  *Duration            `json:"duration"`
+	Message   string               `json:"message,omitempty"`
+	Status    TestStepResultStatus `json:"status"`
+	Exception *Exception           `json:"exception,omitempty"`
 }
 
 type TestStepStarted struct {

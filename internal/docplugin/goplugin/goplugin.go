@@ -100,7 +100,7 @@ func (p GoPlugin) walkStruct(
 		return fmt.Errorf("handling struct: %s: %w", rt.Name(), err)
 	}
 
-	for i := 0; i < rt.NumField(); i++ {
+	for i := range rt.NumField() {
 		if !rv.Field(i).CanInterface() {
 			continue
 		}
@@ -121,7 +121,7 @@ func (p GoPlugin) walkSlice(
 ) (err error) {
 	rt := rv.Type()
 
-	for i := 0; i < rv.Len(); i++ {
+	for i := range rv.Len() {
 		el := rv.Index(i)
 
 		if !el.CanInterface() {

@@ -6,7 +6,7 @@ import (
 
 	"github.com/hedhyw/gherkingen/v3/internal/model"
 
-	messages "github.com/cucumber/common/messages/go/v19"
+	messages "github.com/cucumber/messages/go/v24"
 	"github.com/stretchr/testify/assert"
 )
 
@@ -405,13 +405,11 @@ func TestGherkinDocumentFromNil(t *testing.T) {
 		func() any { return (&model.Location{}).From(nil) },
 	}
 
-	for i, tc := range testCases {
-		tc := tc
-
+	for i, testCase := range testCases {
 		t.Run(strconv.Itoa(i), func(t *testing.T) {
 			t.Parallel()
 
-			assert.Nil(t, tc())
+			assert.Nil(t, testCase())
 		})
 	}
 }

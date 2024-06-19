@@ -7,8 +7,6 @@
       "bodyclose",
       "wsl",
       "funlen",
-      "maligned",
-      "exhaustivestruct",
       "gci",
       "wrapcheck",
       "varnamelen",
@@ -18,20 +16,14 @@
       "thelper",
       "paralleltest",
       "tagliatelle",
-      "scopelint",
-      "golint",
-      "interfacer",
       "nonamedreturns",
       "exhaustruct",
       "nolintlint",
-      "deadcode",
       "wastedassign",
-      "structcheck",
-      "varcheck",
-      "ifshort",
-      "nosnakecase",
       "rowserrcheck",
-      "depguard"
+      "depguard",
+      "mnd",
+      "execinquery"
     ]
   },
   "linters-settings": {

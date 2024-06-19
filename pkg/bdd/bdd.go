@@ -277,7 +277,7 @@ func prepareReplacer(tb testing.TB, testCase interface{}) *strings.Replacer {
 
 	count := rt.NumField()
 	replaceArgs := make([]string, 0, count*2)
-	for i := 0; i < count; i++ {
+	for i := range count {
 		if !rv.Field(i).CanInterface() {
 			continue
 		}

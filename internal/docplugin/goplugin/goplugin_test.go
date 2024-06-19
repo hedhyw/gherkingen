@@ -181,7 +181,7 @@ func TestExample(t *testing.T) {
 
 		examples := make([]*model.TableRow, 0, count)
 
-		for i := 0; i < count; i++ {
+		for range count {
 			examples = append(examples, &model.TableRow{
 				Cells: []*model.TableCell{{
 					Value:      "hello_world",
@@ -449,21 +449,19 @@ func TestParallel(t *testing.T) {
 
 	ctx := context.Background()
 
-	for _, tc := range [2]bool{true, false} {
-		tc := tc
-
-		t.Run(strconv.FormatBool(tc), func(t *testing.T) {
+	for _, testCase := range [2]bool{true, false} {
+		t.Run(strconv.FormatBool(testCase), func(t *testing.T) {
 			t.Parallel()
 
 			p := goplugin.New(goplugin.Args{
-				Parallel: tc,
+				Parallel: testCase,
 			})
 			doc := getExampleDocument()
 
 			if assert.NoError(t, p.Process(ctx, doc)) {
-				assert.Equal(t, tc, doc.Feature.PluginData["GoParallel"])
-				assert.Equal(t, tc, doc.Feature.Children[0].Scenario.PluginData["GoParallel"])
-				assert.Equal(t, tc, doc.Feature.Children[0].Rule.PluginData["GoParallel"])
+				assert.Equal(t, testCase, doc.Feature.PluginData["GoParallel"])
+				assert.Equal(t, testCase, doc.Feature.Children[0].Scenario.PluginData["GoParallel"])
+				assert.Equal(t, testCase, doc.Feature.Children[0].Rule.PluginData["GoParallel"])
 			}
 		})
 	}

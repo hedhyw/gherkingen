@@ -1,4 +1,4 @@
-GOLANG_CI_LINT_VER:=v1.53.2
+GOLANG_CI_LINT_VER:=v1.59.1
 OUT_BIN?=${PWD}/bin/gherkingen
 COVER_PACKAGES=./...
 VERSION?=${shell git describe --tags}
@@ -11,8 +11,8 @@ build:
 		cmd/gherkingen/main.go
 .PHONY: build
 
-lint: bin/golangci-lint
-	./bin/golangci-lint run
+lint: bin/golangci-lint-${GOLANG_CI_LINT_VER}
+	./bin/golangci-lint-${GOLANG_CI_LINT_VER} run
 .PHONY: lint
 
 test:
@@ -37,8 +37,9 @@ vendor:
 	go mod vendor
 .PHONY: vendor
 
-bin/golangci-lint:
+bin/golangci-lint-${GOLANG_CI_LINT_VER}:
 	curl \
 		-sSfL \
 		https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh \
 		| sh -s $(GOLANG_CI_LINT_VER)
+	mv ./bin/golangci-lint ./bin/golangci-lint-${GOLANG_CI_LINT_VER}

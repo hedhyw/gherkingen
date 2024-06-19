@@ -60,8 +60,6 @@ func TestGenerateAssetTemplatesShouldNotFail(t *testing.T) {
 	require.NoError(t, err)
 
 	for _, tmpl := range templates {
-		tmpl := tmpl
-
 		t.Run(tmpl, func(t *testing.T) {
 			t.Parallel()
 

@@ -14,90 +14,98 @@
           ]
       ) + [
         "\t\t},\n",
-        "map[string]messages.StepKeywordType {\n"
+        "\t\tmap[string]messages.StepKeywordType{\n"
       ] + (
         [ .value.given
           | (
               [ .[] | select(. != "* ") |
-                "\t\t\t\t",
+                "\t\t\t",
                 @json,
                 ": messages.StepKeywordType_CONTEXT",
-                ",\n"
+                ",\n\n"
               ] | add
             ),
-            "\t\t\t\n"
+            ""
         ]
         +
         [ .value.when
           | (
               [ .[] | select(. != "* ") |
-                "\t\t\t\t",
+                "\t\t\t",
                 @json,
                 ": messages.StepKeywordType_ACTION",
-                ",\n"
+                ",\n\n"
               ] | add
             ),
-            "\t\t\t\n"
+            ""
         ]
         +
         [ .value.then
           | (
               [ .[] | select(. != "* ") |
-                "\t\t\t\t",
+                "\t\t\t",
                 @json,
                 ": messages.StepKeywordType_OUTCOME",
-                ",\n"
+                ",\n\n"
               ] | add
             ),
-            "\t\t\t\n"
+            ""
         ]
         +
         [ .value.and
           | (
               [ .[] | select(. != "* ") |
-                "\t\t\t\t",
+                "\t\t\t",
                 @json,
                 ": messages.StepKeywordType_CONJUNCTION",
-                ",\n"
+                ",\n\n"
               ] | add
             ),
-            "\t\t\t\n"
+            ""
         ]
         +
         [ .value.but
           | (
               [ .[] | select(. != "* ") |
-                "\t\t\t\t",
+                "\t\t\t",
                 @json,
                 ": messages.StepKeywordType_CONJUNCTION",
-                ",\n"
+                ",\n\n"
               ] | add
             ),
-            "\t\t\t\n"
+            ""
         ]
         + [
-          "\"* \": messages.StepKeywordType_UNKNOWN,\n"
+          "\t\t\t\"* \": messages.StepKeywordType_UNKNOWN,\n"
         ]
       ) + [
-        "}",
-        "\t},\n"
+        "\t\t}",
+        "},\n"
       ]
     | add
   ]
   | add
   )
-| "package gherkin\n\n"
-+ "import messages \"github.com/cucumber/common/messages/go/v19\"\n\n"
+| "// Code generated from dialects_builtin.go.jq (make dialects_builtin.go); DO NOT EDIT.\n\n" # Standard header defined at https://golang.org/s/generatedcode
++ "package gherkin\n\n"
++ "import messages \"github.com/cucumber/messages/go/v24\"\n\n"
 + "// Builtin dialects for " + ([ $root | to_entries[] | .key+" ("+.value.name+")" ] | join(", ")) + "\n"
 + "func DialectsBuiltin() DialectProvider {\n"
 + "\treturn builtinDialects\n"
 + "}\n\n"
 + "const (\n"
-+ (
-  ["feature","rule","background","scenario","scenarioOutline","examples","given","when","then","and","but"]
-  | [ .[] | "\t" + . + " = " + (.|@json) + "\n" ]
-  | add )
++ "	feature         = \"feature\"\n"
++ "	rule            = \"rule\"\n"
++ "	background      = \"background\"\n"
++ "	scenario        = \"scenario\"\n"
++ "	scenarioOutline = \"scenarioOutline\"\n"
++ "	examples        = \"examples\"\n"
++ "	given           = \"given\"\n"
++ "	when            = \"when\"\n"
++ "	then            = \"then\"\n"
++ "	and             = \"and\"\n"
++ "	but             = \"but\"\n"
 + ")\n\n"
 + "var builtinDialects = gherkinDialectMap{\n"
 + .
-+ "}\n"
++ "}"
