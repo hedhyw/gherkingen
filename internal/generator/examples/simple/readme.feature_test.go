@@ -5,11 +5,8 @@ import (
 )
 
 func TestApplicationCommandLineTool(t *testing.T) {
-	t.Parallel()
 
-	t.Run("User wants to see usage information", func(t *testing.T) {
-		t.Parallel()
-
+	t.Run("User wants to see usage information", func(_ *testing.T) {
 		type testCase struct {
 			Flag       string `field:"<flag>"`
 			ExitStatus int    `field:"<exit_status>"`
@@ -23,11 +20,7 @@ func TestApplicationCommandLineTool(t *testing.T) {
 		}
 
 		for name, testCase := range testCases {
-			testCase := testCase
-
 			t.Run(name, func(t *testing.T) {
-				t.Parallel()
-
 				_ = testCase // TODO: Use and remove.
 				// When the application is started with <flag>.
 

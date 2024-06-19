@@ -5,11 +5,8 @@ import (
 )
 
 func TestHighlander(t *testing.T) {
-	t.Parallel()
 
-	t.Run("There can be only One", func(t *testing.T) {
-		t.Parallel()
-
+	t.Run("There can be only One", func(_ *testing.T) {
 		type backgroundData struct{}
 
 		background := func(t *testing.T) backgroundData {
@@ -21,8 +18,6 @@ func TestHighlander(t *testing.T) {
 		}
 
 		t.Run("Only One -- More than one alive", func(t *testing.T) {
-			t.Parallel()
-
 			_ = background(t)
 
 			// Given there are 3 ninjas.
@@ -37,8 +32,6 @@ func TestHighlander(t *testing.T) {
 
 		})
 		t.Run("Only One -- One alive", func(t *testing.T) {
-			t.Parallel()
-
 			_ = background(t)
 
 			// Given there is only 1 ninja alive.
@@ -48,12 +41,8 @@ func TestHighlander(t *testing.T) {
 		})
 	})
 
-	t.Run("There can be Two (in some cases)", func(t *testing.T) {
-		t.Parallel()
-
+	t.Run("There can be Two (in some cases)", func(_ *testing.T) {
 		t.Run("Two -- Dead and Reborn as Phoenix", func(t *testing.T) {
-			t.Parallel()
-
 		})
 	})
 }

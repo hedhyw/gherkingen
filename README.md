@@ -101,6 +101,8 @@ See [internal/app/app.feature](internal/app/app.feature) and [internal/app/app_t
 ## Version 4 changes
 
 1. Removed template "std.struct.v1.go.tmpl".
+2. The flag "go-parallel" has been removed.
+3. Loop variable "testCase" is not copied. Disable using `disable-go-22-scope` flag.
 
 # Install
 
@@ -196,12 +198,12 @@ gherkingen -list
 gherkingen --help
 
 Usage of gherkingen [FEATURE_FILE]:
+  -enable-go-22-scope
+        do not copy loop variables
   -disable-go-parallel
         disable execution of tests in parallel
   -format string
         output format: autodetect, json, go, raw (default "autodetect")
-  -go-parallel
-        add parallel mark (deprecated, enabled by default) (default true)
   -help
         print usage
   -list

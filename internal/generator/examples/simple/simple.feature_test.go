@@ -5,8 +5,6 @@ import (
 )
 
 func TestGuessTheWord(t *testing.T) {
-	t.Parallel()
-
 	/*
 		The word guess game is a turn-based game for two players.
 		The Maker makes a word for the Breaker to guess. The game
@@ -14,7 +12,5 @@ func TestGuessTheWord(t *testing.T) {
 	*/
 
 	t.Run("Maker starts a game", func(t *testing.T) {
-		t.Parallel()
-
 	})
 }

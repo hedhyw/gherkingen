@@ -5,8 +5,6 @@ import (
 )
 
 func TestSomeTerseYetDescriptiveTextOfWhatIsDesired(t *testing.T) {
-	t.Parallel()
-
 	/*
 		In order to realize a named business value
 		As an explicit system actor
@@ -14,8 +12,6 @@ func TestSomeTerseYetDescriptiveTextOfWhatIsDesired(t *testing.T) {
 	*/
 
 	t.Run("Some determinable business situation", func(t *testing.T) {
-		t.Parallel()
-
 		// Given some precondition.
 
 		// And some other precondition.

@@ -7,7 +7,6 @@ for f in internal/generator/examples/*.feature; do
     -package examples_test \
     -permanent-ids \
     -format go \
-    -go-parallel \
     -template "@/std.simple.v1.go.tmpl" \
     $f \
     > ${dir}/simpleparallel/${base}_test.go
@@ -15,6 +14,7 @@ for f in internal/generator/examples/*.feature; do
     -package examples_test \
     -permanent-ids \
     -format go \
+    -disable-go-parallel \
     -template "@/std.simple.v1.go.tmpl" \
     $f \
     > ${dir}/simple/${base}_test.go

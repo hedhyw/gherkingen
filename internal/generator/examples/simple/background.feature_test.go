@@ -5,8 +5,6 @@ import (
 )
 
 func TestMultipleSiteSupport(t *testing.T) {
-	t.Parallel()
-
 	/*
 		Only blog owners can post to a blog, except administrators,
 		who can post to all blogs.
@@ -29,8 +27,6 @@ func TestMultipleSiteSupport(t *testing.T) {
 	}
 
 	t.Run("Dr. Bill posts to his own blog", func(t *testing.T) {
-		t.Parallel()
-
 		_ = background(t)
 
 		// Given I am logged in as Dr. Bill.
@@ -42,8 +38,6 @@ func TestMultipleSiteSupport(t *testing.T) {
 	})
 
 	t.Run("Dr. Bill tries to post to somebody else's blog, and fails", func(t *testing.T) {
-		t.Parallel()
-
 		_ = background(t)
 
 		// Given I am logged in as Dr. Bill.
@@ -55,8 +49,6 @@ func TestMultipleSiteSupport(t *testing.T) {
 	})
 
 	t.Run("Greg posts to a client's blog", func(t *testing.T) {
-		t.Parallel()
-
 		_ = background(t)
 
 		// Given I am logged in as Greg.
