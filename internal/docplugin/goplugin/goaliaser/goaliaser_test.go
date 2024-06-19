@@ -197,12 +197,12 @@ func TestNameAlias(t *testing.T) {
 
 	p := goaliaser.New()
 
-	for i, tc := range testCases {
-		t.Run(tc.In, func(t *testing.T) {
+	for i, testCase := range testCases {
+		t.Run(testCase.In, func(t *testing.T) {
 			t.Parallel()
 
-			got := p.NameAlias(tc.In)
-			assert.Equal(t, tc.Exp, got, i)
+			got := p.NameAlias(testCase.In)
+			assert.Equal(t, testCase.Exp, got, i)
 		})
 	}
 }

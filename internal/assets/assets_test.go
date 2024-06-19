@@ -27,11 +27,11 @@ func TestOpenTemplate(t *testing.T) {
 		"std.simple.v1.go.tmpl",
 	}
 
-	for _, f := range files {
-		t.Run(f, func(t *testing.T) {
+	for _, file := range files {
+		t.Run(file, func(t *testing.T) {
 			t.Parallel()
 
-			f, err := assets.OpenTemplate(f)
+			f, err := assets.OpenTemplate(file)
 			require.NoError(t, err)
 
 			defer func() { assert.NoError(t, f.Close()) }()
