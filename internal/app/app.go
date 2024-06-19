@@ -4,6 +4,7 @@ import (
 	"flag"
 	"io"
 	"math/rand"
+	"slices"
 	"strings"
 	"time"
 
@@ -22,6 +23,8 @@ const (
 )
 
 // Run the application.
+//
+//nolint:cyclop // Looks fine to me.
 func Run(arguments []string, out io.Writer, version string) (err error) {
 	flagSet := flag.NewFlagSet(flag.CommandLine.Name(), flag.ContinueOnError)
 	flagSet.SetOutput(out)
@@ -96,6 +99,12 @@ func Run(arguments []string, out io.Writer, version string) (err error) {
 	var inputFile string
 	if flagSet.NArg() == 1 {
 		inputFile = flagSet.Args()[0]
+	}
+
+	if !slices.Contains(arguments, "-language") {
+		if hint := tryFromFileName(inputFile); hint != "" {
+			*language = hint
+		}
 	}
 
 	switch {

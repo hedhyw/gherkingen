@@ -51,3 +51,17 @@ func featureLanguages() ([]*gherkin.Dialect, error) {
 
 	return dialects, nil
 }
+
+func tryFromFileName(fileName string) string {
+	i := strings.LastIndexAny(fileName, "/\\")
+
+	lastPart := fileName[i+1:]
+
+	parts := strings.Split(lastPart, ".")
+
+	if len(parts) <= 2 {
+		return ""
+	}
+
+	return parts[len(parts)-2]
+}

@@ -1,3 +1,4 @@
+//nolint:goconst // These are auto generated tests.
 package app_test
 
 import (
@@ -200,6 +201,47 @@ func TestApplicationCommandLineTool(t *testing.T) {
 
 		// Then the output is the same.
 		assert.Equal(t, out1, out2)
+	})
+
+	t.Run("User wants to be able to specify the natural language of a feature in its file name", func(t *testing.T) {
+		t.Parallel()
+
+		type testCase struct {
+			Language  string `field:"<language>"`
+			Feature   string `field:"<feature>"`
+			Assertion string `field:"assertion"`
+		}
+
+		testCases := map[string]testCase{
+			"en-pirate_./testdata/pirate.feature_does":                  {"en-pirate", "./testdata/pirate.feature", "does"},
+			"_./testdata/pirate.feature_does_not":                       {"", "./testdata/pirate.feature", "does not"},
+			"_./testdata/pirate.sample.en-pirate.feature_does":          {"", "./testdata/pirate.sample.en-pirate.feature", "does"},
+			"wrong_./testdata/pirate.sample.en-pirate.feature_does_not": {"wrong", "./testdata/pirate.sample.en-pirate.feature", "does not"},
+			"en_./testdata/english.feature_does":                        {"en", "./testdata/english.feature", "does"},
+			"_./testdata/english.feature_does":                          {"", "./testdata/english.feature", "does"},
+			"_./testdata/english.sample.en.feature_does":                {"", "./testdata/english.sample.en.feature", "does"},
+			"wrong_./testdata/english.sample.en.feature_does_not":       {"wrong", "./testdata/english.sample.en.feature", "does not"},
+			"_app.feature_does":                                         {"", "app.feature", "does"},
+		}
+
+		for name, testCase := range testCases {
+			t.Run(name, func(t *testing.T) {
+				t.Parallel()
+
+				var arguments []string
+
+				// When the <language> is specified by the flag.
+				if testCase.Language != "" {
+					arguments = append(arguments, "-language", testCase.Language)
+				}
+
+				// And the <feature> is given.
+				arguments = append(arguments, testCase.Feature)
+
+				// Then the output should be generated.
+				runApp(t, arguments, testCase.Assertion == "does")
+			})
+		}
 	})
 }
 
