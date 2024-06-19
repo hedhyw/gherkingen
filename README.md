@@ -102,7 +102,7 @@ See [internal/app/app.feature](internal/app/app.feature) and [internal/app/app_t
 
 1. Removed template "std.struct.v1.go.tmpl".
 2. The flag "go-parallel" has been removed.
-3. Loop variable "testCase" is not copied. Disable using `disable-go-22-scope` flag.
+3. Use flag `enable-go-22-scope` to avoid copying `testCase` in loops.
 
 # Install
 
