@@ -108,22 +108,20 @@ func TestGenerateRaw(t *testing.T) {
 		},
 	}
 
-	for _, tc := range testCases {
-		tc := tc
-
-		t.Run(tc.Template, func(t *testing.T) {
+	for _, testCase := range testCases {
+		t.Run(testCase.Template, func(t *testing.T) {
 			t.Parallel()
 
 			gotDataRaw, err := generator.Generate(generator.Args{
 				Format:         model.FormatRaw,
 				InputSource:    exampleFeature,
-				TemplateSource: []byte(tc.Template),
+				TemplateSource: []byte(testCase.Template),
 				PackageName:    "generated_test.go",
 				Plugin:         requireNewPlugin(t),
 				GenerateUUID:   uuid.NewString,
 			})
 			if assert.NoError(t, err) {
-				assert.Equal(t, tc.Exp, string(gotDataRaw))
+				assert.Equal(t, testCase.Exp, string(gotDataRaw))
 			}
 		})
 	}

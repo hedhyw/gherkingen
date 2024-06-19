@@ -28,8 +28,6 @@ func TestOpenTemplate(t *testing.T) {
 	}
 
 	for _, f := range files {
-		f := f
-
 		t.Run(f, func(t *testing.T) {
 			t.Parallel()
 

@@ -33,14 +33,12 @@ func TestStringValue(t *testing.T) {
 
 	p := goaliaser.New()
 
-	for i, tc := range testCases {
-		i, tc := i, tc
-
-		t.Run(tc.In, func(t *testing.T) {
+	for i, testCase := range testCases {
+		t.Run(testCase.In, func(t *testing.T) {
 			t.Parallel()
 
-			got := p.StringValue(tc.In)
-			assert.Equal(t, tc.Exp, got, i)
+			got := p.StringValue(testCase.In)
+			assert.Equal(t, testCase.Exp, got, i)
 		})
 	}
 }
@@ -200,8 +198,6 @@ func TestNameAlias(t *testing.T) {
 	p := goaliaser.New()
 
 	for i, tc := range testCases {
-		i, tc := i, tc
-
 		t.Run(tc.In, func(t *testing.T) {
 			t.Parallel()
 

@@ -24,7 +24,7 @@ func TestGenerateFailed(t *testing.T) {
 	}{{
 		OK:      true,
 		Name:    "ok",
-		Prepare: func(args *generator.Args) {},
+		Prepare: func(*generator.Args) {},
 	}, {
 		OK:   false,
 		Name: "invalid_format",
@@ -50,10 +50,8 @@ func TestGenerateFailed(t *testing.T) {
 		},
 	}}
 
-	for _, tc := range testCases {
-		tc := tc
-
-		t.Run(tc.Name, func(t *testing.T) {
+	for _, testCase := range testCases {
+		t.Run(testCase.Name, func(t *testing.T) {
 			t.Parallel()
 
 			args := generator.Args{
@@ -65,10 +63,10 @@ func TestGenerateFailed(t *testing.T) {
 				GenerateUUID:   uuid.NewString,
 			}
 
-			tc.Prepare(&args)
+			testCase.Prepare(&args)
 
 			_, err := generator.Generate(args)
-			if tc.OK {
+			if testCase.OK {
 				assert.NoError(t, err)
 			} else {
 				assert.Error(t, err)

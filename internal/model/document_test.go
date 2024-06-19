@@ -405,13 +405,11 @@ func TestGherkinDocumentFromNil(t *testing.T) {
 		func() any { return (&model.Location{}).From(nil) },
 	}
 
-	for i, tc := range testCases {
-		tc := tc
-
+	for i, testCase := range testCases {
 		t.Run(strconv.Itoa(i), func(t *testing.T) {
 			t.Parallel()
 
-			assert.Nil(t, tc())
+			assert.Nil(t, testCase())
 		})
 	}
 }

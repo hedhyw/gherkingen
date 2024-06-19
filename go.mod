@@ -1,6 +1,6 @@
 module github.com/hedhyw/gherkingen/v3
 
-go 1.20
+go 1.22
 
 require (
 	github.com/cucumber/common/gherkin/go/v24 v24.1.0

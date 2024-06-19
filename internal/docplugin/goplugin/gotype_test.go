@@ -50,14 +50,12 @@ func TestDeterminateGoType(t *testing.T) {
 		Exp: goTypeString,
 	}}
 
-	for i, tc := range testCases {
-		i, tc := i, tc
-
-		t.Run(strings.Join(tc.In, "_"), func(t *testing.T) {
+	for i, testCase := range testCases {
+		t.Run(strings.Join(testCase.In, "_"), func(t *testing.T) {
 			t.Parallel()
 
-			got := determinateGoType(tc.In)
-			assert.Equal(t, tc.Exp, got, i)
+			got := determinateGoType(testCase.In)
+			assert.Equal(t, testCase.Exp, got, i)
 		})
 	}
 }
@@ -123,19 +121,17 @@ func TestGoValue(t *testing.T) {
 		ExpGoType: goTypeFloat64,
 	}}
 
-	for i, tc := range testCases {
-		i, tc := i, tc
-
-		t.Run(string(tc.InGoType)+"_"+tc.In, func(t *testing.T) {
+	for i, testCase := range testCases {
+		t.Run(string(testCase.InGoType)+"_"+testCase.In, func(t *testing.T) {
 			t.Parallel()
 
-			gotVal, gotType := goValue(goaliaser.New(), tc.In, tc.InGoType)
-			if gotVal != tc.Exp {
-				t.Errorf("%d:\n\tin:  %s\n\texp: %s\n\tgot: %s", i, tc.In, tc.Exp, gotVal)
+			gotVal, gotType := goValue(goaliaser.New(), testCase.In, testCase.InGoType)
+			if gotVal != testCase.Exp {
+				t.Errorf("%d:\n\tin:  %s\n\texp: %s\n\tgot: %s", i, testCase.In, testCase.Exp, gotVal)
 			}
 
-			if gotType != tc.ExpGoType {
-				t.Errorf("%d:\n\tin:  %s\n\texp: %s\n\tgot: %s", i, tc.In, tc.ExpGoType, gotType)
+			if gotType != testCase.ExpGoType {
+				t.Errorf("%d:\n\tin:  %s\n\texp: %s\n\tgot: %s", i, testCase.In, testCase.ExpGoType, gotType)
 			}
 		})
 	}

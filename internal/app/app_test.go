@@ -33,8 +33,6 @@ func TestApplicationCommandLineTool(t *testing.T) {
 		}
 
 		for name, testCase := range testCases {
-			testCase := testCase
-
 			t.Run(name, func(t *testing.T) {
 				t.Parallel()
 
@@ -62,7 +60,6 @@ func TestApplicationCommandLineTool(t *testing.T) {
 		}
 
 		for name, testCase := range testCases {
-			testCase := testCase
 			t.Run(name, func(t *testing.T) {
 				t.Parallel()
 
@@ -87,8 +84,6 @@ func TestApplicationCommandLineTool(t *testing.T) {
 		}
 
 		for name, testCase := range testCases {
-			testCase := testCase
-
 			t.Run(name, func(t *testing.T) {
 				t.Parallel()
 
@@ -114,7 +109,6 @@ func TestApplicationCommandLineTool(t *testing.T) {
 		}
 
 		for name, testCase := range testCases {
-			testCase := testCase
 			t.Run(name, func(t *testing.T) {
 				t.Parallel()
 
@@ -147,8 +141,6 @@ func TestApplicationCommandLineToolCustom(t *testing.T) {
 		}
 
 		for name, testCase := range testCases {
-			testCase := testCase
-
 			t.Run(name, func(t *testing.T) {
 				t.Parallel()
 
@@ -177,8 +169,6 @@ func TestApplicationCommandLineToolCustom(t *testing.T) {
 		}
 
 		for name, testCase := range testCases {
-			testCase := testCase
-
 			t.Run(name, func(t *testing.T) {
 				t.Parallel()
 
@@ -205,8 +195,6 @@ func TestApplicationCommandLineToolCustom(t *testing.T) {
 		}
 
 		for name, testCase := range testCases {
-			testCase := testCase
-
 			t.Run(name, func(t *testing.T) {
 				t.Parallel()
 
@@ -263,8 +251,6 @@ func TestApplicationCommandLineToolFailures(t *testing.T) {
 		}
 
 		for name, testCase := range testCases {
-			testCase := testCase
-
 			t.Run(name, func(t *testing.T) {
 				t.Parallel()
 
