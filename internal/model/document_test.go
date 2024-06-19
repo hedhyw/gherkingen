@@ -6,7 +6,7 @@ import (
 
 	"github.com/hedhyw/gherkingen/v3/internal/model"
 
-	messages "github.com/cucumber/common/messages/go/v19"
+	messages "github.com/cucumber/messages/go/v24"
 	"github.com/stretchr/testify/assert"
 )
 
