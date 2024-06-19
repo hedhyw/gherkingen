@@ -4,8 +4,8 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/hedhyw/gherkingen/v3/internal/docplugin"
-	"github.com/hedhyw/gherkingen/v3/internal/model"
+	"github.com/hedhyw/gherkingen/v4/internal/docplugin"
+	"github.com/hedhyw/gherkingen/v4/internal/model"
 )
 
 // MultiPlugin helps to process many plugins.

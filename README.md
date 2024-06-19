@@ -98,6 +98,10 @@ See [internal/app/app.feature](internal/app/app.feature) and [internal/app/app_t
 1. Simplified template is set by default. In order to use the default template from the previous versions, provide the following flag `-template @/std.struct.v1.go.tmpl`.
 2. All tests will have `t.Parallel` by default. This behaviour can be disabled by providing the flag `-disable-go-parallel`.
 
+## Version 4 changes
+
+1. Removed template "std.struct.v1.go.tmpl".
+
 # Install
 
 ## Package
@@ -138,7 +142,7 @@ gherkingen -help
 ## Go
 
 ```bash
-go install github.com/hedhyw/gherkingen/v3/cmd/gherkingen@latest
+go install github.com/hedhyw/gherkingen/v4/cmd/gherkingen@latest
 # Notice: gherkingen -version will return "unknown" version.
 ```
 
@@ -236,7 +240,7 @@ docker run --rm -it --read-only --network none \
 # Output customization
 
 ## Custom templates
-You can provide your own template, it can be based on [internal/assets/std.struct.v1.go.tmpl](internal/assets/std.struct.v1.go.tmpl). In the command-line tool specify the template
+You can provide your own template, it can be based on [internal/assets/std.simple.v1.go.tmpl](internal/assets/std.simple.v1.go.tmpl). In the command-line tool specify the template
 using `-template` flag: `gherkingen -template example.tmpl raw example.feature`
 
 ## Frameworks support
@@ -259,7 +263,7 @@ Useful resources:
 |-------------------------------------------|------------------------------------------------------|
 | Golang template documentation             | [text/template](https://pkg.go.dev/text/template)    |
 | Root template object struct documentation | [TemplateData](https://pkg.go.dev/github.com/hedhyw/gherkingen/internal/model#TemplateData) |
-| Example template                          | [std.struct.v1.go.tmpl](./internal/assets/std.struct.v1.go.tmpl) |
+| Example template                          | [std.simple.v1.go.tmpl](./internal/assets/std.simple.v1.go.tmpl) |
 | Example json representation of a root template object | [readme.feature.json](internal/generator/examples/readme.feature.json)     |
 
 There is a way to return a json representation of the root object `TemplateData` for your feature, for this run `gherkingen -format json <EXAMPLE.feature>`.

@@ -4,7 +4,7 @@ import (
 	"io"
 	"testing"
 
-	"github.com/hedhyw/gherkingen/v3/internal/assets"
+	"github.com/hedhyw/gherkingen/v4/internal/assets"
 
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
@@ -23,7 +23,6 @@ func TestOpenTemplate(t *testing.T) {
 	t.Parallel()
 
 	files := [...]string{
-		"std.struct.v1.go.tmpl",
 		"std.simple.v1.go.tmpl",
 	}
 

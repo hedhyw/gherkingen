@@ -7,7 +7,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/hedhyw/gherkingen/v3/internal/model"
+	"github.com/hedhyw/gherkingen/v4/internal/model"
 
 	"github.com/google/uuid"
 )

@@ -9,8 +9,8 @@ import (
 	"strings"
 	"unicode"
 
-	"github.com/hedhyw/gherkingen/v3/internal/docplugin/goplugin/goaliaser"
-	"github.com/hedhyw/gherkingen/v3/internal/model"
+	"github.com/hedhyw/gherkingen/v4/internal/docplugin/goplugin/goaliaser"
+	"github.com/hedhyw/gherkingen/v4/internal/model"
 )
 
 const maxRecursionDepth = 10

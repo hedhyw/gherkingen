@@ -5,11 +5,11 @@ import (
 	"io"
 	"testing"
 
-	"github.com/hedhyw/gherkingen/v3/internal/assets"
-	"github.com/hedhyw/gherkingen/v3/internal/docplugin/goplugin"
-	"github.com/hedhyw/gherkingen/v3/internal/docplugin/multiplugin"
-	"github.com/hedhyw/gherkingen/v3/internal/generator"
-	"github.com/hedhyw/gherkingen/v3/internal/model"
+	"github.com/hedhyw/gherkingen/v4/internal/assets"
+	"github.com/hedhyw/gherkingen/v4/internal/docplugin/goplugin"
+	"github.com/hedhyw/gherkingen/v4/internal/docplugin/multiplugin"
+	"github.com/hedhyw/gherkingen/v4/internal/generator"
+	"github.com/hedhyw/gherkingen/v4/internal/model"
 
 	"github.com/google/uuid"
 	"github.com/stretchr/testify/assert"
