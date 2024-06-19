@@ -3,7 +3,7 @@ package goaliaser_test
 import (
 	"testing"
 
-	"github.com/hedhyw/gherkingen/v3/internal/docplugin/goplugin/goaliaser"
+	"github.com/hedhyw/gherkingen/v4/internal/docplugin/goplugin/goaliaser"
 
 	"github.com/stretchr/testify/assert"
 )

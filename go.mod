@@ -1,4 +1,4 @@
-module github.com/hedhyw/gherkingen/v3
+module github.com/hedhyw/gherkingen/v4
 
 go 1.22
 

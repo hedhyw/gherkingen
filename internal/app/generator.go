@@ -6,10 +6,10 @@ import (
 	"path"
 	"strings"
 
-	"github.com/hedhyw/gherkingen/v3/internal/docplugin/goplugin"
-	"github.com/hedhyw/gherkingen/v3/internal/docplugin/multiplugin"
-	"github.com/hedhyw/gherkingen/v3/internal/generator"
-	"github.com/hedhyw/gherkingen/v3/internal/model"
+	"github.com/hedhyw/gherkingen/v4/internal/docplugin/goplugin"
+	"github.com/hedhyw/gherkingen/v4/internal/docplugin/multiplugin"
+	"github.com/hedhyw/gherkingen/v4/internal/generator"
+	"github.com/hedhyw/gherkingen/v4/internal/model"
 )
 
 // appArgs contains required arguments for runGenerator.

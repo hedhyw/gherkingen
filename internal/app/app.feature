@@ -31,8 +31,7 @@ Feature: Application command line tool
     Then the output should be generated
     Examples:
     | <feature>   | <template>                      |
-    | app.feature | ../assets/std.struct.v1.go.tmpl |
-    | app.feature | @/std.struct.v1.go.tmpl         |
+    | app.feature | ../assets/std.simple.v1.go.tmpl |
     | app.feature | @/std.simple.v1.go.tmpl         |
   
   Scenario Outline: User wants to set custom package

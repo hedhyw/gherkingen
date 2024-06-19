@@ -7,7 +7,7 @@ import (
 	"os"
 	"strings"
 
-	"github.com/hedhyw/gherkingen/v3/internal/assets"
+	"github.com/hedhyw/gherkingen/v4/internal/assets"
 )
 
 func readInput(inputFile string) (data []byte, err error) {

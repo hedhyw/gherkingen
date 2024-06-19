@@ -5,7 +5,7 @@ import (
 	"encoding/json"
 	"fmt"
 
-	"github.com/hedhyw/gherkingen/v3/internal/model"
+	"github.com/hedhyw/gherkingen/v4/internal/model"
 )
 
 // generateJSON generates output in JSON.

@@ -4,7 +4,7 @@ import (
 	"bytes"
 	"testing"
 
-	"github.com/hedhyw/gherkingen/v3/internal/app"
+	"github.com/hedhyw/gherkingen/v4/internal/app"
 
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
@@ -135,8 +135,7 @@ func TestApplicationCommandLineToolCustom(t *testing.T) {
 		}
 
 		testCases := map[string]testCase{
-			"app.feature_../assets/std.struct.v1.go.tmpl": {"app.feature", "../assets/std.struct.v1.go.tmpl"},
-			"app.feature_@/std.struct.v1.go.tmpl":         {"app.feature", "@/std.struct.v1.go.tmpl"},
+			"app.feature_../assets/std.simple.v1.go.tmpl": {"app.feature", "../assets/std.simple.v1.go.tmpl"},
 			"app.feature_@/std.simple.v1.go.tmpl":         {"app.feature", "@/std.simple.v1.go.tmpl"},
 		}
 
