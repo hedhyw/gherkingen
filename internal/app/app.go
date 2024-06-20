@@ -77,7 +77,11 @@ func Run(arguments []string, out io.Writer, version string) (err error) {
 	language := flagSet.String(
 		"language",
 		defaultLanguage,
-		"natural language for the feature",
+		"Specifies the natural language used to describe the feature.\n"+
+			"This flag is optional if language information is included in the feature file name.\n"+
+			"The file name should be formatted as follows: <description>.<language_hint>.feature if language hint is included, "+
+			"or <description>.feature if it is not.\n"+
+			"When provided, the 'language' flag takes precedence over the language hint from the file name.",
 	)
 	listLanguages := flagSet.Bool(
 		"languages",
