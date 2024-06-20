@@ -206,7 +206,7 @@ Usage of gherkingen [FEATURE_FILE]:
         print usage
   -language string
         Specifies the natural language used to describe the feature.
-        This flag is optional if language information is included in the feature file name.
+        This flag is optional if language information is included in the feature file name, or if the feature is written in English.
         The file name should be formatted as follows: <description>.<language_hint>.feature if language hint is included, or <description>.feature if it is not.
         When provided, the 'language' flag takes precedence over the language hint from the file name. (default "en")
   -languages
