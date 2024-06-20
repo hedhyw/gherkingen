@@ -23,7 +23,7 @@ func TestGenerateGo(t *testing.T) {
 
 	gotDataGo, err := generator.Generate(generator.Args{
 		Format:         model.FormatGo,
-		InputSource:    exampleFeature,
+		InputSource:    exampleFeatureEnglish,
 		TemplateSource: []byte(exampleTemplate),
 		PackageName:    "generated_test",
 		Plugin:         requireNewPlugin(t),
@@ -44,7 +44,7 @@ func TestGenerateGoFormattingFailed(t *testing.T) {
 
 	_, err := generator.Generate(generator.Args{
 		Format:         model.FormatGo,
-		InputSource:    exampleFeature,
+		InputSource:    exampleFeatureEnglish,
 		TemplateSource: []byte("-"),
 		PackageName:    "generated_test",
 		Plugin:         requireNewPlugin(t),
@@ -73,7 +73,7 @@ func TestGenerateAssetTemplatesShouldNotFail(t *testing.T) {
 
 			_, err = generator.Generate(generator.Args{
 				Format:         model.FormatGo,
-				InputSource:    exampleFeature,
+				InputSource:    exampleFeatureEnglish,
 				TemplateSource: tmplData,
 				PackageName:    "generated_test",
 				Plugin:         requireNewPlugin(t),

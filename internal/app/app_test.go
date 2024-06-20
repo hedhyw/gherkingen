@@ -1,13 +1,15 @@
+//nolint:goconst // These are auto generated tests.
 package app_test
 
 import (
 	"bytes"
 	"testing"
 
-	"github.com/hedhyw/gherkingen/v4/internal/app"
-
+	gherkin "github.com/cucumber/gherkin/go/v28"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
+
+	"github.com/hedhyw/gherkingen/v4/internal/app"
 )
 
 const testVersion = "0.0.1"
@@ -118,6 +120,126 @@ func TestApplicationCommandLineTool(t *testing.T) {
 				// Then version is printed.
 				out := runApp(t, arguments, true)
 				assert.Contains(t, out, testVersion)
+			})
+		}
+	})
+
+	t.Run("User wants to generate the output for a feature written in a specific natural language", func(t *testing.T) {
+		t.Parallel()
+
+		type testCase struct {
+			Language  string `field:"<language>"`
+			Feature   string `field:"<feature>"`
+			Assertion string `field:"assertion"`
+		}
+
+		testCases := map[string]testCase{
+			"en_../generator/examples/simple.feature_does":                  {"en", "../generator/examples/simple.feature", "does"},
+			"en-pirate_../generator/examples/simple.en-pirate.feature_does": {"en-pirate", "../generator/examples/simple.en-pirate.feature", "does"},
+			"unsupported_app.feature_does_not":                              {"unsupported", "app.feature", "does not"},
+		}
+
+		for name, testCase := range testCases {
+			t.Run(name, func(t *testing.T) {
+				t.Parallel()
+
+				// When the <language> is given.
+				arguments := []string{
+					"-language",
+					testCase.Language,
+				}
+
+				// And the <feature> is provided.
+				arguments = append(arguments, testCase.Feature)
+
+				// Then the output should be generated.
+				runApp(t, arguments, testCase.Assertion == "does")
+			})
+		}
+	})
+
+	t.Run("User wants to see all supported natural languages", func(t *testing.T) {
+		t.Parallel()
+
+		type testCase struct {
+			Flag string `field:"<flag>"`
+		}
+
+		testCases := map[string]testCase{
+			"-languages":  {"-languages"},
+			"--languages": {"--languages"},
+		}
+
+		for name, testCase := range testCases {
+			t.Run(name, func(t *testing.T) {
+				t.Parallel()
+
+				// When the <flag> is provided.
+				arguments := []string{testCase.Flag}
+
+				// Then the list of supported natural languages should be printed.
+				out := runApp(t, arguments, true)
+
+				dialectProvider := gherkin.DialectsBuiltin()
+				dialect := dialectProvider.GetDialect(gherkin.DefaultDialect)
+
+				assert.Contains(t, out, dialect.Name)
+				assert.Contains(t, out, dialect.Language)
+				assert.Contains(t, out, dialect.Native)
+			})
+		}
+	})
+
+	t.Run("User wants to see consistent supported natural languages output", func(t *testing.T) {
+		t.Parallel()
+
+		// When the user lists supported natural languages several times.
+		arguments := []string{"-languages"}
+
+		out1 := runApp(t, arguments, true)
+		out2 := runApp(t, arguments, true)
+
+		// Then the output is the same.
+		assert.Equal(t, out1, out2)
+	})
+
+	t.Run("User wants to be able to specify the natural language of a feature in its file name", func(t *testing.T) {
+		t.Parallel()
+
+		type testCase struct {
+			Language  string `field:"<language>"`
+			Feature   string `field:"<feature>"`
+			Assertion string `field:"assertion"`
+		}
+
+		testCases := map[string]testCase{
+			"en-pirate_./testdata/pirate.feature_does":                  {"en-pirate", "./testdata/pirate.feature", "does"},
+			"_./testdata/pirate.feature_does_not":                       {"", "./testdata/pirate.feature", "does not"},
+			"_./testdata/pirate.sample.en-pirate.feature_does":          {"", "./testdata/pirate.sample.en-pirate.feature", "does"},
+			"wrong_./testdata/pirate.sample.en-pirate.feature_does_not": {"wrong", "./testdata/pirate.sample.en-pirate.feature", "does not"},
+			"en_./testdata/english.feature_does":                        {"en", "./testdata/english.feature", "does"},
+			"_./testdata/english.feature_does":                          {"", "./testdata/english.feature", "does"},
+			"_./testdata/english.sample.en.feature_does":                {"", "./testdata/english.sample.en.feature", "does"},
+			"wrong_./testdata/english.sample.en.feature_does_not":       {"wrong", "./testdata/english.sample.en.feature", "does not"},
+			"_app.feature_does":                                         {"", "app.feature", "does"},
+		}
+
+		for name, testCase := range testCases {
+			t.Run(name, func(t *testing.T) {
+				t.Parallel()
+
+				var arguments []string
+
+				// When the <language> is specified by the flag.
+				if testCase.Language != "" {
+					arguments = append(arguments, "-language", testCase.Language)
+				}
+
+				// And the <feature> is given.
+				arguments = append(arguments, testCase.Feature)
+
+				// Then the output should be generated.
+				runApp(t, arguments, testCase.Assertion == "does")
 			})
 		}
 	})

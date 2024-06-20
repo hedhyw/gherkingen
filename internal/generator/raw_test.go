@@ -114,7 +114,7 @@ func TestGenerateRaw(t *testing.T) {
 
 			gotDataRaw, err := generator.Generate(generator.Args{
 				Format:         model.FormatRaw,
-				InputSource:    exampleFeature,
+				InputSource:    exampleFeatureEnglish,
 				TemplateSource: []byte(testCase.Template),
 				PackageName:    "generated_test.go",
 				Plugin:         requireNewPlugin(t),
@@ -132,7 +132,7 @@ func TestGenerateRawFailed(t *testing.T) {
 
 	_, err := generator.Generate(generator.Args{
 		Format:         model.FormatRaw,
-		InputSource:    exampleFeature,
+		InputSource:    exampleFeatureEnglish,
 		TemplateSource: []byte("{{"),
 		PackageName:    "generated_test.go",
 		Plugin:         requireNewPlugin(t),

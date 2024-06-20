@@ -204,6 +204,13 @@ Usage of gherkingen [FEATURE_FILE]:
         add parallel mark (deprecated, enabled by default) (default true)
   -help
         print usage
+  -language string
+        Specifies the natural language used to describe the feature.
+        This flag is optional if language information is included in the feature file name, or if the feature is written in English.
+        The file name should be formatted as follows: <description>.<language_hint>.feature if language hint is included, or <description>.feature if it is not.
+        When provided, the 'language' flag takes precedence over the language hint from the file name. (default "en")
+  -languages
+        list supported natural feature languages
   -list
         list internal templates
   -package string
@@ -251,7 +258,7 @@ create a pull request for supporting templates for them. For this:
 3. Check: `make lint check.generate test`.
 4. Commit&Push, create a PR.
 
-## Language support
+## Programming language support
 
 Templates are very customizable, so you can even generate non-golang code. In the command-line tool specify `raw` format using `-format` flag and your template using `-template` flag:
 `gherkingen -format raw -template example.tmpl example.feature`.
