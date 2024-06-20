@@ -18,6 +18,7 @@ const (
 	internalPathPrefix       = "@/"
 	defaultTemplate          = "std.simple.v1.go.tmpl"
 	defaultDisableGoParallel = false
+	defaultEnableGo22Scope   = false
 	defaultOutputFormat      = model.FormatAutoDetect
 	defaultLanguage          = gherkin.DefaultDialect
 )
@@ -49,15 +50,15 @@ func Run(arguments []string, out io.Writer, version string) (err error) {
 		false,
 		"print usage",
 	)
-	_ = flagSet.Bool(
-		"go-parallel",
-		!defaultDisableGoParallel,
-		"add parallel mark (deprecated, enabled by default)",
-	)
 	disableGoParallel := flagSet.Bool(
 		"disable-go-parallel",
 		defaultDisableGoParallel,
 		"disable execution of tests in parallel",
+	)
+	enableGo22Scope := flagSet.Bool(
+		"enable-go-22-scope",
+		defaultEnableGo22Scope,
+		"do not copy loop variables",
 	)
 	listCmd := flagSet.Bool(
 		"list",
@@ -128,6 +129,7 @@ func Run(arguments []string, out io.Writer, version string) (err error) {
 			InputFile:    inputFile,
 			PackageName:  *packageName,
 			GoParallel:   !(*disableGoParallel),
+			Go22Scope:    *enableGo22Scope,
 			GenerateUUID: newUUIDRandomGenerator(seed),
 			Language:     *language,
 		})

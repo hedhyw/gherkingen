@@ -5,7 +5,6 @@ import (
 )
 
 func TestNestedBackground(t *testing.T) {
-	t.Parallel()
 
 	type backgroundData struct{}
 
@@ -24,8 +23,6 @@ func TestNestedBackground(t *testing.T) {
 	}
 
 	t.Run("Dr. Bill posts to his own blog", func(t *testing.T) {
-		t.Parallel()
-
 		_ = background(t)
 
 		// Given I am logged in as Dr. Bill.
@@ -36,9 +33,7 @@ func TestNestedBackground(t *testing.T) {
 
 	})
 
-	t.Run("There can be only One", func(t *testing.T) {
-		t.Parallel()
-
+	t.Run("There can be only One", func(_ *testing.T) {
 		type backgroundData struct{}
 
 		background := func(t *testing.T) backgroundData {
@@ -50,8 +45,6 @@ func TestNestedBackground(t *testing.T) {
 		}
 
 		t.Run("Only One -- One alive", func(t *testing.T) {
-			t.Parallel()
-
 			_ = background(t)
 
 			// Given there is only 1 ninja alive.

@@ -53,7 +53,7 @@ import (
 		}
 
         for name, testCase := range testCases {
-            {{- if $Scenario.PluginData.GoParallel }}
+            {{- if and $Scenario.PluginData.GoParallel (not $Scenario.PluginData.Go22Scope) }}
             testCase := testCase
 
             {{ end -}}

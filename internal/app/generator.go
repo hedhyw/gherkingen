@@ -20,6 +20,7 @@ type appArgs struct {
 	InputFile    string
 	PackageName  string
 	GoParallel   bool
+	Go22Scope    bool
 	GenerateUUID func() string
 	Language     string
 }
@@ -42,7 +43,8 @@ func runGenerator(
 	}
 
 	goPlugin := goplugin.New(goplugin.Args{
-		Parallel: args.GoParallel,
+		Parallel:  args.GoParallel,
+		Go22Scope: args.Go22Scope,
 	})
 
 	data, err := generator.Generate(generator.Args{

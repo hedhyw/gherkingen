@@ -467,6 +467,29 @@ func TestParallel(t *testing.T) {
 	}
 }
 
+func TestGo22Scope(t *testing.T) {
+	t.Parallel()
+
+	ctx := context.Background()
+
+	for _, testCase := range [2]bool{true, false} {
+		t.Run(strconv.FormatBool(testCase), func(t *testing.T) {
+			t.Parallel()
+
+			p := goplugin.New(goplugin.Args{
+				Go22Scope: testCase,
+			})
+			doc := getExampleDocument()
+
+			if assert.NoError(t, p.Process(ctx, doc)) {
+				assert.Equal(t, testCase, doc.Feature.PluginData["Go22Scope"])
+				assert.Equal(t, testCase, doc.Feature.Children[0].Scenario.PluginData["Go22Scope"])
+				assert.Equal(t, testCase, doc.Feature.Children[0].Rule.PluginData["Go22Scope"])
+			}
+		})
+	}
+}
+
 func getExampleDocument() *model.GherkinDocument {
 	return &model.GherkinDocument{
 		Feature: &model.Feature{

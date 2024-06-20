@@ -5,11 +5,8 @@ import (
 )
 
 func TestTypeDeterminatiopn(t *testing.T) {
-	t.Parallel()
 
-	t.Run("All type are determinated", func(t *testing.T) {
-		t.Parallel()
-
+	t.Run("All type are determinated", func(_ *testing.T) {
 		type testCase struct {
 			Bool    bool    `field:"<bool>"`
 			Int     int     `field:"<int>"`
@@ -24,11 +21,7 @@ func TestTypeDeterminatiopn(t *testing.T) {
 		}
 
 		for name, testCase := range testCases {
-			testCase := testCase
-
 			t.Run(name, func(t *testing.T) {
-				t.Parallel()
-
 				_ = testCase // TODO: Use and remove.
 				// When generator completed.
 
