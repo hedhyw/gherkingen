@@ -4,7 +4,7 @@ go 1.22
 
 require (
 	github.com/cucumber/gherkin/go/v28 v28.0.0
-	github.com/cucumber/messages/go/v24 v24.0.1
+	github.com/cucumber/messages/go/v24 v24.1.0
 	github.com/google/uuid v1.6.0
 	github.com/hedhyw/semerr v0.6.7
 	github.com/iancoleman/strcase v0.3.0
