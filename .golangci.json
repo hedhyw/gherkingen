@@ -12,7 +12,6 @@
       "varnamelen",
       "testpackage",
       "exhaustive",
-      "gomnd",
       "thelper",
       "paralleltest",
       "tagliatelle",
@@ -23,7 +22,7 @@
       "rowserrcheck",
       "depguard",
       "mnd",
-      "execinquery"
+      "exportloopref"
     ]
   },
   "linters-settings": {

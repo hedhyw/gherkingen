@@ -5,7 +5,7 @@ import (
 	"bytes"
 	"testing"
 
-	gherkin "github.com/cucumber/gherkin/go/v28"
+	gherkin "github.com/cucumber/gherkin/go/v30"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 

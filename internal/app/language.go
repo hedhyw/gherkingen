@@ -7,7 +7,7 @@ import (
 	"slices"
 	"strings"
 
-	gherkin "github.com/cucumber/gherkin/go/v28"
+	gherkin "github.com/cucumber/gherkin/go/v30"
 	"github.com/hedhyw/semerr/pkg/v1/semerr"
 )
 
