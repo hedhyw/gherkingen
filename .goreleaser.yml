@@ -1,22 +1,22 @@
-build:
-  binary: gherkingen
-  main: ./cmd/gherkingen
-  goos:
-    - windows
-    - darwin
-    - linux
-  goarch:
-    - "386"
-    - amd64
-    - arm
-    - arm64
-  goarm:
-    - "6"
-  ignore:
-    - goos: darwin
-      goarch: "386"
-  env:
-    - CGO_ENABLED=0
+builds:
+  - binary: gherkingen
+    main: ./cmd/gherkingen
+    goos:
+      - windows
+      - darwin
+      - linux
+    goarch:
+      - "386"
+      - amd64
+      - arm
+      - arm64
+    goarm:
+      - "6"
+    ignore:
+      - goos: darwin
+        goarch: "386"
+    env:
+      - CGO_ENABLED=0
 
 gomod:
   proxy: true
@@ -34,7 +34,7 @@ release:
   draft: true
 
 snapshot:
-  name_template: "{{.Tag}}"
+  version_template: "{{.Tag}}"
 
 checksum:
   name_template: "task_checksums.txt"
@@ -55,7 +55,7 @@ brews:
     description: BDD tests boilerplate generator for Golang
     license: MIT
     homepage: https://github.com/hedhyw/gherkingen
-    tap:
+    repository:
       owner: hedhyw
       name: homebrew-gherkingen
     test: system "#{bin}/gherkingen", "-help"

@@ -1,4 +1,4 @@
-GOLANG_CI_LINT_VER:=v1.59.1
+GOLANG_CI_LINT_VER:=v1.62.2
 OUT_BIN?=${PWD}/bin/gherkingen
 COVER_PACKAGES=./...
 VERSION?=${shell git describe --tags}

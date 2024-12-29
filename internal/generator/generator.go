@@ -5,7 +5,7 @@ import (
 	"context"
 	"fmt"
 
-	gherkin "github.com/cucumber/gherkin/go/v28"
+	gherkin "github.com/cucumber/gherkin/go/v30"
 	"github.com/hedhyw/semerr/pkg/v1/semerr"
 
 	"github.com/hedhyw/gherkingen/v4/internal/docplugin"

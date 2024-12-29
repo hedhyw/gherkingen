@@ -8,7 +8,7 @@ import (
 	"strings"
 	"time"
 
-	gherkin "github.com/cucumber/gherkin/go/v28"
+	gherkin "github.com/cucumber/gherkin/go/v30"
 	"github.com/google/uuid"
 
 	"github.com/hedhyw/gherkingen/v4/internal/model"
