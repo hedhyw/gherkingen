@@ -94,7 +94,7 @@ func NewBadRequestError(err error) error {
 
 // UnsupportedMediaTypeError is not a temporary error.
 //
-// It indicates indicates that the origin server is refusing
+// It indicates that the origin server is refusing
 // to service the request because the content is in a format
 // not supported by this method on the target resource.
 //
@@ -107,7 +107,7 @@ type UnsupportedMediaTypeError struct {
 
 // NewUnsupportedMediaTypeError wraps err and creates UnsupportedMediaTypeError.
 //
-// It indicates indicates that the origin server is refusing
+// It indicates that the origin server is refusing
 // to service the request because the content is in a format
 // not supported by this method on the target resource.
 //
@@ -122,6 +122,40 @@ func NewUnsupportedMediaTypeError(err error) error {
 	}
 
 	return UnsupportedMediaTypeError{newPermanentWrappedError(err)}
+}
+
+// UnprocessableEntityError is not a temporary error.
+//
+// It indicates that the server understood the content type
+// of the request content, and the syntax of the request
+// content was correct, but it was unable to process the
+// contained instructions.
+//
+// It represents following statuses:
+// - HTTP code: Unprocessable Entity (422).
+// - GRPC code: InvalidArgument (3).
+type UnprocessableEntityError struct {
+	permanentWrappedError
+}
+
+// NewUnprocessableEntityError wraps err and creates UnprocessableEntityError.
+//
+// It indicates that the server understood the content type
+// of the request content, and the syntax of the request
+// content was correct, but it was unable to process the
+// contained instructions.
+//
+// It represents following statuses:
+// - HTTP code: Unprocessable Entity (422).
+// - GRPC code: InvalidArgument (3).
+//
+// If err is nil it returns nil.
+func NewUnprocessableEntityError(err error) error {
+	if err == nil {
+		return nil
+	}
+
+	return UnprocessableEntityError{newPermanentWrappedError(err)}
 }
 
 // StatusGatewayTimeoutError is a temporary error.
