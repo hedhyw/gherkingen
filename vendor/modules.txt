@@ -13,8 +13,8 @@ github.com/gofrs/uuid
 # github.com/google/uuid v1.6.0
 ## explicit
 github.com/google/uuid
-# github.com/hedhyw/semerr v0.6.7
-## explicit; go 1.17
+# github.com/hedhyw/semerr v1.0.1
+## explicit; go 1.23.0
 github.com/hedhyw/semerr/pkg/v1/semerr
 # github.com/iancoleman/strcase v0.3.0
 ## explicit; go 1.16
