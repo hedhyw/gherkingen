@@ -3,7 +3,7 @@ module github.com/hedhyw/gherkingen/v4
 go 1.23.0
 
 require (
-	github.com/cucumber/gherkin/go/v30 v30.0.4
+	github.com/cucumber/gherkin/go/v30 v30.1.3
 	github.com/cucumber/messages/go/v24 v24.1.0
 	github.com/google/uuid v1.6.0
 	github.com/hedhyw/semerr v1.0.1

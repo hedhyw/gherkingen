@@ -1,6 +1,6 @@
 github.com/creack/pty v1.1.9/go.mod h1:oKZEueFk5CKHvIhNR5MUki03XCEU+Q6VDXinZuGJ33E=
-github.com/cucumber/gherkin/go/v30 v30.0.4 h1:ef05ngkw31eflpOlYThHQaIpcQRGjs6guTsJ/rdW/3k=
-github.com/cucumber/gherkin/go/v30 v30.0.4/go.mod h1:XYKo/yLseXl3q4KUzgcRBcTfexszF4gHbNLSIXnbsUs=
+github.com/cucumber/gherkin/go/v30 v30.1.3 h1:z3ULE1rgjtjNgZ1xhfaWWw1bzdkcA65xTzn4RDVVcxg=
+github.com/cucumber/gherkin/go/v30 v30.1.3/go.mod h1:XYKo/yLseXl3q4KUzgcRBcTfexszF4gHbNLSIXnbsUs=
 github.com/cucumber/messages/go/v24 v24.1.0 h1:JMpspvV3IoGwcbEUbsKuxr0tRkFP7aqcQ5SvoanS/DA=
 github.com/cucumber/messages/go/v24 v24.1.0/go.mod h1:PR0+ygYqqyT1/C4EmioDdvgR8YG9+SZEkxEKw2jfd8g=
 github.com/davecgh/go-spew v1.1.1 h1:vj9j/u1bqnvCEfJOwUhtlOARqs3+rkHYY13jYWTU97c=
