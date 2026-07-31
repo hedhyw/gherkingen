@@ -1,3 +1,5 @@
+version: 2
+
 builds:
   - binary: gherkingen
     main: ./cmd/gherkingen
@@ -58,6 +60,7 @@ brews:
     repository:
       owner: hedhyw
       name: homebrew-gherkingen
+      token: "{{ .Env.HOMEBREW_TAP_GITHUB_TOKEN }}"
     test: system "#{bin}/gherkingen", "-help"
     install: |-
       bin.install "gherkingen"
