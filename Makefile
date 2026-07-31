@@ -32,11 +32,6 @@ check.generate: generate
 	git diff --exit-code internal/generator/examples
 .PHONY: check.generate
 
-vendor:
-	go mod tidy
-	go mod vendor
-.PHONY: vendor
-
 bin/golangci-lint-${GOLANG_CI_LINT_VER}:
 	curl \
 		-sSfL \
