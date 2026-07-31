@@ -3,6 +3,7 @@ package generator
 import (
 	"bytes"
 	"fmt"
+	"slices"
 	"strconv"
 	"strings"
 	"text/template"
@@ -50,12 +51,15 @@ func withFinalDot(text string) string {
 	}
 
 	textRunes := []rune(text)
-	var lastRune rune
-	var lastRuneIndex int
 
-	for i := len(textRunes) - 1; i >= 0; i-- {
-		if !unicode.IsSpace(textRunes[i]) {
-			lastRune = textRunes[i]
+	var (
+		lastRune      rune
+		lastRuneIndex int
+	)
+
+	for i, v := range slices.Backward(textRunes) {
+		if !unicode.IsSpace(v) {
+			lastRune = v
 			lastRuneIndex = i
 
 			break
@@ -72,14 +76,12 @@ func withFinalDot(text string) string {
 		lastRune == ',',
 		lastRune == '!',
 		lastRune == '?':
-
 		return text
 	case
 		unicode.IsLetter(lastRune),
 		unicode.IsDigit(lastRune),
 		unicode.IsPunct(lastRune),
 		unicode.IsSymbol(lastRune):
-
 		return string(textRunes[:lastRuneIndex+1]) +
 			"." +
 			string(textRunes[lastRuneIndex+1:])
@@ -99,7 +101,6 @@ func aliasPreparer(postFormatter func(string) string) func(string) string {
 			case
 				unicode.IsDigit(r) && len(alias) != 0,
 				unicode.IsLetter(r):
-
 				alias = append(alias, r)
 			case unicode.IsSpace(r), r == '_':
 				alias = append(alias, '_')

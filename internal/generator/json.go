@@ -14,6 +14,7 @@ func generateJSON(tmplData *model.TemplateData) (data []byte, err error) {
 
 	jsonEncoder := json.NewEncoder(&buf)
 	jsonEncoder.SetIndent("", "    ")
+
 	if err = jsonEncoder.Encode(tmplData); err != nil {
 		return nil, fmt.Errorf("encoding json: %w", err)
 	}

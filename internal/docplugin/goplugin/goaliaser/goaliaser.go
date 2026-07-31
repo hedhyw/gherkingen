@@ -83,7 +83,6 @@ func (p Aliaser) NameAlias(in string) string {
 		case
 			unicode.IsDigit(r) && len(alias) != 0,
 			unicode.IsLetter(r):
-
 			alias = append(alias, r)
 		case unicode.IsSpace(r), r == '_':
 			alias = append(alias, '_')

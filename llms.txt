@@ -1,0 +1,23 @@
+# gherkingen
+
+> A Behaviour Driven Development (BDD) test boilerplate generator for Go: it
+> parses Cucumber/Gherkin `*.feature` files and produces table-driven,
+> parallel Go test skeletons via customizable text/template templates.
+
+- Language: Go; module `github.com/hedhyw/gherkingen/v4`; CLI binary `gherkingen`.
+- Install: `go install github.com/hedhyw/gherkingen/v4/cmd/gherkingen@latest`,
+  Homebrew `brew install hedhyw/gherkingen/gherkingen`, or Docker `hedhyw/gherkingen`.
+- Usage: `gherkingen EXAMPLE.feature`; formats: `autodetect`, `go`, `json`, `raw`;
+  custom output via `-template my_template.tmpl` (embedded default `@/std.simple.v1.go.tmpl`).
+- Supports any Go testing framework and non-Go languages through custom templates
+  (`-format raw`); understands non-English Gherkin dialects (`-language`).
+- License: MIT.
+
+## Docs
+
+- [README](https://github.com/hedhyw/gherkingen/blob/main/README.md): full
+  installation, usage, and template-authoring guide.
+- [AGENTS.md](https://github.com/hedhyw/gherkingen/blob/main/AGENTS.md):
+  repository guide for AI coding agents (layout, build/test/lint, generated files).
+- [pkg.go.dev](https://pkg.go.dev/github.com/hedhyw/gherkingen/v4): Go package
+  documentation.

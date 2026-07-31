@@ -65,7 +65,7 @@ func (p GoPlugin) walk(ctx context.Context, val any, depth int) (err error) {
 	rt := reflect.TypeOf(val)
 	rv := reflect.ValueOf(val)
 
-	if rt.Kind() == reflect.Ptr {
+	if rt.Kind() == reflect.Pointer {
 		if rv.IsNil() {
 			return nil
 		}
@@ -152,7 +152,8 @@ func (p GoPlugin) handleStruct(
 		val.PluginData[dataFieldGoValue] = p.aliaser.StringValue(val.Keyword)
 		val.PluginData[dataFieldGoType] = string(goTypeString)
 
-		if err := p.fillExampleHeaderTypes(&val); err != nil {
+		err := p.fillExampleHeaderTypes(&val)
+		if err != nil {
 			return fmt.Errorf("filling examples: %w", err)
 		}
 	case model.Feature:
@@ -181,6 +182,7 @@ func (p GoPlugin) handleStruct(
 		if val.PluginData[dataFieldGoValue] == nil {
 			val.PluginData[dataFieldGoValue] = p.aliaser.StringValue(val.Value)
 		}
+
 		if val.PluginData[dataFieldGoType] == nil {
 			val.PluginData[dataFieldGoType] = string(goTypeString)
 		}
