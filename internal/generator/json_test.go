@@ -26,6 +26,7 @@ func TestGenerateJSON(t *testing.T) {
 		assert.NotEmpty(t, gotDataJSON)
 
 		var gotData map[string]any
+
 		err = json.Unmarshal(gotDataJSON, &gotData)
 		assert.NoError(t, err)
 	}

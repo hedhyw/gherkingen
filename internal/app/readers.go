@@ -30,8 +30,8 @@ func readInput(inputFile string) (data []byte, err error) {
 func readTemplate(template string) (data []byte, err error) {
 	var f io.ReadCloser
 
-	if strings.HasPrefix(template, internalPathPrefix) {
-		template = strings.TrimPrefix(template, internalPathPrefix)
+	if after, ok := strings.CutPrefix(template, internalPathPrefix); ok {
+		template = after
 		f, err = assets.OpenTemplate(template)
 	} else {
 		f, err = os.Open(template)

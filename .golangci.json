@@ -1,34 +1,76 @@
 {
-  "linters": {
-    "enable-all": true,
-    "disable": [
-      "lll",
-      "gochecknoglobals",
-      "bodyclose",
-      "wsl",
-      "funlen",
-      "gci",
-      "wrapcheck",
-      "varnamelen",
-      "testpackage",
-      "exhaustive",
-      "thelper",
-      "paralleltest",
-      "tagliatelle",
-      "nonamedreturns",
-      "exhaustruct",
-      "nolintlint",
-      "wastedassign",
-      "rowserrcheck",
-      "depguard",
-      "mnd",
-      "exportloopref"
-    ]
-  },
-  "linters-settings": {
-    "goimports": {
-      "local-prefixes": "github.com/hedhyw/gherkingen/"
+  "formatters": {
+    "enable": [
+      "gofmt",
+      "gofumpt",
+      "goimports"
+    ],
+    "exclusions": {
+      "generated": "lax",
+      "paths": [
+        "third_party$",
+        "builtin$",
+        "internal/generator/examples"
+      ]
     },
-    "revive": {}
-  }
+    "settings": {
+      "goimports": {
+        "local-prefixes": [
+          "github.com/hedhyw/gherkingen/"
+        ]
+      }
+    }
+  },
+  "linters": {
+    "default": "all",
+    "disable": [
+      "bodyclose",
+      "depguard",
+      "exhaustive",
+      "exhaustruct",
+      "funcorder",
+      "funlen",
+      "gochecknoglobals",
+      "gosmopolitan",
+      "lll",
+      "mnd",
+      "noinlineerr",
+      "nolintlint",
+      "nonamedreturns",
+      "paralleltest",
+      "rowserrcheck",
+      "tagliatelle",
+      "testpackage",
+      "thelper",
+      "varnamelen",
+      "wastedassign",
+      "wrapcheck",
+      "wsl",
+      "wsl_v5"
+    ],
+    "exclusions": {
+      "generated": "lax",
+      "paths": [
+        "third_party$",
+        "builtin$",
+        "internal/generator/examples"
+      ],
+      "rules": [
+        {
+          "path": "_test\\.go",
+          "linters": [
+            "goconst",
+            "prealloc"
+          ]
+        }
+      ],
+      "presets": [
+        "comments",
+        "common-false-positives",
+        "legacy",
+        "std-error-handling"
+      ]
+    }
+  },
+  "version": "2"
 }

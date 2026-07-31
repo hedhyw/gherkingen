@@ -421,6 +421,7 @@ func runApp(tb testing.TB, arguments []string, ok bool) string {
 	tb.Log("running application with arguments", arguments)
 
 	var buf bytes.Buffer
+
 	err := app.Run(arguments, &buf, testVersion)
 	if ok {
 		require.NoError(tb, err)

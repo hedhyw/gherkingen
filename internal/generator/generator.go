@@ -65,6 +65,7 @@ func Generate(args Args) (out []byte, err error) {
 	default:
 		err = semerr.Error("unknown format: " + string(args.Format))
 	}
+
 	if err != nil {
 		return nil, err
 	}

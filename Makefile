@@ -1,4 +1,4 @@
-GOLANG_CI_LINT_VER:=v1.62.2
+GOLANG_CI_LINT_VER:=v2.12.2
 OUT_BIN?=${PWD}/bin/gherkingen
 COVER_PACKAGES=./...
 VERSION?=${shell git describe --tags}
@@ -35,6 +35,6 @@ check.generate: generate
 bin/golangci-lint-${GOLANG_CI_LINT_VER}:
 	curl \
 		-sSfL \
-		https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh \
-		| sh -s $(GOLANG_CI_LINT_VER)
+		https://golangci-lint.run/install.sh \
+		| sh -s -- -b ./bin $(GOLANG_CI_LINT_VER)
 	mv ./bin/golangci-lint ./bin/golangci-lint-${GOLANG_CI_LINT_VER}

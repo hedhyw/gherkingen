@@ -20,5 +20,5 @@ func TestFormats(t *testing.T) {
 		string(model.FormatRaw),
 	}
 
-	assert.EqualValues(t, expFormats[:], actualFormats)
+	assert.Equal(t, expFormats[:], actualFormats)
 }

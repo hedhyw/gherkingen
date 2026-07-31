@@ -10,7 +10,8 @@ import (
 var version = "unknown"
 
 func main() {
-	if err := app.Run(os.Args[1:], os.Stdout, version); err != nil {
+	err := app.Run(os.Args[1:], os.Stdout, version)
+	if err != nil {
 		// nolint: forbidigo // Command-line-tool.
 		println(err.Error())
 		os.Exit(1)

@@ -83,6 +83,7 @@ func Run(arguments []string, out io.Writer, version string) (err error) {
 			"or <description>.feature if it is not.\n"+
 			"When provided, the 'language' flag takes precedence over the language hint from the file name.",
 	)
+
 	listLanguages := flagSet.Bool(
 		"languages",
 		false,
